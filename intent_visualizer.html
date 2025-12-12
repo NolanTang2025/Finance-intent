@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户意图分析结果可视化</title>
+    <title>用户意图分析结果可视化 | Intent Analysis Visualization</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
@@ -33,6 +33,37 @@
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
         }
 
         .header h1 {
@@ -273,35 +304,151 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
+            .lang-switcher {
+                position: static;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 用户意图分析结果可视化</h1>
-            <p>基于 Gemini AI 的金融信用卡行业用户意图分析</p>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="zh">中文</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+            <h1 id="headerTitle">📊 用户意图分析结果可视化</h1>
+            <p id="headerSubtitle">基于 Gemini AI 的金融信用卡行业用户意图分析</p>
         </div>
 
         <div class="file-input-section">
             <div class="file-input-wrapper">
                 <input type="file" id="jsonFileInput" accept=".json" />
-                <label for="jsonFileInput" class="file-input-label">
+                <label for="jsonFileInput" class="file-input-label" id="fileInputLabel">
                     📁 选择意图分析结果文件 (JSON)
                 </label>
             </div>
         </div>
 
         <div id="content">
-            <div class="no-data">
+            <div class="no-data" id="noDataText">
                 请选择意图分析结果文件开始可视化
             </div>
         </div>
     </div>
 
     <script>
+        // Language data
+        const translations = {
+            zh: {
+                title: "📊 用户意图分析结果可视化",
+                subtitle: "基于 Gemini AI 的金融信用卡行业用户意图分析",
+                selectFile: "📁 选择意图分析结果文件 (JSON)",
+                noData: "请选择意图分析结果文件开始可视化",
+                parseError: "文件解析失败: ",
+                totalUsers: "总用户数",
+                totalSegments: "总意图段数",
+                avgSegments: "平均每用户意图段数",
+                avgConfidence: "平均置信度",
+                categoryDistribution: "意图类别分布",
+                confidenceDistribution: "置信度分布",
+                segmentsPerUser: "每用户意图段数量",
+                behaviorsPerSegment: "每意图段行为数量",
+                userDetails: "用户意图详情",
+                user: "用户",
+                segments: "个意图段",
+                confidence: "置信度",
+                keyBehaviors: "关键行为",
+                segment: "意图段",
+                behaviorCount: "行为数量",
+                time: "时间",
+                categories: {
+                    payment_intent: "支付意图",
+                    installment_intent: "分期意图",
+                    credit_limit_intent: "额度管理意图",
+                    voucher_intent: "优惠券意图",
+                    marketing_intent: "营销活动意图",
+                    exploration_intent: "探索意图"
+                },
+                chartLabels: {
+                    frequency: "频次",
+                    userCount: "用户数"
+                }
+            },
+            en: {
+                title: "📊 Intent Analysis Visualization",
+                subtitle: "Financial Credit Card Industry User Intent Analysis based on Gemini AI",
+                selectFile: "📁 Select Intent Analysis Result File (JSON)",
+                noData: "Please select an intent analysis result file to start visualization",
+                parseError: "File parsing failed: ",
+                totalUsers: "Total Users",
+                totalSegments: "Total Intent Segments",
+                avgSegments: "Avg Segments per User",
+                avgConfidence: "Average Confidence",
+                categoryDistribution: "Intent Category Distribution",
+                confidenceDistribution: "Confidence Score Distribution",
+                segmentsPerUser: "Intent Segments per User",
+                behaviorsPerSegment: "Behaviors per Intent Segment",
+                userDetails: "User Intent Details",
+                user: "User",
+                segments: " intent segments",
+                confidence: "Confidence",
+                keyBehaviors: "Key Behaviors",
+                segment: "Intent Segment",
+                behaviorCount: "Behavior Count",
+                time: "Time",
+                categories: {
+                    payment_intent: "Payment Intent",
+                    installment_intent: "Installment Intent",
+                    credit_limit_intent: "Credit Limit Intent",
+                    voucher_intent: "Voucher Intent",
+                    marketing_intent: "Marketing Intent",
+                    exploration_intent: "Exploration Intent"
+                },
+                chartLabels: {
+                    frequency: "Frequency",
+                    userCount: "User Count"
+                }
+            }
+        };
+
+        // Current language state
+        let currentLang = 'zh';
+        let currentData = null;
         let charts = [];
 
+        // Language switcher
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentLang = this.dataset.lang;
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                updateLanguage();
+            });
+        });
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+            
+            // Update header
+            document.getElementById('headerTitle').textContent = t.title;
+            document.getElementById('headerSubtitle').textContent = t.subtitle;
+            document.getElementById('fileInputLabel').textContent = t.selectFile;
+            document.getElementById('noDataText').textContent = t.noData;
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+            
+            // Re-render if data is loaded
+            if (currentData) {
+                visualizeData(currentData);
+            }
+        }
+
+        // File input handler
         document.getElementById('jsonFileInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -309,9 +456,11 @@
                 reader.onload = function(event) {
                     try {
                         const data = JSON.parse(event.target.result);
+                        currentData = data;
                         visualizeData(data);
                     } catch (error) {
-                        alert('文件解析失败: ' + error.message);
+                        const t = translations[currentLang];
+                        alert(t.parseError + error.message);
                     }
                 };
                 reader.readAsText(file);
@@ -319,21 +468,21 @@
         });
 
         function visualizeData(results) {
-            // 清除之前的图表
+            // Clear previous charts
             charts.forEach(chart => chart.destroy());
             charts = [];
 
-            // 收集统计数据
+            // Collect statistics
             const stats = collectStatistics(results);
             
-            // 生成HTML
+            // Generate HTML
             let html = generateStatsSection(stats);
             html += generateChartsSection(results, stats);
             html += generateUsersSection(results);
             
             document.getElementById('content').innerHTML = html;
             
-            // 创建图表
+            // Create charts
             createCharts(results, stats);
         }
 
@@ -374,45 +523,47 @@
         }
 
         function generateStatsSection(stats) {
+            const t = translations[currentLang];
             return `
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-value">${stats.totalUsers}</div>
-                        <div class="stat-label">总用户数</div>
+                        <div class="stat-label">${t.totalUsers}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.totalSegments}</div>
-                        <div class="stat-label">总意图段数</div>
+                        <div class="stat-label">${t.totalSegments}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.avgSegmentsPerUser}</div>
-                        <div class="stat-label">平均每用户意图段数</div>
+                        <div class="stat-label">${t.avgSegments}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">${stats.scores.length > 0 ? (stats.scores.reduce((a,b) => a+b, 0) / stats.scores.length).toFixed(2) : 0}</div>
-                        <div class="stat-label">平均置信度</div>
+                        <div class="stat-label">${t.avgConfidence}</div>
                     </div>
                 </div>
             `;
         }
 
         function generateChartsSection(results, stats) {
+            const t = translations[currentLang];
             return `
                 <div class="charts-section">
                     <div class="chart-container">
-                        <div class="chart-title">意图类别分布</div>
+                        <div class="chart-title">${t.categoryDistribution}</div>
                         <canvas id="categoryChart"></canvas>
                     </div>
                     <div class="chart-container">
-                        <div class="chart-title">置信度分布</div>
+                        <div class="chart-title">${t.confidenceDistribution}</div>
                         <canvas id="confidenceChart"></canvas>
                     </div>
                     <div class="chart-container">
-                        <div class="chart-title">每用户意图段数量</div>
+                        <div class="chart-title">${t.segmentsPerUser}</div>
                         <canvas id="segmentsChart"></canvas>
                     </div>
                     <div class="chart-container">
-                        <div class="chart-title">每意图段行为数量</div>
+                        <div class="chart-title">${t.behaviorsPerSegment}</div>
                         <canvas id="behaviorsChart"></canvas>
                     </div>
                 </div>
@@ -420,43 +571,49 @@
         }
 
         function generateUsersSection(results) {
-            let html = '<div class="users-section"><div class="section-title">用户意图详情</div>';
+            const t = translations[currentLang];
+            let html = `<div class="users-section"><div class="section-title">${t.userDetails}</div>`;
             
             for (const [userUuid, userData] of Object.entries(results)) {
                 const sessions = userData.sessions || [];
                 html += `
                     <div class="user-card">
                         <div class="user-header">
-                            <div class="user-id">用户: ${userUuid.substring(0, 16)}...</div>
-                            <div class="user-stats">共 ${sessions.length} 个意图段</div>
+                            <div class="user-id">${t.user}: ${userUuid.substring(0, 16)}...</div>
+                            <div class="user-stats">${sessions.length} ${t.segments}</div>
                         </div>
                 `;
                 
                 sessions.forEach((session, index) => {
                     const category = session.intent_category || 'Unknown';
                     const categoryClass = getCategoryClass(category);
+                    const categoryName = t.categories[category] || category;
                     const score = (session.confidence_score || 0).toFixed(2);
                     const size = session.session_size || 0;
                     const intent = session.intent || 'N/A';
                     const behaviors = session.key_behaviors || [];
                     
+                    const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+                    const timestamp = session.timestamp ? 
+                        new Date(session.timestamp).toLocaleString(locale) : '';
+                    
                     html += `
                         <div class="intent-segment">
                             <div class="segment-header">
-                                <span class="segment-category ${categoryClass}">${category}</span>
-                                <span class="confidence-score">置信度: ${score}</span>
+                                <span class="segment-category ${categoryClass}">${categoryName}</span>
+                                <span class="confidence-score">${t.confidence}: ${score}</span>
                             </div>
                             <div class="intent-text">${intent}</div>
                             ${behaviors.length > 0 ? `
                                 <div class="key-behaviors">
-                                    <div class="key-behaviors-title">关键行为:</div>
+                                    <div class="key-behaviors-title">${t.keyBehaviors}:</div>
                                     ${behaviors.map(b => `<span class="behavior-tag">${b}</span>`).join('')}
                                 </div>
                             ` : ''}
                             <div class="session-info">
-                                <span>意图段 #${index + 1}</span>
-                                <span>行为数量: ${size}</span>
-                                ${session.timestamp ? `<span>时间: ${new Date(session.timestamp).toLocaleString('zh-CN')}</span>` : ''}
+                                <span>${t.segment} #${index + 1}</span>
+                                <span>${t.behaviorCount}: ${size}</span>
+                                ${timestamp ? `<span>${t.time}: ${timestamp}</span>` : ''}
                             </div>
                         </div>
                     `;
@@ -482,13 +639,19 @@
         }
 
         function createCharts(results, stats) {
-            // 意图类别分布饼图
+            const t = translations[currentLang];
+            
+            // Intent category distribution pie chart
             const categoryCtx = document.getElementById('categoryChart');
             if (categoryCtx) {
+                const categoryLabels = Object.keys(stats.categories).map(cat => 
+                    t.categories[cat] || cat
+                );
+                
                 const categoryChart = new Chart(categoryCtx, {
                     type: 'pie',
                     data: {
-                        labels: Object.keys(stats.categories),
+                        labels: categoryLabels,
                         datasets: [{
                             data: Object.values(stats.categories),
                             backgroundColor: [
@@ -509,7 +672,7 @@
                 charts.push(categoryChart);
             }
 
-            // 置信度分布直方图
+            // Confidence distribution histogram
             const confidenceCtx = document.getElementById('confidenceChart');
             if (confidenceCtx && stats.scores.length > 0) {
                 const bins = 20;
@@ -532,7 +695,7 @@
                     data: {
                         labels: binLabels,
                         datasets: [{
-                            label: '频次',
+                            label: t.chartLabels.frequency,
                             data: binCounts,
                             backgroundColor: '#667eea'
                         }]
@@ -549,7 +712,7 @@
                 charts.push(confidenceChart);
             }
 
-            // 每用户意图段数量
+            // Intent segments per user
             const segmentsCtx = document.getElementById('segmentsChart');
             if (segmentsCtx && stats.userSegmentCounts.length > 0) {
                 const maxCount = Math.max(...stats.userSegmentCounts);
@@ -565,7 +728,7 @@
                     data: {
                         labels: Array.from({length: bins + 1}, (_, i) => i.toString()),
                         datasets: [{
-                            label: '用户数',
+                            label: t.chartLabels.userCount,
                             data: binCounts,
                             backgroundColor: '#764ba2'
                         }]
@@ -582,7 +745,7 @@
                 charts.push(segmentsChart);
             }
 
-            // 每意图段行为数量
+            // Behaviors per intent segment
             const behaviorsCtx = document.getElementById('behaviorsChart');
             if (behaviorsCtx && stats.segmentSizes.length > 0) {
                 const maxSize = Math.max(...stats.segmentSizes);
@@ -598,7 +761,7 @@
                     data: {
                         labels: Array.from({length: bins + 1}, (_, i) => i.toString()),
                         datasets: [{
-                            label: '频次',
+                            label: t.chartLabels.frequency,
                             data: binCounts,
                             backgroundColor: '#00BCD4'
                         }]
@@ -618,4 +781,3 @@
     </script>
 </body>
 </html>
-
