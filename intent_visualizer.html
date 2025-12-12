@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户意图分析结果可视化</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .file-input-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .file-input-wrapper {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .file-input-label:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .users-section {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        .user-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .user-id {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .user-stats {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .intent-segment {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .intent-segment:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .segment-category {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .category-payment { background: #4CAF50; }
+        .category-installment { background: #2196F3; }
+        .category-credit_limit { background: #FF9800; }
+        .category-voucher { background: #9C27B0; }
+        .category-marketing { background: #F44336; }
+        .category-exploration { background: #00BCD4; }
+
+        .confidence-score {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .intent-text {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .key-behaviors {
+            margin-top: 15px;
+        }
+
+        .key-behaviors-title {
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .behavior-tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.85em;
+        }
+
+        .session-info {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 用户意图分析结果可视化</h1>
+            <p>基于 Gemini AI 的金融信用卡行业用户意图分析</p>
+        </div>
+
+        <div class="file-input-section">
+            <div class="file-input-wrapper">
+                <input type="file" id="jsonFileInput" accept=".json" />
+                <label for="jsonFileInput" class="file-input-label">
+                    📁 选择意图分析结果文件 (JSON)
+                </label>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="no-data">
+                请选择意图分析结果文件开始可视化
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let charts = [];
+
+        document.getElementById('jsonFileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        visualizeData(data);
+                    } catch (error) {
+                        alert('文件解析失败: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function visualizeData(results) {
+            // 清除之前的图表
+            charts.forEach(chart => chart.destroy());
+            charts = [];
+
+            // 收集统计数据
+            const stats = collectStatistics(results);
+            
+            // 生成HTML
+            let html = generateStatsSection(stats);
+            html += generateChartsSection(results, stats);
+            html += generateUsersSection(results);
+            
+            document.getElementById('content').innerHTML = html;
+            
+            // 创建图表
+            createCharts(results, stats);
+        }
+
+        function collectStatistics(results) {
+            let totalUsers = 0;
+            let totalSegments = 0;
+            const categories = {};
+            const scores = [];
+            const segmentSizes = [];
+            const userSegmentCounts = [];
+
+            for (const [userUuid, userData] of Object.entries(results)) {
+                totalUsers++;
+                const sessions = userData.sessions || [];
+                totalSegments += sessions.length;
+                userSegmentCounts.push(sessions.length);
+
+                sessions.forEach(session => {
+                    const category = session.intent_category || 'Unknown';
+                    categories[category] = (categories[category] || 0) + 1;
+                    
+                    const score = session.confidence_score || 0;
+                    scores.push(score);
+                    
+                    segmentSizes.push(session.session_size || 0);
+                });
+            }
+
+            return {
+                totalUsers,
+                totalSegments,
+                avgSegmentsPerUser: totalUsers > 0 ? (totalSegments / totalUsers).toFixed(2) : 0,
+                categories,
+                scores,
+                segmentSizes,
+                userSegmentCounts
+            };
+        }
+
+        function generateStatsSection(stats) {
+            return `
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.totalUsers}</div>
+                        <div class="stat-label">总用户数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.totalSegments}</div>
+                        <div class="stat-label">总意图段数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.avgSegmentsPerUser}</div>
+                        <div class="stat-label">平均每用户意图段数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${stats.scores.length > 0 ? (stats.scores.reduce((a,b) => a+b, 0) / stats.scores.length).toFixed(2) : 0}</div>
+                        <div class="stat-label">平均置信度</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateChartsSection(results, stats) {
+            return `
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <div class="chart-title">意图类别分布</div>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">置信度分布</div>
+                        <canvas id="confidenceChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">每用户意图段数量</div>
+                        <canvas id="segmentsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">每意图段行为数量</div>
+                        <canvas id="behaviorsChart"></canvas>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateUsersSection(results) {
+            let html = '<div class="users-section"><div class="section-title">用户意图详情</div>';
+            
+            for (const [userUuid, userData] of Object.entries(results)) {
+                const sessions = userData.sessions || [];
+                html += `
+                    <div class="user-card">
+                        <div class="user-header">
+                            <div class="user-id">用户: ${userUuid.substring(0, 16)}...</div>
+                            <div class="user-stats">共 ${sessions.length} 个意图段</div>
+                        </div>
+                `;
+                
+                sessions.forEach((session, index) => {
+                    const category = session.intent_category || 'Unknown';
+                    const categoryClass = getCategoryClass(category);
+                    const score = (session.confidence_score || 0).toFixed(2);
+                    const size = session.session_size || 0;
+                    const intent = session.intent || 'N/A';
+                    const behaviors = session.key_behaviors || [];
+                    
+                    html += `
+                        <div class="intent-segment">
+                            <div class="segment-header">
+                                <span class="segment-category ${categoryClass}">${category}</span>
+                                <span class="confidence-score">置信度: ${score}</span>
+                            </div>
+                            <div class="intent-text">${intent}</div>
+                            ${behaviors.length > 0 ? `
+                                <div class="key-behaviors">
+                                    <div class="key-behaviors-title">关键行为:</div>
+                                    ${behaviors.map(b => `<span class="behavior-tag">${b}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                            <div class="session-info">
+                                <span>意图段 #${index + 1}</span>
+                                <span>行为数量: ${size}</span>
+                                ${session.timestamp ? `<span>时间: ${new Date(session.timestamp).toLocaleString('zh-CN')}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        function getCategoryClass(category) {
+            const map = {
+                'payment_intent': 'category-payment',
+                'installment_intent': 'category-installment',
+                'credit_limit_intent': 'category-credit_limit',
+                'voucher_intent': 'category-voucher',
+                'marketing_intent': 'category-marketing',
+                'exploration_intent': 'category-exploration'
+            };
+            return map[category] || 'category-exploration';
+        }
+
+        function createCharts(results, stats) {
+            // 意图类别分布饼图
+            const categoryCtx = document.getElementById('categoryChart');
+            if (categoryCtx) {
+                const categoryChart = new Chart(categoryCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(stats.categories),
+                        datasets: [{
+                            data: Object.values(stats.categories),
+                            backgroundColor: [
+                                '#4CAF50', '#2196F3', '#FF9800',
+                                '#9C27B0', '#F44336', '#00BCD4'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+                charts.push(categoryChart);
+            }
+
+            // 置信度分布直方图
+            const confidenceCtx = document.getElementById('confidenceChart');
+            if (confidenceCtx && stats.scores.length > 0) {
+                const bins = 20;
+                const min = Math.min(...stats.scores);
+                const max = Math.max(...stats.scores);
+                const binSize = (max - min) / bins;
+                const binCounts = new Array(bins).fill(0);
+                
+                stats.scores.forEach(score => {
+                    const binIndex = Math.min(Math.floor((score - min) / binSize), bins - 1);
+                    binCounts[binIndex]++;
+                });
+                
+                const binLabels = Array.from({length: bins}, (_, i) => 
+                    (min + i * binSize).toFixed(2)
+                );
+                
+                const confidenceChart = new Chart(confidenceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: binLabels,
+                        datasets: [{
+                            label: '频次',
+                            data: binCounts,
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                charts.push(confidenceChart);
+            }
+
+            // 每用户意图段数量
+            const segmentsCtx = document.getElementById('segmentsChart');
+            if (segmentsCtx && stats.userSegmentCounts.length > 0) {
+                const maxCount = Math.max(...stats.userSegmentCounts);
+                const bins = Math.min(20, maxCount);
+                const binCounts = new Array(bins + 1).fill(0);
+                
+                stats.userSegmentCounts.forEach(count => {
+                    binCounts[Math.min(count, bins)]++;
+                });
+                
+                const segmentsChart = new Chart(segmentsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Array.from({length: bins + 1}, (_, i) => i.toString()),
+                        datasets: [{
+                            label: '用户数',
+                            data: binCounts,
+                            backgroundColor: '#764ba2'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                charts.push(segmentsChart);
+            }
+
+            // 每意图段行为数量
+            const behaviorsCtx = document.getElementById('behaviorsChart');
+            if (behaviorsCtx && stats.segmentSizes.length > 0) {
+                const maxSize = Math.max(...stats.segmentSizes);
+                const bins = Math.min(30, maxSize);
+                const binCounts = new Array(bins + 1).fill(0);
+                
+                stats.segmentSizes.forEach(size => {
+                    binCounts[Math.min(size, bins)]++;
+                });
+                
+                const behaviorsChart = new Chart(behaviorsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Array.from({length: bins + 1}, (_, i) => i.toString()),
+                        datasets: [{
+                            label: '频次',
+                            data: binCounts,
+                            backgroundColor: '#00BCD4'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                charts.push(behaviorsChart);
+            }
+        }
+    </script>
+</body>
+</html>
+
