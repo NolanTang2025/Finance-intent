@@ -1,0 +1,2062 @@
+{
+  "001841609d1448f18778e70f8c5833df": {
+    "user_uuid": "001841609d1448f18778e70f8c5833df",
+    "total_sessions": 4,
+    "sessions": [
+      {
+        "intent": "新用户探索与了解产品功能意图",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.65,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_homepage_installment_section",
+          "show_homepage_yoopay_btn",
+          "show_new_user_zone_page",
+          "show_guide_mask_homepage_1"
+        ],
+        "reasoning": "根据用户信息，用户ID '001841609d1448f18778e70f8c5833df' 于2025-11-22 18:04:00审批成功，且所有行为都发生在该时间点，其首次支付定于次日。这明确表明用户处于刚激活信用卡/App的新手阶段。用户行为序列显示，在激活成功后（'show_QSPIN_activate_success_pg'），用户被系统引导或主动浏览了多个页面，包括首页分期专区（'show_homepage_installment_section'）、Yoopay支付按钮（'show_homepage_yoopay_btn'）、新用户专区（'show_new_user_zone_page'）和首页引导蒙层（'show_guide_mask_homepage_1'）。所有行为均为'show_xxx'类型，属于中低权重信号，显示用户正在被动接收信息或主动进行初步浏览。特别是'show_new_user_zone_page'和'show_guide_mask_homepage_1'这些行为直接指向新用户引导和探索。由于缺乏点击（click_xxx）或进入具体交易流程（如show_pay_checkout_xxx）等高权重信号，用户当前的主要意图并非执行具体的支付或分期交易，而是全面了解产品所提供的功能、服务以及新用户福利，为后续使用做准备。因此，该意图被归类为探索意图，置信度为0.65。",
+        "next_action_prediction": "鉴于用户刚被激活并处于探索阶段，且次日即将首次支付，用户下一步可能点击Yoopay按钮进入支付流程了解详情，或进一步探索新用户专区中的特定福利/教程，也可能点击分期专区了解分期规则。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T14:53:43.438963"
+      },
+      {
+        "intent": "用户作为新用户，明确意图使用优惠券通过电商虚拟账户（EcommVA）进行首次支付交易。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_voucherusage_pg",
+          "show_new_homebanner_A_3209, 额外信息: 运营_新人_ALL",
+          "click_voucherusage_VoucherPayType.VA_PAYMENT",
+          "show_EcommVAlanding_Merchant_2675a81bec184f46a3d06a1c7e1ee8be",
+          "show_EcommVA_submission_2675a81bec184f46a3d06a1c7e1ee8be",
+          "click_EcommVAlanding_Merchant_2675a81bec184f46a3d06a1c7e1ee8be"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户在审批通过（2025-11-22 18:04:00）后立即开始行为（首次行为时间：2025-11-22 18:05:00），且其首次支付发生在次日（2025-11-23 09:20:00）。这明确表明用户处于激活后的早期新用户阶段，正在尝试进行首次交易。 \n2. **行为序列分析与意图演变**: \n    *   用户首先访问了优惠券使用页面 (`show_voucherusage_pg`) 并查看了新人营销横幅 (`show_new_homebanner_A_3209, 额外信息: 运营_新人_ALL`)，这表明用户作为新用户对优惠和福利的强烈关注。 \n    *   紧接着，用户执行了高权重的点击行为 `click_voucherusage_VoucherPayType.VA_PAYMENT`，明确表达了通过虚拟账户（VA）类型支付来使用优惠券的意图，这是支付意图与优惠券意图的融合。 \n    *   随后，用户大量浏览了不同商户的电商虚拟账户（EcommVA）落地页 (`show_EcommVAlanding_Merchant_xxx` 共有18次)，显示出在众多商户中寻找合适交易机会的探索行为。这种重复访问和浏览模式（低权重信号）在此上下文中，揭示了用户在积极比较和选择。 \n    *   行为序列的末尾，用户进入了特定商户的EcommVA提交页面 (`show_EcommVA_submission_2675a81bec184f46a3d06a1c7e1ee8be`)，并对该商户进行了高权重点击 (`click_EcommVAlanding_Merchant_2675a81bec184f46a3d06a1c7e1ee8be`)。这表明用户已经锁定了目标商户，并非常接近完成一笔EcommVA相关的支付交易。\n3. **历史意图关联**: 之前的意图是“新用户探索与了解产品功能”，本次行为序列是对该探索意图的深化和具体化。用户已经从泛泛的探索转向了有明确目标的行动：通过电商虚拟账户（EcommVA）利用优惠券进行首次支付。之前的0.65分反映了兴趣，而当前行为链条的明确性将置信度大幅提升。\n综合来看，用户意图非常明确，即利用其新用户身份和优惠券，通过EcommVA方式完成一笔支付交易。",
+        "next_action_prediction": "用户将尝试完成通过电商虚拟账户（EcommVA）使用优惠券的支付流程，或进行后续的首次支付交易以激活其账户。",
+        "session_index": 1,
+        "session_size": 23,
+        "timestamp": "2025-12-12T14:53:59.454494"
+      },
+      {
+        "intent": "用户正在准备进行首次支付交易，通过电商虚拟账户（EcommVA）渠道完成结算，并已进入支付确认流程。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_EcommVA_submission_VA_2675a81bec184f46a3d06a1c7e1ee8be",
+          "click_EcommVA_confirmpopup_continue_2675a81bec184f46a3d06a1c7e1ee8be",
+          "show_pay_checkout_page_va"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-22 18:04:00获得审批，并于同日18:09:00开始进行一系列行为，这些行为发生在其首次支付时间2025-11-23 09:20:00之前，表明用户正处于新用户首次支付的准备阶段。\n\n行为序列显示用户进行了以下明确且连续的动作：\n1.  **click_EcommVA_submission_VA_xxx (高权重)**: 用户点击了电商虚拟账户（EcommVA）的提交操作，表明正在积极初始化该支付流程。\n2.  **show_EcommVA_confirmpopup_xxx (中权重) -> click_EcommVA_confirmpopup_continue_xxx (高权重)**: 用户被展示确认弹窗并点击了“继续”按钮，这表示用户已确认EcommVA相关操作，并愿意继续推进流程。\n3.  **show_pay_checkout_page_va (高权重)**: 用户随后被展示支付结算页面，这是支付意图的直接且强烈的信号。\n4.  **show_pay_checkout_paymethod_sec_va (中权重)**: 紧接着展示了支付方式选择区域，进一步确认了用户处于支付流程的后期阶段。\n\n所有行为均在同一分钟内发生，且是连续的、不重复的事件类型，这表明用户意图明确，行为路径高度集中和高效。该行为模式与历史意图分析结果“用户作为新用户，明确意图使用优惠券通过电商虚拟账户（EcommVA）进行首次支付交易”高度一致，并且本次行为序列提供了具体的操作证据，验证了历史意图的准确性。\n\n综上，用户正处于一个明确的支付流程中，特别是通过EcommVA渠道进行结算的最后阶段。",
+        "next_action_prediction": "用户很可能会在支付结算页面上选择具体的支付方式，然后点击支付按钮完成交易，例如：click_pay_checkout_submit_btn_va 或选择其他支付方式的点击事件。",
+        "session_index": 2,
+        "session_size": 6,
+        "timestamp": "2025-12-12T14:54:14.526540"
+      },
+      {
+        "intent": "用户正在积极选择并确认通过分期付款方式完成一笔交易，很可能是其首次支付。",
+        "intent_category": "installment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_pay_checkout_installment_btn_va_6",
+          "show_installplandetail_InTranInstall",
+          "click_pay_checkout_instalplan_btn_va"
+        ],
+        "reasoning": "1. **用户状态与生命周期**: 用户于2025-11-22 18:04:00获得审批，并于2025-11-23 09:20:00进行首次支付。当前行为发生在审批后不久（18:10:00），且在首次支付之前，表明用户正在准备进行其第一笔交易。\n2. **行为序列分析**: 用户行为序列在极短的时间内（同为18:10:00）完成，显示出高度聚焦的意图：\n   - `click_pay_checkout_installment_btn_va_6` (高权重点击): 用户在支付结算页主动点击了分期付款按钮，且与虚拟账户(VA)相关，显示出对分期服务的明确兴趣。\n   - `show_installplandetail_InTranInstall` (中权重展示，但上下文强): 紧接着展示了交易内分期计划的详情页面，进一步确认用户正在深入了解分期选项。\n   - `click_pay_checkout_instalplan_btn_va` (高权重点击): 用户再次点击了支付结算页的分期计划按钮，表明在查看详情后，用户已准备好或正在选择具体的分期方案。\n3. **历史意图关联**: 历史意图分析指出用户正在准备进行首次支付交易，并通过电商虚拟账户（EcommVA）渠道完成结算，并已进入支付确认流程。当前的行为序列完美地细化了这一意图，揭示了用户在支付确认流程中，具体倾向于使用分期付款作为结算方式。\n4. **意图类型匹配**: 所有行为都直接指向“分期意图”类型，包含明确的分期点击和详情页面查看，是用户想要使用分期付款的直接证据。这些高权重信号结合顺序，明确指向了分期意图。",
+        "next_action_prediction": "用户可能会提交已选择的分期付款方案，完成当前的支付交易，或进一步调整分期设置后进行支付确认。",
+        "session_index": 3,
+        "session_size": 3,
+        "timestamp": "2025-12-12T14:54:27.647600"
+      }
+    ]
+  },
+  "002c91fb18c6415c8e960bc8edcc9052": {
+    "user_uuid": "002c91fb18c6415c8e960bc8edcc9052",
+    "total_sessions": 3,
+    "sessions": [
+      {
+        "intent": "用户刚刚激活账户，正在主页进行初步探索，了解分期、支付等核心功能以及新人专属营销活动。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.6,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_home_page",
+          "show_homepage_installment_section",
+          "show_homepage_yoopay_btn",
+          "show_new_homebanner_C_3211",
+          "show_new_homebanner_A_3209"
+        ],
+        "reasoning": "1. **用户生命周期阶段分析**: 用户ID `002c91fb18c6415c8e960bc8edcc9052` 的审批时间 (`2025-11-24 17:12:00`)、首次行为时间 (`2025-11-24 17:12:00`) 与首个行为 `show_QSPIN_activate_success_pg` 的时间一致，表明用户刚刚完成账户激活并首次登录。其首次支付时间 (`2025-11-24 17:22:00`) 发生在当前行为序列之后，进一步确认了用户正处于新用户激活后的初期探索阶段。 \n2. **行为序列与类型分析**: 所有6个行为都发生在同一时间 (`2025-11-24 17:12:00`)，且都是 `show_xxx` 类型事件，表示用户页面加载后展示了这些元素，而非主动点击交互。这反映了用户在主页上的快速浏览或系统自动展示关键信息的行为模式。 \n3. **行为内容与意图关联**: \n   - `show_QSPIN_activate_success_pg` 和 `show_home_page`: 确认用户成功激活并进入主页，是后续行为的基础。 \n   - `show_homepage_installment_section`: 表明用户被展示了分期功能入口，可能对其产生初步关注，关联分期意图。 \n   - `show_homepage_yoopay_btn`: 表明用户被展示了支付相关按钮，可能对其支付功能产生初步关注，关联支付意图。 \n   - `show_new_homebanner_C_3211` 和 `show_new_homebanner_A_3209` (额外信息: 运营_新人_ALL): 这两个高权重的营销活动展示明确指出用户正在接触新人专属的营销内容，强烈关联营销活动参与意图和新人福利探索。 \n4. **综合判断**: 尽管用户被展示了分期、支付和营销等多个特定功能，但缺乏任何 `click_xxx` 等高权重的主动交互行为，所有行为都是页面元素的展示。因此，用户当前最主要的意图是激活后的**探索/浏览意图**，他们正在初步了解主页上可用的各项功能和新人专属福利。虽然具体的分期、支付和营销参与意图有所体现，但由于缺乏主动性，目前仍归为探索阶段。",
+        "next_action_prediction": "考虑到用户在这些行为之后10分钟内完成了首次支付，下一个可能的行为是点击主页上的支付相关按钮（如Yoopay按钮）以了解如何进行支付，或者直接发起一笔交易以完成首次支付。用户也可能点击新人营销横幅以了解具体优惠详情。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T14:56:34.433927"
+      },
+      {
+        "intent": "用户刚刚激活账户，正在进行首次交易前的功能探索和支付准备，尤其关注支付入口、分期服务及新人营销活动（如积分）。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "用户信息中的首次支付时间 (2025-11-24 17:22:00) 紧随行为序列发生",
+          "行为序列中的 show_homepage_yoopay_btn",
+          "行为序列中的 show_homepage_installment_section",
+          "行为序列中的 show_home_floaticon_3665, 额外信息: 运营_积分_提醒"
+        ],
+        "reasoning": "根据用户信息，用户ID '002c91fb18c6415c8e960bc8edcc9052' 在审批通过后（2025-11-24 17:12:00）的极短时间内（17:21:00）进行了一系列行为，并在17:22:00完成了首次支付。所有行为事件都发生在首次支付的前一分钟，这表明用户正在为首次支付做准备并初步探索平台功能。\n\n行为序列显示用户在主页浏览了：\n1.  'show_homepage_installment_section'：表明用户对分期服务有兴趣。\n2.  'show_homepage_yoopay_btn'：作为首页的按钮，'Yoopay'听起来与支付相关，是用户可能选择的支付入口。此行为与用户紧随其后的首次支付时间（17:22:00）构成强有力的证据链，表明用户正在寻找支付入口或准备进行支付。\n3.  'show_home_floaticon_3665, 额外信息: 运营_积分_提醒'：显示用户对积分或营销活动有兴趣，这通常是新用户激活阶段关注的权益。\n\n尽管所有行为都是'show_xxx'类型（中等权重），但结合用户'首次支付时间'的上下文，'show_homepage_yoopay_btn'的出现，以及用户在激活后立即探索，均指向一个明确的意图：即在熟悉核心功能（支付、分期、营销活动）的同时，准备并完成其首次支付。这与历史意图“用户刚刚激活账户，正在主页进行初步探索，了解分期、支付等核心功能以及新人专属营销活动”完全吻合，并由实际的“首次支付”行为得到进一步验证和强化，因此置信度更高。",
+        "next_action_prediction": "用户很可能在首次支付完成后，查看交易详情、或进一步探索分期付款的具体方案、或查询积分使用规则。",
+        "session_index": 1,
+        "session_size": 5,
+        "timestamp": "2025-12-12T14:56:50.344837"
+      },
+      {
+        "intent": "用户已成功完成首次支付交易，当前正在查看支付成功确认，并进一步关注交易奖励以及系统提示的生物识别安全激活功能。这表明用户正积极参与新用户入驻流程及交易后的价值获取。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_pay_success_qr",
+          "show_trxsuccess_reward_PayGoodsType.qr_791",
+          "show_transaction_success_bioid_activate_popup_fingerprint"
+        ],
+        "reasoning": "1.  **用户生命周期阶段**: 用户在审批通过后10分钟内（审批时间: 2025-11-24 17:12:00, 首次支付时间/所有行为时间: 2025-11-24 17:22:00）即完成了首次支付，这表明这是一个处于关键新用户激活和初期使用阶段的用户，刚刚完成其首笔转化行为。\n2.  **行为序列分析**: 所有行为都发生在首次支付的同一时间点，且事件类型均为`show_xxx_success`或后续提示，形成了一个紧密的后交易流程。\n    *   `show_pay_success_qr`: 明确指示用户已成功完成了一笔二维码支付交易，这是对之前支付意图的实现和确认。\n    *   `show_trxsuccess_reward_PayGoodsType.qr_791`: 紧随支付成功，系统提示用户获得交易奖励。这是一个直接的营销激励，旨在提升用户满意度和后续参与度。\n    *   `show_transaction_success_bioid_activate_popup_fingerprint`: 在交易成功后立即弹出生物识别激活提示，旨在引导用户提升账户安全性或便捷性，属于新用户引导（onboarding）和功能推广范畴。\n3.  **行为权重与上下文**: 所有行为均为“show”事件，属于中权重，但其紧密围绕“交易成功”这一高价值事件，且序列逻辑清晰，揭示了用户对交易结果的确认、奖励的获取以及安全功能设置的关注。这些“show”事件代表了用户正在接收并处理系统在首次成功交易后主动提供的信息和功能推荐。\n4.  **历史意图演变**: 历史意图是“首次交易前的功能探索和支付准备”。当前行为序列表明，用户已成功完成了“支付准备”阶段并进行了首笔交易。现在的意图已从“准备”转变为“处理交易结果、获取奖励并进行初期安全设置”，这是历史意图的自然延续和阶段性达成。\n5.  **意图归类**: 鉴于用户正在接收交易奖励（属于营销激励）以及被提示激活生物识别功能（作为提升用户体验和安全性的营销/引导手段），“营销活动参与意图”能较好地概括当前行为的核心驱动力，即用户在首次交易后对系统提供的增值服务和功能引导的响应。这并非广义的探索，而是系统针对新用户完成关键行为后提供的特定引导和激励。",
+        "next_action_prediction": "用户可能会点击激活生物识别功能（如指纹），或点击查看其获得的交易奖励详情。",
+        "session_index": 2,
+        "session_size": 3,
+        "timestamp": "2025-12-12T14:57:16.319253"
+      }
+    ]
+  },
+  "0032a43a082d4d7db983330292cd4801": {
+    "user_uuid": "0032a43a082d4d7db983330292cd4801",
+    "total_sessions": 4,
+    "sessions": [
+      {
+        "intent": "用户在信用卡审批通过后，积极探索新用户专属福利和平台基础功能。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_home_middlepopup_3642 (运营_新人_开卡礼)",
+          "show_new_homebanner_C_3211 (运营_新人_ALL)",
+          "show_home_floaticon_2921 (运营_新人_开卡礼)",
+          "show_homepage_installment_section",
+          "show_homepage_yoopay_btn"
+        ],
+        "reasoning": "该用户在审批通过（2025-11-28 09:33:00）后立即进行了首次行为序列，且所有行为均发生在同一时刻，表明这是一次集中的、初次探索性会话。用户的首次支付时间（2025-11-28 11:12:00）晚于此行为序列，进一步印证了此阶段是支付前的认知与探索。\n\n分析行为序列：\n1.  **高频次出现“新人”及“开卡礼”相关信息**：事件如 `show_new_user_zone_page` (重复出现), `show_home_middlepopup_3642` (额外信息: 运营_新人_开卡礼), `show_new_homebanner_C_3211` (额外信息: 运营_新人_ALL, 重复出现), `show_home_floaticon_2921` (额外信息: 运营_新人_开卡礼) 均明确指向新用户专属营销活动和开卡福利。这表明用户作为新卡持有人，对其可获得的初始权益表现出强烈兴趣。\n2.  **广泛浏览基础功能**：用户还浏览了 `show_home_page`、`show_homepage_yoopay_btn`（支付入口）、`show_homepage_installment_section`（分期入口）和不同的任务页面（`show_home_task_xxx`）。这些行为属于中等权重的“展示”类型，反映出用户在初步了解应用界面的各种功能。\n3.  **缺乏高权重转化信号**：当前序列中没有出现 `click_xxx`、`show_pay_checkout_xxx` 或 `show_limit_xxx` 等高权重行为，这表明用户处于信息收集和探索阶段，尚未进入具体的交易或管理操作。\n\n综合来看，用户作为新审批通过的卡片持有者，主要意图是主动了解和探索平台为新用户提供的各种福利、营销活动以及App的核心功能。",
+        "next_action_prediction": "用户很可能会点击新人专区、开卡礼弹窗或相关Banner，以深入了解新用户专属福利的详细内容，或进行下一步的账户设置，为后续的支付或功能使用做准备。",
+        "session_index": 0,
+        "session_size": 12,
+        "timestamp": "2025-12-12T15:00:30.469915"
+      },
+      {
+        "intent": "用户在信用卡审批通过后，主要意图是积极探索其信用卡的可用额度及其关联的现金贷功能。",
+        "intent_category": "credit_limit_intent",
+        "confidence_score": 0.7,
+        "key_behaviors": [
+          "show_limit_page_module_cashloan"
+        ],
+        "reasoning": "1. **用户生命周期与状态**：用户信息显示，用户于2025-11-28 09:33:00审批通过，并在短短5分钟后（09:38:00）记录了首次行为。首次支付时间（11:12:00）晚于当前行为，表明用户处于信用卡获批后的初期探索阶段，尚未进行首次交易。\n2. **行为序列分析**：用户的行为序列仅包含一个事件：`show_limit_page_module_cashloan`。这个事件是中权重信号，直接表明用户主动查看了与信用额度相关的现金贷（cashloan）模块。虽然是'show'事件而非'click'，但作为用户获批后的首个且唯一行为，其指向性非常明确。\n3. **行为上下文**：事件发生在审批后的极短时间内，显示了用户对新获批信用卡功能的即时兴趣。'cashloan'的额外信息进一步明确了用户关注的是额度可用于现金借贷的特定功能。\n4. **与历史意图的关联**：历史意图是“用户在信用卡审批通过后，积极探索新用户专属福利和平台基础功能”。当前的`show_limit_page_module_cashloan`行为是历史意图的一个具体体现，它确认并细化了用户对“平台基础功能”中“额度管理”和“新用户专属福利”（如现金贷）的探索兴趣。本次分析的时间点（2025-11-28 09:38:00）早于历史意图分析时间（2025-12-12），因此该行为是构成历史意图的早期部分。\n5. **意图总结**：综合来看，用户作为新获批用户，立即对其信用卡的额度功能，特别是现金贷模块，表现出强烈的探索意图，旨在了解其资金使用潜力。",
+        "next_action_prediction": "鉴于用户对现金贷模块的兴趣，其接下来的行动可能包括：点击进入现金贷产品详情页了解申请条件和利率、尝试进行现金贷申请、返回额度页面探索其他额度使用选项（如分期）、或者在了解完现金贷后开始进行首次支付尝试。",
+        "session_index": 1,
+        "session_size": 1,
+        "timestamp": "2025-12-12T15:00:54.727318"
+      },
+      {
+        "intent": "用户积极寻求使用信用卡关联的优惠券进行支付。他们正在探索不同的支付方式（如QR码支付、手机充值）来应用优惠券，显示出强烈的优惠券兑换意愿。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_voucherusage_pg",
+          "click_voucherusage_VoucherPayType.QR",
+          "show_qris_camera_pg",
+          "click_voucherusage_VoucherPayType.PHONE_RECHARGE"
+        ],
+        "reasoning": "1. **用户生命周期与状态**: 用户于2025-11-28 09:33:00审批通过，首次支付时间为2025-11-28 11:12:00。当前行为序列（09:38:00 - 09:39:00）发生在审批后不久，但在首次支付之前。这表明用户正处于信用卡激活后的初期探索阶段，积极了解和使用卡片提供的具体福利。\n2. **行为序列分析**: 用户行为序列从`show_voucherusage_pg`（显示优惠券使用页面）开始，直接揭示了用户对优惠券的明确兴趣。随后，用户点击了`click_voucherusage_VoucherPayType.QR`（通过QR码类型使用优惠券），并进入了`show_qr_upload_btn`和`show_qris_camera_pg`（显示QRIS相机页面），这一系列连贯的高权重行为明确指示用户正在尝试通过扫码支付方式使用优惠券。\n3. **多重尝试**: 紧接着，用户又点击了`click_voucherusage_VoucherPayType.PHONE_RECHARGE`（通过手机充值类型使用优惠券）。这表明用户不仅对使用优惠券本身感兴趣，还在积极探索不同的支付/兑换方式，以找到最便捷或最适合的优惠券使用途径。\n4. **行为权重**: `click_xxx`是高权重信号，`show_xxx`是中权重信号。本序列中包含两次高权重的`click_voucherusage_VoucherPayType.QR`和`click_voucherusage_VoucherPayType.PHONE_RECHARGE`，以及相关的页面展示，共同构成了非常明确的优惠券使用意图。\n5. **与历史意图的对比**: 之前的历史意图是探索可用额度及现金贷功能。当前行为序列完全聚焦于优惠券的使用，显示用户意图已从初步的通用功能探索，演变为更具体、更直接的卡片福利兑换。这种意图的转变是自然且合理的。",
+        "next_action_prediction": "用户很可能会进一步尝试完成一笔使用优惠券的交易，无论是通过QR码支付、手机充值，还是探索其他可用的优惠券兑换方式或适用商户。",
+        "session_index": 2,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:01:09.861403"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户对新人开卡礼及其他新人营销活动有强烈兴趣，正处于新卡激活和了解新人福利阶段。\",\n  \"intent_category\": \"marketing_intent\",\n  \"confidence_score\": 0.85,\n  \"key_behaviors\": [\n    \"用户信息: 审批时间 (2025-11-28 09:33:00) 与首次支付时间 (2025-11-28 11:12:00) 极其接近，表明用户是刚获批的新用户并迅速激活。\",\n    \"行为序列: show_new_user_zone_page (新人专区页面)\",\n    \"行为序列: show_home_floaticon_2921 (额外信息: 运营_新人_开卡礼)\",\n    \"行为序列: show_new_homebanner_C_3211 (额外信息: 运营_新人_ALL)\",\n    \"行为序列: show_new_homebanner_A_3209 (额外信息: 运营_新人_ALL)\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段**: 用户在2025-11-28 09:33:00获得审批，并于当天11:11:00开始首次行为，紧接着在11:12:00完成了首次支付。这明确指出用户是刚获批的**新用户**，正处于信用卡激活和探索初期福利的关键阶段。\\n2. **行为序列聚焦性**: 用户的五次行为均发生在同一分钟内，且全部是'show_xxx'事件。尽管是低/中权重行为，但其内容高度聚焦于'新人'和'营销活动'：用户访问了'新人专区页面'(`show_new_user_zone_page`)，并浏览了多个明确标注为'运营_新人_开卡礼'和'运营_新人_ALL'的首页横幅及浮动图标。这表明用户在首次接触平台时，积极关注与新用户身份相关的专属优惠和福利。\\n3. **行为上下文强化**: '额外信息'如'运营_新人_开卡礼'和'运营_新人_ALL'直接揭示了这些展示内容的核心主题是针对新用户的营销活动和开卡奖励。这些高相关性的展示在用户刚获批、尚未完成首付时发生，强烈指向用户希望了解如何激活和获取这些新人权益。\\n4. **与历史意图的关系**: 当前分析的行为序列（2025-11-28 11:11:00）发生在历史意图分析时间（2025-12-12）之前。这意味着当前的“营销活动参与意图”是更早期的行为模式。用户查看新人开卡礼和新人营销内容，很可能是促使其在稍后阶段（历史意图中提到）积极寻求使用优惠券进行支付的**前置行为**或**诱因**。\\n5. **综合判断**: 尽管本次序列中没有直接的点击或支付转化行为，但用户作为新卡用户，在首次支付前如此密集地浏览高度相关的'新人'营销内容，结合其迅速完成首次支付的背景，充分表明用户对参与新人营销活动和兑换开卡礼有非常高的兴趣和意图。\",\n  \"next_action_prediction\": \"鉴于用户已在11:12:00完成首次支付，其下一个可能的行动将是进一步查看开卡礼或新人优惠的具体兑换规则、进度，或探索更多与激活福利相关的服务页面。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户对新人开卡礼及其他新人营销活动有强烈兴趣，正处于新卡激活和了解新人福利阶段。\",\n  \"intent_category\": \"marketing_intent\",\n  \"confidence_score\": 0.85,\n  \"key_behaviors\": [\n    \"用户信息: 审批时间 (2025-11-28 09:33:00) 与首次支付时间 (2025-11-28 11:12:00) 极其接近，表明用户是刚获批的新用户并迅速激活。\",\n    \"行为序列: show_new_user_zone_page (新人专区页面)\",\n    \"行为序列: show_home_floaticon_2921 (额外信息: 运营_新人_开卡礼)\",\n    \"行为序列: show_new_homebanner_C_3211 (额外信息: 运营_新人_ALL)\",\n    \"行为序列: show_new_homebanner_A_3209 (额外信息: 运营_新人_ALL)\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段**: 用户在2025-11-28 09:33:00获得审批，并于当天11:11:00开始首次行为，紧接着在11:12:00完成了首次支付。这明确指出用户是刚获批的**新用户**，正处于信用卡激活和探索初期福利的关键阶段。\\n2. **行为序列聚焦性**: 用户的五次行为均发生在同一分钟内，且全部是'show_xxx'事件。尽管是低/中权重行为，但其内容高度聚焦于'新人'和'营销活动'：用户访问了'新人专区页面'(`show_new_user_zone_page`)，并浏览了多个明确标注为'运营_新人_开卡礼'和'运营_新人_ALL'的首页横幅及浮动图标。这表明用户在首次接触平台时，积极关注与新用户身份相关的专属优惠和福利。\\n3. **行为上下文强化**: '额外信息'如'运营_新人_开卡礼'和'运营_新人_ALL'直接揭示了这些展示内容的核心主题是针对新用户的营销活动和开卡奖励。这些高相关性的展示在用户刚获批、尚未完成首付时发生，强烈指向用户希望了解如何激活和获取这些新人权益。\\n4. **与历史意图的关系**: 当前分析的行为序列（2025-11-28 11:11:00）发生在历史意图分析时间（2025-12-12）之前。这意味着当前的“营销活动参与意图”是更早期的行为模式。用户查看新人开卡礼和新人营销内容，很可能是促使其在稍后阶段（历史意图中提到）积极寻求使用优惠券进行支付的**前置行为**或**诱因**。\\n5. **综合判断**: 尽管本次序列中没有直接的点击或支付转化行为，但用户作为新卡用户，在首次支付前如此密集地浏览高度相关的'新人'营销内容，结合其迅速完成首次支付的背景，充分表明用户对参与新人营销活动和兑换开卡礼有非常高的兴趣和意图。\",\n  \"next_action_prediction\": \"鉴于用户已在11:12:00完成首次支付，其下一个可能的行动将是进一步查看开卡礼或新人优惠的具体兑换规则、进度，或探索更多与激活福利相关的服务页面。\"\n}\n```",
+        "session_index": 3,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:01:34.194340"
+      }
+    ]
+  },
+  "0048eed96048405292161a02501ae5b5": {
+    "user_uuid": "0048eed96048405292161a02501ae5b5",
+    "total_sessions": 2,
+    "sessions": [
+      {
+        "intent": "用户关注新人开卡礼及其他新人福利，并正在初步探索信用卡支付、分期等核心功能。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_new_user_zone_page",
+          "show_home_middlepopup_3688 (额外信息: 运营_新人_开卡礼)",
+          "show_homepage_installment_section"
+        ],
+        "reasoning": "用户为刚激活信用卡的新用户，所有行为均发生在激活后的短时间内，表明其正处于快速的首次探索阶段。行为序列中，用户明确访问了新人专区页面 (show_new_user_zone_page)，并被展示了新人开卡礼弹窗 (show_home_middlepopup_3688)，该弹窗带有明确的“运营_新人_开卡礼”额外信息，这些是用户对新人营销活动和福利有强烈兴趣的直接信号。同时，用户也浏览了主页上的支付按钮 (show_homepage_yoopay_btn) 和分期区域 (show_homepage_installment_section)，表明其也在了解信用卡的基础使用功能。虽然没有点击等高权重行为，但这些“展示”事件在用户生命周期和明确的营销活动上下文下，足以构成较强的意图信号。",
+        "next_action_prediction": "用户很可能会点击新人开卡礼弹窗查看详情或领取福利，或开始进行首次支付 (鉴于其首次支付时间发生在不久之后)。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T15:03:02.099620"
+      },
+      {
+        "intent": "用户正在尝试首次使用信用卡进行二维码支付，并可能在激活或确认其支付方式（如密码或生物识别支付）。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "用户信息中的'首次支付时间' (2025-11-16 11:14:00) 与用户行为序列的发生时间完全一致",
+          "行为序列中三次重复出现'show_password_openbiopay_btn_PayGoodsType.qr'事件"
+        ],
+        "reasoning": "根据用户信息，该用户在审批后极短时间内（审批时间 10:49，首次支付/行为时间 11:14）便产生了行为，且首次支付时间与所有行为的发生时间一致，这表明用户在新卡激活后迅速尝试进行首次交易。用户行为序列中，三次重复出现 'show_password_openbiopay_btn_PayGoodsType.qr' 事件。这是一个高度特异性的支付相关事件，直接关联到激活或展示通过密码或生物识别方式进行二维码支付的按钮。尽管这是'show_xxx'事件，但其上下文（'openbiopay_btn'和'PayGoodsType.qr'）以及与'首次支付时间'的精确匹配，使其成为一个高权重且明确的支付意图信号。用户的重复行为进一步强化了其对此支付环节的关注或尝试。这与历史意图中提到的“初步探索信用卡支付”相符，本次行为是该探索的直接实践。",
+        "next_action_prediction": "用户会点击相应的支付按钮（如生物识别支付按钮或密码支付按钮）以继续完成二维码支付流程，或者进行支付方式的设置（如录入密码、指纹识别等）。",
+        "session_index": 1,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:03:16.736338"
+      }
+    ]
+  },
+  "00604cb602f442b0a9b3e06492d53205": {
+    "user_uuid": "00604cb602f442b0a9b3e06492d53205",
+    "total_sessions": 2,
+    "sessions": [
+      {
+        "intent": "用户已完成信用卡激活，并表现出强烈的支付意图，已在短时间内成功进行了首次支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_homepage_yoopay_btn",
+          "首次支付时间: 2025-11-28 19:14:00"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-28 19:08:00审批通过，并于同一时间开始首次行为。行为序列显示，用户首先看到的是激活成功页面（`show_QSPIN_activate_success_pg`），这表明用户是新激活的卡片使用者。紧接着，用户在同一时间点浏览了主页的分期功能区（`show_homepage_installment_section`）、Yoopay支付按钮（`show_homepage_yoopay_btn`）以及新手专区和主页。虽然行为序列中未直接包含支付点击事件，但关键信息是用户在首次行为发生6分钟后（即19:14:00）就完成了首次支付。这一明确的支付转化行为，结合用户浏览了可能与支付相关的Yoopay按钮（`show_homepage_yoopay_btn`），以及处于新用户激活后的阶段，强烈表明用户的主要意图是使用新卡进行交易支付。对分期功能的浏览也显示了用户对支付方式和卡片功能的探索兴趣，但支付成功是其最核心的意图体现。",
+        "next_action_prediction": "鉴于用户已完成首次支付，下一步可能行为包括：查看交易明细以确认支付状态、再次进行支付交易、探索更多支付相关功能（如Yoopay的具体应用）、或者查看信用卡额度及账单信息。",
+        "session_index": 0,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:05:02.751664"
+      },
+      {
+        "intent": "用户表现出强烈的支付意图，并通过电商虚拟账户（Ecomm VA）完成了首次交易。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.98,
+        "key_behaviors": [
+          "click_home_EcommVA_btn",
+          "click_EcommVAlanding_Merchant_6b4d2f3ef323451382e486afe89366e1",
+          "click_EcommVA_submission_VA_6b4d2f3ef323451382e486afe89366e1",
+          "click_EcommVA_submission_Amount_6b4d2f3ef323451382e486afe89366e1",
+          "show_pay_checkout_page_va",
+          "click_pay_checkout_submit_btn_va"
+        ],
+        "reasoning": "该用户于2025-11-28 19:08:00审批通过，并在短时间内（19:09:00 - 19:13:00）完成了一系列行为，最终于19:14:00成功进行了首次支付，这表明用户处于生命周期的早期阶段，且首次行为非常明确。行为序列如下：\n1.  **初始探索与选择（高权重信号）**: 用户首先通过`show_EcommVAlanding`和`click_home_EcommVA_btn`表达了对电商虚拟账户的兴趣。随后，用户浏览了多个商户（`show_EcommVAlanding_Merchant_xxx`），并在19:10:00明确点击了特定商户(`click_EcommVAlanding_Merchant_6b4d2f3ef323451382e486afe89366e1`)，显示了明确的选择意图。\n2.  **支付准备（高权重信号）**: 紧接着，用户进入该商户的提交页面，并点击了与虚拟账户（`click_EcommVA_submission_VA_xxx`）和金额（`click_EcommVA_submission_Amount_xxx`）相关的按钮，这表明用户正在配置支付详情。\n3.  **支付流程启动与完成（高权重信号）**: 随后，用户被引导至确认弹窗（`show_EcommVA_confirmpopup_xxx`），并点击了继续按钮（`click_EcommVA_confirmpopup_continue_xxx`）。最关键的是，用户访问了通用支付结算页面（`show_pay_checkout_page_va`和`show_pay_checkout_paymethod_sec_va`），并最终点击了支付提交按钮（`click_pay_checkout_submit_btn_va`）。\n4.  **转化确认**: 用户信息中的'首次支付时间'（2025-11-28 19:14:00）紧随行为序列中的最后一步（19:13:00），证实了此次行为序列直接导致了一次成功的支付交易。\n5.  **历史意图印证**: 历史意图分析明确指出用户已完成激活并表现出强烈支付意图，已成功进行首次支付，这与当前行为分析完全吻合，进一步增强了对支付意图的判断。\n综合来看，用户行为序列清晰、快速，且包含多个高权重支付信号，最终成功转化为首次支付，因此支付意图非常明确。",
+        "next_action_prediction": "用户刚刚完成首次支付，下一步可能查看交易详情、账单，或探索其他信用卡功能，如管理额度或关联其他电商平台，以利用其信用卡权益。",
+        "session_index": 1,
+        "session_size": 24,
+        "timestamp": "2025-12-12T15:05:20.246059"
+      }
+    ]
+  },
+  "00afa54c2f834c9faa40f3c5ade5dc0f": {
+    "user_uuid": "00afa54c2f834c9faa40f3c5ade5dc0f",
+    "total_sessions": 7,
+    "sessions": [
+      {
+        "intent": "用户处于新用户入职和探索阶段，正在熟悉平台功能，并对分期付款服务表现出初步兴趣。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_new_user_zone_page",
+          "show_home_todo_card_login_email_verify",
+          "show_homepage_installment_section",
+          "show_home_statement_paylater"
+        ],
+        "reasoning": "根据用户信息，用户ID为00afa54c2f834c9faa40f3c5ade5dc0f的用户刚于2025-11-16 10:37:00审批通过，且首次支付时间为NaT，这明确表明该用户是一位新注册或新激活的账户。所有的用户行为都发生在审批通过的同一时间点（2025-11-16 10:37:00），且均为'show_xxx'事件，这指示用户在首次登录或激活后，正在快速浏览和探索应用程序的各个模块。\n\n行为序列分析：\n1. `show_QSPIN_activate_success_pg`: 明确表示用户刚刚完成激活或注册，处于新用户状态。\n2. `show_home_statement_paylater`、`show_yup_homepage_producttype_creditcard`: 显示用户正在查看与账户管理和信用卡产品相关的主页信息，这是新用户了解产品的典型行为。\n3. `show_home_todo_card_login_email_verify` / `show_home_todo_card_email_verify`: 提示用户需要完成邮件验证，这是新用户账户设置的一部分。\n4. `show_homepage_installment_section`: 用户主动浏览了主页上的分期付款区域，这表明用户对分期服务存在初步兴趣。虽然只是'show'事件，但其在众多探索行为中出现，具有一定指向性。\n5. `show_new_user_zone_page`: 再次强调用户处于新用户阶段，正在探索专属区域。\n\n综合来看，用户行为模式高度符合新用户首次登录后的探索和入职流程。尽管有对分期付款的浏览行为（中权重信号），但缺乏更高权重的点击或支付相关行为。因此，其核心意图是探索和熟悉产品功能，而对分期付款的关注是其探索过程中的一个具体方向。",
+        "next_action_prediction": "用户很可能会尝试完成邮件验证以完善账户信息，或点击进入分期付款模块以了解更多详情，也可能继续探索其他主页功能或新用户专区内容。",
+        "session_index": 0,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:08:51.321720"
+      },
+      {
+        "intent": "用户作为新卡用户，正处于平台探索和福利寻求阶段，主要意图是了解并参与新人开卡礼活动及查找可用优惠券。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_specialbanner_2939, 额外信息: 运营_新人_开卡礼",
+          "show_home_voucher_198500901, 额外信息: 【消费】_QR+INAPP_折扣_90%最高30K_不领_3天",
+          "show_new_user_zone_page",
+          "show_home_floaticon_2920, 额外信息: 运营_新人_开卡礼"
+        ],
+        "reasoning": "1. **用户生命周期阶段分析**: 用户ID 00afa54c2f834c9faa40f3c5ade5dc0f 的审批时间 (2025-11-16 10:37:00) 与首次行为时间一致，且首次支付时间为 `NaT`。这明确指出用户是刚获批的**新用户**，正处于**入职和首次探索阶段**，尚未完成任何支付交易。\n2. **用户行为序列分析**: 用户在短时间内（2分钟，7次操作）进行了快速且有方向的浏览：\n   - 从 `show_home_page` 开始，这是标准的入口。\n   - 紧接着，用户浏览了 `show_specialbanner_2939` 和 `show_home_floaticon_2920`，这两者都带有明确的“**运营_新人_开卡礼**”额外信息。对同一主题的重复曝光，即使是页面展示（show），也表明用户对**新用户欢迎礼**有持续且明确的兴趣。\n   - 用户还查看了 `show_home_voucher_198500901`，其额外信息显示这是一张“消费_折扣”优惠券，这表明用户对**优惠福利**有寻求意图。\n   - 最具决定性的是，用户明确访问了 `show_new_user_zone_page`（新人专区页面），这进一步印证了用户作为新卡用户，正在主动探索平台为新人提供的专属权益和活动。\n3. **行为信号权重和模式**: 尽管所有事件都是“show”类型（中权重信号），但其**高度相关性和主题一致性**（新人福利、开卡礼、优惠券、新人专区）使得意图非常明确。行为之间的时间间隔短，显示了用户积极且有目的地探索。\n4. **与历史意图的对比**: 历史意图分析指出用户处于“新用户入职和探索阶段”，这与当前分析完全吻合。然而，历史意图提及“对分期付款服务表现出初步兴趣”，而**当前的行为序列中并未出现任何与分期付款相关的信号**。这表明用户当前的具体兴趣点主要集中在新人开卡礼和优惠券上，而非分期服务，展示了兴趣点的差异或演变。\n综上所述，用户意图明确为探索新用户特权和优惠，主要集中在营销活动（开卡礼）和优惠券。",
+        "next_action_prediction": "用户很可能会点击新人开卡礼相关的Banner或浮标，进入活动详情页了解具体的参与规则和条件；或者，用户可能会点击查看优惠券的详细信息，尝试领取或了解使用方式；也可能继续在新人专区探索其他专属权益。",
+        "session_index": 1,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:09:16.279283"
+      },
+      {
+        "intent": "用户正在寻求完成首次支付交易或熟悉平台支付流程。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "click_qris_camera_close_btn",
+          "show_guide_mask_bayar_1",
+          "click_home_bottomnav_bayar_btn"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-16 10:37:00审批通过，但“首次支付时间”为NaT，表明用户尚未完成其第一笔支付交易。这将其置于一个新卡用户尝试激活或熟悉支付功能的生命周期阶段。\n\n行为序列分析如下：\n1.  **2025-11-16 10:39:00, click_qris_camera_close_btn** (高权重): 用户首先尝试与QRIS支付功能互动，但随后关闭了摄像头。这表明用户对扫码支付有初步兴趣，但可能因为某种原因中断或放弃了当前的扫码支付尝试。\n2.  **2025-11-16 10:39:00, show_rechargephone_page** (中权重): 用户随后浏览了手机充值页面。这可能是在探索除QRIS外的其他支付场景，或寻找一个简单的首笔交易类型。\n3.  **2025-11-16 10:39:00, show_guide_mask_bayar_1** (中权重): 用户看到了一个名为“bayar”（支付）的引导蒙层。这是一个非常明确的信号，表明用户正在主动学习或寻求关于如何在平台进行支付的指引。这与用户作为未进行首次支付的新用户身份高度吻合。\n4.  **2025-11-16 10:40:00, click_home_bottomnav_bayar_btn** (高权重): 用户最终点击了首页底部导航的“支付”按钮。这是直接且强烈的支付意图表达，用户在经过初步探索和引导后，明确地走向了支付的核心入口。\n\n综合上述行为，用户虽然在初期尝试了QRIS并探索了充值页面，但最终通过查看支付引导并点击支付按钮，明确地表达了其“支付意图”。考虑到用户尚未完成首次支付，这代表了其尝试完成第一笔交易或熟悉支付流程，与之前的“平台探索和福利寻求”意图相比，当前意图更聚焦于核心支付功能的使用。",
+        "next_action_prediction": "用户很可能会进入支付类型选择页面（例如：扫码支付、账单支付、充值等），或者选择一个具体的支付项目来完成其首次支付。",
+        "session_index": 2,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:09:30.235029"
+      },
+      {
+        "intent": "用户正积极探索并寻求新用户专属的营销活动、会员权益和优惠券，以期了解并利用开卡福利。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_home_bottomnav_membership_btn",
+          "click_membership_voucher_198500901",
+          "show_new_user_zone_page",
+          "show_new_homebanner_A_3209",
+          "show_home_floaticon_2920"
+        ],
+        "reasoning": "该用户于2025-11-16 10:37:00获得审批，且至今（根据'首次支付时间: NaT'判断）尚未完成首次支付，表明其处于激活/首次使用的早期阶段。用户在审批后极短时间内（2025-11-16 10:40:00）进行了一系列紧密相关的行为，这些行为高度集中于探索新用户福利和营销活动：\n1.  **点击会员按钮 (click_home_bottomnav_membership_btn, 高权重)**：显示用户对会员权益的明确兴趣。\n2.  **点击具体优惠券 (click_membership_voucher_198500901, 高权重)**：进一步确认了用户寻求具体优惠（如90%折扣券）的意图，尽管额外信息中提到'不领_3天'，但点击本身已构成强烈的兴趣信号。\n3.  **浏览新人专区页面 (show_new_user_zone_page, 中权重)**：与用户的新身份高度匹配，表明用户正在主动寻找为新用户提供的特定信息或福利。\n4.  **浏览新人专属Banner (show_new_homebanner_A_3209, 中权重)**：再次强化了用户对新人营销内容的关注。\n5.  **浏览浮动图标显示的开卡礼 (show_home_floaticon_2920, 中权重)**：明确指向用户对'开卡礼'这一新用户专属奖励的兴趣。\n\n所有这些行为都围绕着'新用户'、'会员'、'优惠券'、'开卡礼'等主题，构成了一个连贯的意图链条，即用户正在积极了解和评估其作为新卡用户可获得的各项营销激励。考虑到用户尚未首次支付，这些行为很可能是在为未来的首次交易做准备，通过寻找最有价值的福利来最大化其新卡的效用。虽然历史意图分析（2025-12-12）提到用户可能寻求首次支付，但结合当前行为序列（2025-11-16），可以推断这些行为是用户在实现首次支付前，寻求利用营销优惠作为驱动力的前置步骤。",
+        "next_action_prediction": "用户很可能会尝试领取或激活其感兴趣的优惠券或开卡礼，并可能在近期内发起一笔交易，以满足相关福利的激活条件（例如，完成首次支付以解锁开卡礼或使用特定优惠券）。",
+        "session_index": 3,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:10:00.329301"
+      },
+      {
+        "intent": "用户作为新卡用户，正在积极探索其信用卡的主要功能和可用权益，特别关注支付方式（如QRIS）和信用额度管理（包括现金贷），并寻求新用户专属优惠和券福利，以准备进行首次使用。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_pay_voucher_choose_electricity_1",
+          "show_new_user_zone_page",
+          "show_limit_pg",
+          "click_homepage_qris_btn",
+          "show_limit_page_module_cashloan"
+        ],
+        "reasoning": "根据用户信息，用户审批时间为2025-11-16，且首次支付时间为NaT，这表明用户是刚获批的新卡用户，尚未进行首次支付。其所有行为均发生在审批后不久的同一分钟内（2025-11-16 10:43:00），显示出用户正处于活跃的初始探索阶段。\n\n行为序列分析：\n1.  用户首先访问了`show_pay_voucher_choose_electricity_1`（中权重），表明对支付相关的优惠券感兴趣，尤其是水电费方面，可能在寻找如何使用新卡进行日常支付并节省开支。\n2.  紧接着访问`show_new_user_zone_page`（中权重），这明确指示用户在探索新用户专属的福利和活动，与历史意图高度一致，即寻求新用户专属营销活动和开卡福利。\n3.  随后通过`click_nav_home_btn`（低权重）回到首页，可能是为了重新定位或探索其他功能。\n4.  关键行为是访问了`show_limit_pg`（中高权重），表明用户对自己的可用额度有直接关注，这是信用管理的核心。\n5.  接着，用户点击了`click_homepage_qris_btn`（高权重），这是一个明确的主动选择，显示用户对QRIS支付功能有浓厚兴趣，可能在考虑如何使用此支付方式进行交易。\n6.  最后，用户访问了`show_limit_page_module_cashloan`（中高权重），这是对额度管理更深入的探索，具体到现金贷服务，表明用户不仅关注基础额度，还在探索额度的更多使用方式（如提现）。\n\n综合来看，用户在短时间内迅速浏览了多项核心功能：从支付优惠和新用户福利（与历史意图相符），到信用额度管理及其延伸服务（现金贷），并主动点击了具体的支付方式（QRIS）。这表明用户整体处于一个高活跃度的探索期，旨在全面了解新卡功能、权益及其使用方式，以准备进行首次交易或利用信用服务。本次分析确认并深化了历史意图，新增了对具体支付方式和额度管理细节的关注。",
+        "next_action_prediction": "用户可能会尝试进行首次支付（例如使用QRIS功能完成一笔交易），或者进一步查看并使用其信用额度/现金贷服务（如提交现金贷申请），以实际体验新卡功能。",
+        "session_index": 4,
+        "session_size": 6,
+        "timestamp": "2025-12-12T15:10:18.545999"
+      },
+      {
+        "intent": "用户作为新卡用户，正在积极探索并寻求其专属的新人开卡礼和营销优惠活动。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_home_floaticon_2920 (额外信息: 运营_新人_开卡礼)",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-16获得审批，且'首次支付时间'为NaT，表明用户处于新卡激活后的初期探索阶段，尚未进行首次交易。\n\n用户行为序列清晰地展现了其意图：\n1.  **2025-11-16 10:49:00, show_home_floaticon_2920, 额外信息: 运营_新人_开卡礼**: 用户首先看到并展示了首页浮窗，该浮窗明确标记为'运营_新人_开卡礼'，这是一个中高权重的行为信号，直接指向用户对新用户营销活动和福利的兴趣。\n2.  **2025-11-16 10:51:00, show_new_user_zone_page**: 紧接着，用户访问了'新用户专区页面'。这一行为与前一个行为在内容上高度一致且逻辑连贯，进一步强化了用户探索新用户专属权益的意图。两次行为时间间隔短，显示了用户的活跃度和专注度。\n\n综合分析，虽然都是'show'类型（中权重信号），但行为的特定上下文（新人、开卡礼、新人专区）使其意图非常明确和聚焦。当前行为与历史意图（发生在当前行为之后，更全面的意图）中提及的'寻求新用户专属优惠和券福利'部分高度吻合，可以看作是用户在早期阶段对此特定方面的重点关注和探索，是构成后续更广泛探索的基础。由于用户行为直接与新用户营销活动相关联，故归类为'marketing_intent'。",
+        "next_action_prediction": "用户很可能会点击新用户专区内的具体开卡礼或优惠活动条目，查看详情，并尝试领取或激活这些福利，以准备进行首次消费。",
+        "session_index": 5,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:10:37.335098"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户作为新卡用户，正在探索信用卡的核心功能，特别是关注优惠券/奖励、分期服务以及特定的支付方式。\",\n  \"intent_category\": \"exploration_intent\",\n  \"confidence_score\": 0.75,\n  \"key_behaviors\": [\n    \"show_homepage_gv_btn\",\n    \"show_homepage_installment_section\",\n    \"show_homepage_yoopay_btn\"\n  ],\n  \"reasoning\": \"根据用户信息，用户ID '00afa54c2f834c9faa40f3c5ade5dc0f' 的审批时间（2025-11-16 10:37:00）与首次行为时间（2025-11-16 20:17:00）在同一天，且 '首次支付时间' 为 'NaT'，表明该用户是一位新卡用户，尚未进行首次支付，正处于探索和了解产品功能的初期阶段。\\n\\n用户行为序列显示，所有4个行为均在同一时间（2025-11-16 20:17:00）发生，且均为 'show_xxx' 类型事件，这意味着用户在访问首页时，被同时展示了这些功能区域。虽然缺乏主动的 'click_xxx' 高权重行为，但这些中等权重的 'show_xxx' 事件（页面展示）仍然反映了系统向用户呈现的关键信息，以及用户初步的观察兴趣。\\n\\n具体行为分析：\\n- `show_home_page` (低权重): 用户的入口，一般性浏览。\\n- `show_homepage_gv_btn` (中权重): 'gv' 通常指礼品券（Gift Voucher）或通用券（General Voucher），这表明用户被展示了优惠券或奖励相关的入口，与寻求优惠/营销活动相关联（属于 'voucher_intent' 或 'marketing_intent' 的信号）。\\n- `show_homepage_installment_section` (中权重): 直接指向分期付款服务模块的展示，表明用户对分期功能有感知（属于 'installment_intent' 的信号）。\\n- `show_homepage_yoopay_btn` (中权重): 'Yoopay' 听起来是一种支付方式或快捷支付按钮，表明用户被展示了支付相关的选项（属于 'payment_intent' 的信号）。\\n\\n综合来看，用户作为新卡用户，在首页被动接收了关于优惠/奖励、分期服务以及特定支付方式的信息。这与历史意图“用户作为新卡用户，正在积极探索并寻求其专属的新人开卡礼和营销优惠活动”高度一致，并且本次行为进一步细化了用户探索的具体内容，不仅限于营销优惠，还包括了分期和支付方式。由于没有主动点击行为，将其定义为“探索意图”最为合适，但其包含的特定功能展示说明了用户具有多方面的潜在兴趣，意图明确性较高。\\n\\n置信度计算：有多个中等权重的特定功能展示信号，且与新用户生命周期阶段高度吻合，但缺少高权重的点击行为，因此置信度在0.7-0.9之间，取0.75。\",\n  \"next_action_prediction\": \"用户可能会根据首页展示的内容，点击进入优惠券/礼品页面、分期详情页面或Yoopay支付设置页面，以进一步了解或激活相关功能。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户作为新卡用户，正在探索信用卡的核心功能，特别是关注优惠券/奖励、分期服务以及特定的支付方式。\",\n  \"intent_category\": \"exploration_intent\",\n  \"confidence_score\": 0.75,\n  \"key_behaviors\": [\n    \"show_homepage_gv_btn\",\n    \"show_homepage_installment_section\",\n    \"show_homepage_yoopay_btn\"\n  ],\n  \"reasoning\": \"根据用户信息，用户ID '00afa54c2f834c9faa40f3c5ade5dc0f' 的审批时间（2025-11-16 10:37:00）与首次行为时间（2025-11-16 20:17:00）在同一天，且 '首次支付时间' 为 'NaT'，表明该用户是一位新卡用户，尚未进行首次支付，正处于探索和了解产品功能的初期阶段。\\n\\n用户行为序列显示，所有4个行为均在同一时间（2025-11-16 20:17:00）发生，且均为 'show_xxx' 类型事件，这意味着用户在访问首页时，被同时展示了这些功能区域。虽然缺乏主动的 'click_xxx' 高权重行为，但这些中等权重的 'show_xxx' 事件（页面展示）仍然反映了系统向用户呈现的关键信息，以及用户初步的观察兴趣。\\n\\n具体行为分析：\\n- `show_home_page` (低权重): 用户的入口，一般性浏览。\\n- `show_homepage_gv_btn` (中权重): 'gv' 通常指礼品券（Gift Voucher）或通用券（General Voucher），这表明用户被展示了优惠券或奖励相关的入口，与寻求优惠/营销活动相关联（属于 'voucher_intent' 或 'marketing_intent' 的信号）。\\n- `show_homepage_installment_section` (中权重): 直接指向分期付款服务模块的展示，表明用户对分期功能有感知（属于 'installment_intent' 的信号）。\\n- `show_homepage_yoopay_btn` (中权重): 'Yoopay' 听起来是一种支付方式或快捷支付按钮，表明用户被展示了支付相关的选项（属于 'payment_intent' 的信号）。\\n\\n综合来看，用户作为新卡用户，在首页被动接收了关于优惠/奖励、分期服务以及特定支付方式的信息。这与历史意图“用户作为新卡用户，正在积极探索并寻求其专属的新人开卡礼和营销优惠活动”高度一致，并且本次行为进一步细化了用户探索的具体内容，不仅限于营销优惠，还包括了分期和支付方式。由于没有主动点击行为，将其定义为“探索意图”最为合适，但其包含的特定功能展示说明了用户具有多方面的潜在兴趣，意图明确性较高。\\n\\n置信度计算：有多个中等权重的特定功能展示信号，且与新用户生命周期阶段高度吻合，但缺少高权重的点击行为，因此置信度在0.7-0.9之间，取0.75。\",\n  \"next_action_prediction\": \"用户可能会根据首页展示的内容，点击进入优惠券/礼品页面、分期详情页面或Yoopay支付设置页面，以进一步了解或激活相关功能。\"\n}\n```",
+        "session_index": 6,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:11:00.478560"
+      }
+    ]
+  },
+  "00b04770fe044b7da1007d3e8ad58a2f": {
+    "user_uuid": "00b04770fe044b7da1007d3e8ad58a2f",
+    "total_sessions": 3,
+    "sessions": [
+      {
+        "intent": "用户正在探索刚激活的信用卡应用功能和权益",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.6,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_homepage_installment_section",
+          "show_home_page",
+          "show_homepage_yoopay_btn",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "用户于2025-11-15 17:25:00通过“show_QSPIN_activate_success_pg”事件确认账户激活成功，这与其审批时间一致，表明用户是新获批并刚激活的账户。在此之后，用户在同一时间点（表明是快速连续的浏览或系统引导）连续访问了多个关键页面：\n1.  “show_homepage_installment_section”：显示用户对分期付款功能有初步关注。\n2.  “show_home_page”：展示了应用的核心界面。\n3.  “show_homepage_yoopay_btn”：暗示用户可能关注支付功能或相关入口。\n4.  “show_new_user_zone_page”：表明用户对新用户专区中的引导、教程或优惠感兴趣。\n\n所有行为均为“show_xxx”类型，属于中低权重信号，没有出现明确的点击或支付页面提交等高权重行为。这表明用户正处于探索和了解产品功能的初始阶段，旨在熟悉应用界面和可用服务，而不是执行特定的转化行为。鉴于用户生命周期处于新激活阶段且其首次支付时间（2025-11-20）晚于当前行为时间，其探索意图与新用户了解产品的需求高度吻合。其中，对分期和YuuPay按钮的查看，显示了对核心金融服务和支付方式的潜在兴趣。",
+        "next_action_prediction": "用户可能会进一步点击进入分期付款详情页、尝试使用YuuPay功能、查看新手专区内的具体优惠活动或操作指南，或者点击查看自己的额度信息，为后续的首次交易做准备。",
+        "session_index": 0,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:12:46.397307"
+      },
+      {
+        "intent": "用户正在探索新激活信用卡的应用功能和可用权益。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.55,
+        "key_behaviors": [
+          "show_membership_voucher_198166620",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "该用户于2025-11-15 17:25:00审批通过，并在短短2分钟后（2025-11-15 17:27:00）就开始了其首次应用内行为，且首次支付时间晚于当前行为（2025-11-20）。这表明用户处于生命周期的早期阶段，刚激活信用卡并首次使用App。用户行为序列包含两个页面展示事件（'show_membership_voucher_xxx' 和 'show_new_user_zone_page'），且两者发生时间完全一致，说明是快速的首次浏览。其中，'show_new_user_zone_page'明确指示用户在访问专为新用户设计的引导页面，这与探索意图高度吻合。同时，'show_membership_voucher_xxx'事件显示用户接触到了消费优惠券信息，但仅为展示，没有点击或领取操作，表明用户正在了解可能的权益，而非强烈寻求领取该特定优惠券。由于行为数量少，且均为中权重的'show_xxx'事件，缺乏高权重的点击或转化信号，因此意图的强度为中等偏弱的探索。这与历史意图（用户正在探索刚激活的信用卡应用功能和权益）高度一致，进一步证实了当前用户的主要意图是探索和了解App功能及福利。",
+        "next_action_prediction": "用户可能会继续浏览新用户专区中的其他引导内容、点击某个感兴趣的功能模块（如查看账单、额度详情）或点击展示的优惠券以了解更多信息。",
+        "session_index": 1,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:13:02.549915"
+      },
+      {
+        "intent": "用户正在探索新激活信用卡的应用核心功能，特别是关于支付和交易查询。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "click_home_bottomnav_bayar_btn",
+          "show_mytrx_page",
+          "click_home_bottomnav_transaction_btn"
+        ],
+        "reasoning": "根据用户信息，该用户在信用卡审批通过后（2025-11-15 17:25:00）仅2分钟就开始了首次行为（2025-11-15 17:27:00），且所有4个行为都在同一分钟内完成，这明确指示用户正处于新卡激活后的初期探索阶段。此外，用户的首次支付时间（2025-11-20 12:09:00）晚于当前行为序列，这意味着在当前行为发生时，用户尚未进行任何支付。\n\n用户行为序列显示，他首先执行了高权重的 `click_home_bottomnav_bayar_btn`（点击底部导航的“支付”按钮），接着展示了中权重的 `show_mytrx_page`（显示“我的交易”页面），随后又执行了高权重的 `click_home_bottomnav_transaction_btn`（点击底部导航的“交易”按钮），最后以高权重的 `click_nav_home_btn`（点击导航栏的“首页”按钮）结束。这个序列表明用户对如何进行支付以及查看交易记录有着明确的兴趣。由于用户尚未有实际支付记录，其点击“支付”和查看“交易”的行为更倾向于了解这些功能的入口和操作流程，而非即时进行支付。\n\n此分析与历史意图“用户正在探索新激活信用卡的应用功能和可用权益”高度一致，当前的具体行为进一步细化了其探索的焦点是围绕账户的财务管理（支付与交易）。因此，用户意图被确认为探索，且聚焦于核心的财务管理功能。",
+        "next_action_prediction": "用户可能会继续探索应用的其他功能（如额度管理、优惠券），或者在未来再次访问支付或交易相关页面，为即将到来的首次支付做准备。",
+        "session_index": 2,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:13:20.497284"
+      }
+    ]
+  },
+  "00ed1c74d9fa4e55b238a7ea70cfb615": {
+    "user_uuid": "00ed1c74d9fa4e55b238a7ea70cfb615",
+    "total_sessions": 5,
+    "sessions": [
+      {
+        "intent": "用户对新人开卡礼营销活动有强烈参与意愿，并正在积极探索新用户专属权益。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_new_user_zone_page",
+          "show_fullpopup_3642 (运营_新人_开卡礼)",
+          "click_fullpopup_pribtn_3642 (运营_新人_开卡礼)"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户在2025-11-22 12:30:00完成审批，并于12:32:00首次支付，所有行为均发生在12:30:00，紧随审批和首次支付之前或同时进行。`show_QSPIN_activate_success_pg`事件明确表明用户刚完成卡片激活，处于非常新的用户生命周期阶段，正在进行初次探索和体验。\n2. **行为序列分析**: \n   - 用户首先看到`show_QSPIN_activate_success_pg`（卡片激活成功页），确认其新用户身份。\n   - 接着访问`show_home_page`和`show_new_user_zone_page`，表明其在探索平台功能，并对新用户专属内容有明确兴趣。\n   - `show_homepage_installment_section`显示用户被动浏览到了分期信息，但无进一步互动，意图不强。\n   - 关键行为是随后展示的`show_fullpopup_3642`，其额外信息明确为“运营_新人_开卡礼”，这是一个针对新用户的营销活动弹窗。紧接着，用户执行了高权重的`click_fullpopup_pribtn_3642`，即点击了该新人开卡礼弹窗的主按钮。这显示了用户对该营销活动有非常明确和强烈的参与兴趣。\n3. **意图类型匹配**: `click_fullpopup_pribtn_xxx`被列为高权重信号，明确显示用户对营销活动的兴趣。结合“运营_新人_开卡礼”的上下文，用户意图明确为参与新人营销活动以获取开卡礼。这与`marketing_intent`类型高度吻合，且包含寻求优惠（`voucher_intent`）的元素。\n4. **综合判断**: 用户从卡片激活成功，到主动探索新用户区域，再到对“新人开卡礼”营销弹窗进行高权重点击，形成了一个清晰的用户旅程，旨在获取新用户专属权益或参与营销活动。首次支付发生在这些行为之后，很可能与激活开卡礼的条件相关联。",
+        "next_action_prediction": "用户最可能被引导至新人开卡礼的详情页面或领取页面，以了解具体规则并完成开卡礼的领取步骤（例如完成首笔交易以激活奖励）。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T15:15:08.376375"
+      },
+      {
+        "intent": "用户正尝试进行手机充值支付，并在此过程中积极选择和使用优惠券。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_paymentpage_voucher",
+          "show_pay_checkout_page_recharge_phone",
+          "show_pay_checkout_page_new_recharge_phone",
+          "show_pay_voucher_choose_recharge_phone_1",
+          "click_pay_checkout_submit_btn_new_recharge_phone",
+          "click_pay_checkout_submit_btn_recharge_phone"
+        ],
+        "reasoning": "该用户在获得信用卡审批后仅2分钟内（审批时间：2025-11-22 12:30:00，首次支付时间：2025-11-22 12:32:00）就完成了首次支付，且所有行为均发生在审批后的同一分钟内（2025-11-22 12:30:00），表明其是一个极度活跃且目标明确的新用户。\n\n行为序列分析：\n1.  用户首先访问了支付页面的优惠券区域（`show_paymentpage_voucher`），显示出对优惠的兴趣。\n2.  紧接着，用户进入了手机充值的支付结算页面（`show_pay_checkout_page_recharge_phone` 和 `show_pay_checkout_page_new_recharge_phone`），明确了支付的目标服务。\n3.  随后，用户再次回到优惠券选择环节，且是针对手机充值业务的优惠券选择（`show_pay_voucher_choose_recharge_phone_1`），这强化了其在支付中寻求优惠的意图。\n4.  最终，用户连续点击了两次手机充值支付的提交按钮（`click_pay_checkout_submit_btn_new_recharge_phone` 和 `click_pay_checkout_submit_btn_recharge_phone`），这是高权重信号，明确表示其试图完成支付交易。\n\n综合分析：这些高权重和中权重行为的有序组合，特别是两次支付提交按钮的点击，以及紧随其后的首次支付记录，明确指向用户正在积极进行一笔手机充值支付交易。同时，在支付流程中多次出现优惠券相关行为，表明用户也在积极利用或寻求优惠。这与历史意图（用户对新人开卡礼营销活动有强烈参与意愿，并正在积极探索新用户专属权益）高度一致，此次行为是该历史意图的具体落地和实现。",
+        "next_action_prediction": "鉴于用户已点击支付提交按钮且在短时间内完成了首次支付，下一步用户可能关注交易结果（如订单状态、支付是否成功），查看账户余额或可用额度变化，或者探索其他可使用优惠券或新用户权益的服务。",
+        "session_index": 1,
+        "session_size": 6,
+        "timestamp": "2025-12-12T15:15:29.702074"
+      },
+      {
+        "intent": "用户作为新户正在探索平台功能，尤其关注新用户福利和分期服务，为即将到来的首次支付做准备。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.65,
+        "key_behaviors": [
+          "show_homepage_installment_section",
+          "show_new_user_zone_page",
+          "show_home_page"
+        ],
+        "reasoning": "根据用户信息，该用户在审批（2025-11-22 12:30:00）后仅一分钟（2025-11-22 12:31:00）即发生了行为序列，并在短时间内（2025-11-22 12:32:00）完成了首次支付。这表明用户正处于信用卡激活后的极早期生命周期阶段，即新户引导与功能探索期。其行为序列包括查看首页分期模块（show_homepage_installment_section）、新用户专区页面（show_new_user_zone_page）以及主页（show_home_page）。\n\n- `show_new_user_zone_page` (中权重) 强烈表明用户正在探索新用户专享内容和权益，这是新户探索的典型行为。\n- `show_homepage_installment_section` (中权重) 表明用户对分期付款服务有特定兴趣，可能正在评估其可用性和优势。\n- `show_home_page` (低权重) 属于一般性浏览。\n\n这些行为均属中等权重信号，显示了用户积极的探索意愿，并且有明确的焦点（新户福利和分期）。鉴于这些行为发生在首次支付前一分钟，可以推断用户正在通过探索功能来辅助其首次支付的决策。与历史意图（2025-12-12T15:15:29.702074，关于手机充值支付和优惠券使用）相比，当前的意图发生在其之前，代表了用户从初期探索到后期明确交易意图的演变过程。\n\n综合来看，用户当前的核心意图是探索平台功能，特别是与新用户和分期相关的服务，以了解其权益和潜在的使用方式，为即将到来的首次支付做准备。",
+        "next_action_prediction": "用户最有可能进行其首次支付（结合首次支付时间），在此之前可能会进一步点击查看分期产品的详细信息或新用户专区内的具体优惠以辅助决策。",
+        "session_index": 2,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:15:53.304695"
+      },
+      {
+        "intent": "用户正在作为新户探索交易记录，尤其关注其首次支付的记录或状态。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_mytrx_page",
+          "click_home_bottomnav_transaction_btn"
+        ],
+        "reasoning": "根据用户信息，用户ID '00ed1c74d9fa4e55b238a7ea70cfb615' 于 2025-11-22 12:30:00 获得审批，并于 2025-11-22 12:32:00 完成首次支付。在此期间，用户在 2025-11-22 12:31:00 执行了两个行为：'show_mytrx_page'（展示我的交易页面）和 'click_home_bottomnav_transaction_btn'（点击首页底部导航的交易按钮）。\n\n1.  **生命周期阶段**: 用户刚获得审批，并且即将或已经完成首次支付。这表明用户处于非常早期的生命周期，且正处于关键的首次交易验证阶段。\n2.  **行为序列分析**: 两个行为发生在同一秒，表明用户快速且专注于交易相关功能。'show_mytrx_page'（中权重）表明用户正在浏览交易页面，而紧随其后的 'click_home_bottomnav_transaction_btn'（高权重）则是一个明确的主动点击，显示用户对交易功能的强烈兴趣和确认。\n3.  **上下文关联**: 这些行为紧密发生在首次支付前后。用户很可能正在查看或等待确认其首次支付的交易记录，或在新获得信用卡后探索如何查看交易。\n4.  **历史意图对比**: 历史意图分析指出用户作为新户正在探索平台功能，并“为即将到来的首次支付做准备”。当前行为完美地印证了“为即将到来的首次支付做准备”这一意图，具体表现为对交易记录的关注。尽管历史意图还提到了新用户福利和分期服务，但当前行为更聚焦于交易本身。\n\n综合来看，用户意图明确指向对交易记录的探索和验证，尤其是在首次支付发生这一重要时刻，用户希望确认其交易情况。",
+        "next_action_prediction": "用户下一步可能的操作是刷新交易页面以查看最新记录，点击进入某个具体的交易详情（尤其是首次支付的交易），或如果找不到相关记录，可能会尝试联系客服查询。",
+        "session_index": 3,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:16:13.940902"
+      },
+      {
+        "intent": "用户意图是进行手机充值支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_home_bottomnav_bayar_btn",
+          "show_rechargephone_page"
+        ],
+        "reasoning": "根据用户信息，该用户是一个非常新的用户，审批时间为2025-11-22 12:30:00，而首次支付时间为2025-11-22 12:32:00。本行为序列发生在首次支付之前（2025-11-22 12:31:00），表明用户正在首次尝试进行交易。\n\n行为序列分析：\n1.  用户首先点击了首页底部导航的“支付/Bayar”按钮（`click_home_bottomnav_bayar_btn`）。这是一个高权重的点击操作信号，明确表达了用户主动发起支付或交易的强烈意图。\n2.  紧接着，用户在相同的时间点（2025-11-22 12:31:00）进入了“手机充值”页面（`show_rechargephone_page`）。这个页面展示行为虽然是中等权重，但它紧随支付按钮点击之后，明确了用户想要进行的具体支付类型是手机充值。\n\n综合分析，从通用支付入口（“Bayar”按钮）到特定支付功能页面（“手机充值”页面）的清晰行为路径，以及用户所处的生命周期阶段（新用户首次尝试交易），都非常明确地指向用户当前意图是进行手机充值支付。与历史意图“探索交易记录”相比，当前的行为序列更直接地表明了“发起支付”而非“查询记录”的意图，并且明确了支付类型。历史意图可能是基于后续行为的推测，或不适用于当前这个精确的、发生在首次支付前的行为序列。",
+        "next_action_prediction": "用户接下来可能会在手机充值页面输入手机号码、选择充值金额，并点击确认按钮进入支付流程完成手机充值交易。",
+        "session_index": 4,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:16:25.817727"
+      }
+    ]
+  },
+  "00f3623cf4e24bf7a214f6f897d06b4c": {
+    "user_uuid": "00f3623cf4e24bf7a214f6f897d06b4c",
+    "total_sessions": 6,
+    "sessions": [
+      {
+        "intent": "用户刚刚激活信用卡，正在积极探索账户功能，特别是对QR码相关设置和新用户专区表现出明确兴趣，可能在为首次使用或账户绑定做准备。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "click_qr_upload_btn",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，用户ID '00f3623cf4e24bf7a214f6f897d06b4c' 的审批时间 (2025-11-18 18:33:00) 与首次行为时间相同，且 '首次支付时间' 为 'NaT'。这明确表明用户是一位刚刚被批准且尚未进行首次支付的新用户，处于账户激活和初始探索的生命周期阶段。\n\n行为序列显示：\n1.  **2025-11-18 18:33:00, 事件: show_QSPIN_activate_success_pg** (中权重): 这是用户行为序列中的第一个事件，紧随审批时间，表明用户成功完成了信用卡激活过程，进入了账户活跃状态。\n2.  **2025-11-18 18:35:00, 事件: click_qr_upload_btn** (高权重): 用户主动点击了“QR上传按钮”。这是一个高权重信号，显示用户对QR码相关功能有明确且强烈的兴趣。在信用卡新用户场景中，这通常与设置支付方式、绑定银行账户（例如通过扫描/上传QR码）、或完成某种身份验证/激活步骤以启用特定功能有关。\n3.  **2025-11-18 18:35:00, 事件: show_qr_upload_btn** (中权重): 紧随点击动作，显示了QR上传功能相关的页面或组件，进一步确认了用户正在与此功能交互的上下文。\n4.  **2025-11-18 18:35:00, 事件: show_new_user_zone_page** (中权重): 用户随后访问了“新用户专区页面”。这进一步证实了用户处于新卡激活后的探索阶段，正在了解和利用为新用户提供的功能或权益。\n\n综合分析，用户意图并非直接进行支付交易（缺乏show_pay_checkout_xxx等明确支付信号），而是围绕着新卡的激活后设置和功能探索。其中，对QR码相关功能的点击（高权重信号）表明了其活跃的参与度和特定兴趣点，可能是为了为信用卡未来的使用做准备，例如绑定支付账户或完成使用前的必要设置。因此，这属于“探索/浏览意图”范畴，但具有更强的目标性，即为信用卡未来的实际使用（包括支付）进行功能准备和账户设置。",
+        "next_action_prediction": "用户很可能将继续完成QR码相关的设置（例如，上传二维码图片、扫描二维码或绑定账户），或深入探索新用户专区内的其他功能和优惠，为后续的首次交易或充分利用信用卡功能做准备。",
+        "session_index": 0,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:21:32.436384"
+      },
+      {
+        "intent": "用户正在积极了解并计划使用新用户开卡礼相关的优惠券。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.78,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_fullpopup_3244, 额外信息: 运营_新人_开卡礼",
+          "show_home_middlepopup_3244, 额外信息: 运营_新人_开卡礼",
+          "show_home_voucher_199067441, 额外信息: 【消费】Basic_ALL_disc99%_15K_不领_7天_开卡礼",
+          "show_membership_voucher_199067441, 额外信息: 【消费】Basic_ALL_disc99%_15K_不领_7天_开卡礼"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户于2025-11-18获得批准，且`首次支付时间`为`NaT`，这明确表明该用户是一名刚刚激活信用卡的新用户，尚未进行首次交易，正处于账户探索和首次使用的初期阶段。\n2. **行为序列分析**: 用户在极短时间（1分钟内）内进行了7次行为，所有行为均为`show_xxx`事件，表明用户正在积极浏览和了解信息，尚未进行高权重转化行为（如点击或支付）。\n3. **核心意图信号**: \n   - 用户首先浏览了主页和新用户专区（`show_home_page`, `show_new_user_zone_page`），这与新用户身份吻合，显示出探索新用户权益的意图。\n   - 紧接着，用户连续查看了两个与“新人_开卡礼”相关的运营弹窗（`show_fullpopup_3244`, `show_home_middlepopup_3244`），明确显示了对营销活动的关注，特别是针对新用户的开卡奖励。\n   - 最关键的行为是用户先后两次查看了同一个“新人_开卡礼”优惠券，分别在主页（`show_home_voucher_199067441`）和会员/优惠券页面（`show_membership_voucher_199067441`）。这种重复查看同一优惠券的行为（属于中权重参与度信号）强烈暗示用户对该特定优惠券的细节、使用方式或领取条件有深入了解的兴趣。\n   - `show_mobilefee_page`可能是在探索该优惠券的潜在使用场景或只是快速浏览功能。\n4. **历史意图对比**: 历史意图分析正确指出用户“刚刚激活信用卡”且“对新用户专区表现出明确兴趣”。当前行为序列进一步细化了这一兴趣点，从泛泛的“探索账户功能”转向了具体的“新人开卡礼和优惠券”的了解和使用。之前的分析提到对“QR码相关设置”的兴趣，但当前序列中未出现相关行为，表明用户兴趣点已发生演变或聚焦。\n5. **意图总结**: 综合来看，用户在作为新用户的初期，对信用卡提供的开卡礼和优惠券表现出高度关注，正处于积极了解和评估这些优惠的阶段，为后续的首次使用做准备。",
+        "next_action_prediction": "用户下一步很可能会点击领取该“新人_开卡礼”优惠券（`click_myvoucher_xxx`），或者探索该优惠券的详细使用条件和适用范围，并可能尝试进行首次消费以兑现该优惠。",
+        "session_index": 1,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:21:53.366602"
+      },
+      {
+        "intent": "用户希望利用新人开卡礼优惠券，通过二维码支付方式完成其首笔支付交易。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_home_floaticon_3259, 额外信息: 运营_新人_开卡礼",
+          "show_pay_voucher_choose_qr_2",
+          "click_pay_checkout_submit_btn_qr",
+          "show_paymentpage_voucher"
+        ],
+        "reasoning": "该用户是新用户（审批时间：2025-11-18），且尚未完成首笔支付（首次支付时间：NaT），表明其处于重要的生命周期早期阶段。用户行为序列在短时间内（2025-11-18 19:21:00 - 19:22:00）高度集中且具备明确的意图指向：\n\n1.  用户首先点击了 `click_qr_upload_btn`，显示出对二维码相关操作的兴趣。\n2.  紧接着，用户看到了 `show_home_floaticon_3259`，其额外信息明确指出是“运营_新人_开卡礼”，这强烈表明用户正关注新用户福利。\n3.  随后，用户进入 `show_pay_voucher_choose_qr_2` 页面，这是二维码支付优惠券选择页面，直接关联了支付和优惠券意图。\n4.  最关键的信号是 `click_pay_checkout_submit_btn_qr`，这是一个高权重的支付提交按钮点击行为，直接表明用户正在尝试进行二维码支付。\n5.  在尝试支付后，用户又展示了 `show_paymentpage_voucher` 和重复的 `show_pay_voucher_choose_qr_2`，这表明用户在支付过程中对优惠券的选择和使用非常关注，甚至可能在提交支付后因某些原因（如未成功应用优惠券或希望更换优惠券）而返回再次查看优惠券选项。\n\n综合来看，用户从关注新人礼，到进入优惠券选择，再到尝试提交支付，并且重复关注优惠券，这一连串动作清晰地指向其核心意图是利用新人礼优惠券完成一笔支付。此意图与历史意图“用户正在积极了解并计划使用新用户开卡礼相关的优惠券”高度一致，且通过 `click_pay_checkout_submit_btn_qr` 行为，将意图从“了解并计划”推进到了“实际尝试支付”，进一步强化了意图的明确性。",
+        "next_action_prediction": "用户很可能重新选择或调整优惠券，然后再次尝试完成二维码支付流程。",
+        "session_index": 2,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:22:14.576744"
+      },
+      {
+        "intent": "用户希望利用新人开卡礼优惠券，通过二维码支付方式完成其首笔支付交易。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.98,
+        "key_behaviors": [
+          "show_membership_voucher_199067442 (包含开卡礼信息)",
+          "click_qr_upload_btn"
+        ],
+        "reasoning": "该用户处于新卡审批通过但尚未首次支付的生命周期阶段，其首次行为在审批后不到一小时内发生。用户首先被展示了明确为“开卡礼”性质的会员优惠券信息（show_membership_voucher_199067442，额外信息显示'开卡礼'），这强烈引导其进行首次消费。紧接着，用户主动点击了高权重的'二维码上传按钮'（click_qr_upload_btn），这是一个明确发起支付的行为。此行为序列（查看优惠 -> 选择支付方式）清晰地表明了用户希望使用开卡礼优惠，通过二维码支付方式完成其首笔交易的意图。此外，当前行为与历史意图分析结果（0.95分）完全一致，进一步印证了此意图的明确性和持续性。",
+        "next_action_prediction": "用户可能会上传二维码图片、进入支付确认页面、选择使用开卡礼优惠券或直接完成支付交易。",
+        "session_index": 3,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:22:31.514667"
+      },
+      {
+        "intent": "用户遭遇账户风险锁定，当前意图是理解此锁定原因并寻求解决方案，以便能够正常使用信用卡进行账单管理或支付。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_home_warning_lockbyrisk",
+          "show_baisc_homepage_paylaterbill (repeated)",
+          "show_basic_homepage_danainstanbill"
+        ],
+        "reasoning": "用户是新批卡用户，尚未完成首次支付。其行为序列始于对PayLater账单的关注，但核心行为是遭遇了高权重的'show_home_warning_lockbyrisk'警告，明确指出账户存在风险。紧接着，用户查看了分期账单并重复访问PayLater账单，这并非简单浏览，而是在风险锁定的背景下，可能尝试理解其影响或寻找解决途径。与历史意图（首笔支付）相比，本次行为揭示了阻碍用户达成后续目标的即时问题，因此，当前意图已从功能探索或支付准备，转变为解决账户的根本性障碍。",
+        "next_action_prediction": "鉴于账户被锁定且无法进行正常操作，用户下一步最可能尝试联系客服寻求帮助、查找相关帮助中心或FAQ以了解风险锁定详情和解锁步骤，或尝试访问账户设置页面查看账户状态或解除锁定入口。",
+        "session_index": 4,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:23:02.044504"
+      },
+      {
+        "intent": "用户正在探索其新信用卡的开卡礼遇和优惠券，以了解新卡权益。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.7,
+        "key_behaviors": [
+          "show_home_voucher_199067441 (额外信息: 【消费】Basic_ALL_disc99%_15K_不领_7天_开卡礼)",
+          "show_home_voucher_199067442 (额外信息: 【消费】Basic_ALL_disc99%_10K_次日生效_不领_7天_开卡礼)"
+        ],
+        "reasoning": "该用户于2025-11-18获得信用卡审批，且尚未进行首次支付，表明其处于新卡激活和初步探索阶段。其仅有的两次行为都发生在审批后约1小时的同一时刻，均为`show_home_voucher_xxx`事件，额外信息明确指示为“开卡礼”相关的消费优惠券。尽管行为类型是中等权重的页面展示，但其内容的高度特异性和发生时间点（新卡审批后立即）强烈指向用户对新卡的欢迎礼遇和优惠券的探索兴趣。这与`优惠券/会员意图`类型高度吻合。历史意图分析的时间（2025-12-12）晚于当前行为发生时间（2025-11-18），因此当前行为是用户在新卡使用早期阶段的探索行为，并非后期遭遇账户风险锁定的意图。",
+        "next_action_prediction": "用户可能会点击其中一张优惠券以查看详情、领取该优惠，或者进一步探索其他新卡激活相关的权益或首次交易指引，以准备进行首次消费。",
+        "session_index": 5,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:23:23.128646"
+      }
+    ]
+  },
+  "00f39eee98f5478b923dc39cf8edf260": {
+    "user_uuid": "00f39eee98f5478b923dc39cf8edf260",
+    "total_sessions": 10,
+    "sessions": [
+      {
+        "intent": "用户正在探索新激活信用卡的各项功能和权益，特别关注欢迎礼券和支付/分期选项，为首次支付做准备。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_home_page",
+          "show_homepage_MAPpoints_bindingbtn",
+          "show_basic_homepage_danainstanbill",
+          "show_home_voucher_200600319",
+          "show_baisc_homepage_paylaterbill",
+          "show_home_voucher_200600320"
+        ],
+        "reasoning": "用户生命周期分析显示，该用户在2025-11-23 19:35:00通过审批并首次发生行为，并在随后的20:41:00进行了首次支付。这意味着用户处于新卡激活后的初期探索阶段，并且有一个明确的支付意图即将发生。\n\n行为序列分析表明，用户在激活成功后（`show_QSPIN_activate_success_pg`）立即进入首页（`show_home_page`）。随后，用户浏览了一系列首页模块，包括：\n1.  `show_homepage_MAPpoints_bindingbtn`：表明用户可能对积分或会员权益感兴趣。\n2.  `show_basic_homepage_danainstanbill` 和 `show_baisc_homepage_paylaterbill`：这些是与即时账单或稍后支付相关的模块，显示用户对支付或分期功能有探索意向。\n3.  最重要的是，用户连续两次看到“开卡礼”性质的欢迎礼券（`show_home_voucher_200600319` 和 `show_home_voucher_200600320`），这些礼券提供了99%的折扣，是明显的营销活动和优惠信息。\n\n尽管所有行为都是低权重的`show_xxx`事件，没有高权重的点击，但这些行为发生在用户激活后的第一时间，并且在浏览完这些优惠和支付选项后，用户迅速完成了首次支付。这表明用户在进行有目的的探索，主要目的是了解新卡的各项功能、寻找可用的优惠（尤其是欢迎礼券），以帮助其进行首次交易或规划未来的使用。因此，虽然表面是浏览，但其背后隐藏着强烈的利用优惠和进行支付的意图。",
+        "next_action_prediction": "用户很可能会点击并查看或领取其中一张欢迎礼券，或者直接尝试使用新卡进行首次支付，并在支付过程中寻找或应用优惠。",
+        "session_index": 0,
+        "session_size": 9,
+        "timestamp": "2025-12-12T15:30:22.182319"
+      },
+      {
+        "intent": "用户作为新批准的持卡人，正在积极探索新卡的各项欢迎福利和核心功能，特别是优惠券/营销活动、额度管理以及支付/分期选项，为即将进行的首次交易做准备。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_home_voucher_200600446 (【消费】_QRIS交易_YUPBUKBER_100%最高135K_BASIC_發放後7天)",
+          "show_specialbanner_3254 (运营_新人_开卡礼)",
+          "show_new_user_zone_page",
+          "show_homepage_tempolimit_increase_tooltips",
+          "show_basic_homepage_danainstanbill",
+          "show_baisc_homepage_paylaterbill"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户在2025-11-23 19:35:00获得批准，随即在19:42:00开始了一系列行为，并在20:41:00完成了首次支付。这表明用户正处于信用卡激活后的初期探索阶段，即首次支付前的关键准备期。\n2. **行为模式分析**: 所有18个行为事件都发生在同一时间点 (19:42:00)，且均为`show_xxx`类型，这表明用户在极短时间内快速浏览了首页及相关功能。虽然没有`click_xxx`等高权重操作，但行为数量多、页面种类丰富，且多次重复显示特定内容，表明用户处于高度活跃的探索状态。\n3. **关键行为信号**: \n    *   **高频率显示优惠券/营销活动**: 用户多次浏览`show_home_voucher_xxx` (如包含'开卡礼', 'QRIS交易'等信息的优惠券) 和 `show_specialbanner_xxx` (如'运营_新人_开卡礼'), `show_home_floaticon_3259` ('新人_开卡礼')。这些信号明确指向用户对新用户欢迎礼、消费优惠的高度兴趣。\n    *   **探索新用户专区**: `show_new_user_zone_page`事件的出现和重复，直接表明用户正在主动了解专为新用户设计的内容和权益。\n    *   **关注额度信息**: `show_homepage_tempolimit_increase_tooltips`显示用户对临时额度提升工具提示的关注，体现了对额度管理的兴趣。\n    *   **查看支付/分期选项**: `show_basic_homepage_danainstanbill` 和 `show_baisc_homepage_paylaterbill` 表明用户正在了解可用的支付和分期付款（如先买后付）选项，这与“为首次支付做准备”的意图相符。\n    *   **关注积分/会员**: `show_homepage_MAPpoints_bindingbtn` 显示用户对会员积分绑定功能的兴趣。\n4. **历史意图对比**: 历史意图分析指出用户“正在探索新激活信用卡的各项功能和权益，特别关注欢迎礼券和支付/分期选项，为首次支付做准备。” 当前行为序列完美地印证并强化了这一历史意图。所有的`show_xxx`事件都聚焦于欢迎福利、使用指导和支付选项，与“为首次支付做准备”的结论高度一致，并且用户在这些行为发生后确实进行了首次支付，进一步证实了这一意图。\n5. **意图置信度**: 尽管缺乏明确的点击或支付转化行为（在该行为序列内），但用户所处的生命周期阶段（新批准、首次支付前）、高密度的相关页面浏览（特别是针对开卡礼和支付选项）、以及与历史意图的完美契合，使得此意图的置信度非常高。",
+        "next_action_prediction": "用户在完成此系列探索后，最有可能的下一步行动是利用其了解到的欢迎福利（如优惠券）进行首次支付交易，并根据其需求选择合适的支付方式（如分期或先买后付）。",
+        "session_index": 1,
+        "session_size": 18,
+        "timestamp": "2025-12-12T15:30:48.502860"
+      },
+      {
+        "intent": "用户正在积极探索并确认新用户消费优惠券详情，特别是针对QRIS交易的返利券，为即将进行的首次交易做准备。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_new_user_zone_voucher_detail_200600446",
+          "show_new_user_zone_page",
+          "show_specialbanner_subbanner_406"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户ID '00f39eee98f5478b923dc39cf8edf260' 刚刚在2025-11-23 19:35:00获得审批，其所有行为（2025-11-23 19:42:00至19:43:00）均发生在首次支付（2025-11-23 20:41:00）之前。这表明用户正处于新卡激活后的探索期，非常关注新用户福利以准备首次交易。\n2. **高权重行为分析**: 用户在短时间内（一分钟内）两次点击了高权重信号 `click_new_user_zone_voucher_detail_200600446`。该事件的额外信息明确指出是针对“【消费】_QRIS交易_YUPBUKBER_100%最高135K_BASIC_發放後7天”的优惠券。这直接且明确地揭示了用户对特定消费优惠（特别是QRIS交易返利）的强烈兴趣和确认意图。\n3. **行为序列和重复访问**: 行为序列显示用户先点击优惠券，然后浏览新用户专区页面（`show_new_user_zone_page`），随后又再次点击同一优惠券并再次浏览新用户专区页面。这种重复访问模式（`click -> show -> click -> show`）表明用户在仔细研究、确认或比较该优惠券的详细内容和使用条件，而不是简单的浏览。\n4. **上下文行为**: `show_new_user_zone_page` 和 `show_specialbanner_subbanner_406` 这些中权重信号提供了用户行为的上下文，表明用户正活跃在新用户专区，探索欢迎福利和促销活动，进一步支持了用户寻求优惠的意图。\n5. **与历史意图一致性**: 之前的意图分析结果明确指出用户在探索“新卡的各项欢迎福利和核心功能，特别是优惠券/营销活动”。当前的行为序列完美地印证并具体化了这一历史意图，表明用户当前最集中的兴趣点就是消费优惠券。",
+        "next_action_prediction": "1. 用户可能会尝试使用已查看的QRIS交易优惠券进行首次支付交易。\n2. 用户可能会点击进入该优惠券的详细规则页面，以了解更多使用限制或步骤。\n3. 用户可能会导航至支付页面，准备发起一笔QRIS交易。\n4. 用户可能会继续在新用户专区探索其他可用的优惠或功能。",
+        "session_index": 2,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:31:07.224049"
+      },
+      {
+        "intent": "用户正在积极准备通过QRIS（扫描或上传二维码）进行首次支付交易。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_qr_upload_btn",
+          "show_qris_camera_pg"
+        ],
+        "reasoning": "根据用户信息，用户在审批后不久（2025-11-23 19:35:00审批，行为发生在19:43:00）就进行了操作。值得注意的是，其首次支付时间（2025-11-23 20:41:00）晚于当前行为序列，这明确指示当前行为是用户首次支付前的准备阶段。用户行为序列显示，用户首先展示了'show_qr_upload_btn'（低权重导航），随后立即展示了'show_qris_camera_pg'（中权重支付相关页面），这两个事件都是直接与QRIS支付流程相关的，特别是'show_qris_camera_pg'，这是一个功能性页面展示，明确指向用户正准备通过扫描二维码进行支付。这些行为与之前历史意图分析中'为即将进行的首次交易做准备'和'特别是针对QRIS交易'的判断高度一致，并作为该意图的直接执行和确认。高权重信号虽然不是click_xxx，但show_qris_camera_pg作为支付流程的关键页面，其重要性等同于支付意图的明确信号。因此，用户当前的意图是明确的支付意图，并且是为首次交易做准备。",
+        "next_action_prediction": "用户将使用QRIS摄像头扫描商户二维码或上传二维码图片以完成首次支付流程。",
+        "session_index": 3,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:31:20.754997"
+      },
+      {
+        "intent": "用户正在利用开卡礼和优惠券，积极准备并已执行其首次信用卡支付，特别是关注QRIS交易。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_home_voucher_200600319 (开卡礼优惠券)",
+          "show_home_floaticon_3259 (新人开卡礼浮动图标)",
+          "show_specialbanner_3254 (新人开卡礼横幅)",
+          "show_home_voucher_200600446 (QRIS交易专用优惠券)",
+          "show_baisc_homepage_paylaterbill (显示先享后付账单页面)"
+        ],
+        "reasoning": "该用户是一个新卡用户，审批时间为2025-11-23 19:35:00。用户行为序列发生在审批之后（19:43:00 - 20:00:00），且关键信息显示用户已于2025-11-23 20:41:00完成首次支付。这表明该行为序列是用户为首次支付进行准备的阶段。\n\n分析行为序列：\n1.  **高频次出现“开卡礼”相关展示事件**：如`show_home_voucher_200600319`、`show_home_floaticon_3259`、`show_specialbanner_3254`等，这些事件的额外信息都明确提及“开卡礼”或“新人”，表明用户正积极关注新用户福利，为首次使用做准备。\n2.  **明确的QRIS交易优惠券**：事件`show_home_voucher_200600446`的额外信息明确指出是“【消费】_QRIS交易_YUPBUKBER_100%最高135K_BASIC_發放後7天”，这是一个高度具体的信号，表明用户正在寻找或考虑使用QRIS方式进行交易，并希望利用高额优惠券。\n3.  **显示先享后付账单**：`show_baisc_homepage_paylaterbill`事件表明用户对信用卡的核心功能（先享后付）有了解或关注，进一步支持支付意图。\n4.  **历史意图验证**：之前的意图分析结果“用户正在积极准备通过QRIS（扫描或上传二维码）进行首次支付交易”与当前行为序列高度吻合，且根据用户信息的`首次支付时间`，该支付行为在行为序列结束不久后实际发生，这极大地验证了之前的意图分析，并确认了用户已经成功完成支付。\n\n综合来看，用户在短时间内密集浏览开卡礼和特定支付方式（QRIS）的优惠券，且后续已完成首次支付，这些证据共同表明用户的主要意图是利用现有优惠进行首次信用卡支付。",
+        "next_action_prediction": "用户已完成首次支付，可能会查看交易详情以确认优惠券是否成功使用，或者探索更多可用的优惠和信用卡功能以进行后续消费。",
+        "session_index": 4,
+        "session_size": 13,
+        "timestamp": "2025-12-12T15:31:40.424458"
+      },
+      {
+        "intent": "用户正在积极准备其首次信用卡支付，同时强烈关注新卡开卡礼和消费优惠券，并探索可用的即时支付方式。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_home_voucher_200600320 (开卡礼优惠券)",
+          "show_home_voucher_200600319 (开卡礼优惠券)",
+          "show_home_floaticon_3259 (新人开卡礼浮窗)",
+          "show_basic_homepage_danainstanbill (即时支付功能展示)"
+        ],
+        "reasoning": "根据用户信息，用户ID '00f39eee98f5478b923dc39cf8edf260' 刚于2025-11-23 19:35:00审批通过，且其首次支付时间紧随其后（2025-11-23 20:41:00）。所有行为事件均发生在首次支付之前（2025-11-23 20:24:00），这表明用户正处于新卡激活并准备首次交易的关键阶段。尽管所有行为均为'show_xxx'类型（中低权重），但其内容和发生时机赋予了高优先级。\n\n具体行为分析：\n1.  `show_home_voucher_200600320` 和 `show_home_voucher_200600319` (额外信息明确指出'开卡礼'和'消费优惠券')，以及 `show_home_floaticon_3259` (额外信息'运营_新人_开卡礼')：这些高相关性信号表明用户对新用户福利、开卡礼和消费优惠券有明确兴趣，意图通过优惠来促成消费。\n2.  `show_home_todo_card_login_email_verify`：这是一个新用户引导任务，属于探索/浏览意图的一部分，也为后续交易做准备。\n3.  `show_basic_homepage_danainstanbill`：这是一个非常关键的信号，'danainstanbill'通常指即时支付或账单支付功能（例如QRIS），表明用户正在关注具体的支付方式。考虑到该事件发生在首次支付前的几分钟，这强烈暗示了用户的支付意图。\n\n综合来看，用户在首次支付前密集浏览了开卡礼、优惠券和即时支付入口。这些行为不是随机的浏览，而是有明确目的的准备行为。用户的核心意图是进行首次支付，并在此过程中最大化利用新卡带来的优惠。\n\n历史意图分析显示用户之前曾被识别为'正在利用开卡礼和优惠券，积极准备并已执行其首次信用卡支付，特别是关注QRIS交易。' 当前行为序列完全印证了历史意图中的'积极准备'阶段，即用户正在探索并利用开卡礼、优惠券，并关注类似QRIS的即时支付方式，从而促成即将到来的首次支付。虽然本次分析的输入行为发生在实际支付之前，但它为之前的支付奠定了基础，并提供了确凿的准备阶段证据。",
+        "next_action_prediction": "用户很可能会立即尝试进行一笔支付交易，并在此过程中尝试使用其新卡获得的开卡礼或消费优惠券，尤其关注与'danainstanbill'相关的即时支付渠道。",
+        "session_index": 5,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:32:02.425691"
+      },
+      {
+        "intent": "用户正在积极准备其首次信用卡支付，并强烈关注通过利用新用户开卡礼和QRIS交易优惠券来完成支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_new_user_zone_voucher_use_200600446",
+          "show_qris_camera_pg",
+          "show_home_voucher_200600446"
+        ],
+        "reasoning": "该用户是新卡用户，审批时间、首次行为时间（20:40:00）与首次支付时间（20:41:00）高度接近，表明用户正处于激活并准备进行首次支付的关键生命周期阶段。用户行为序列显示：\n1.  用户首先主动点击了新用户专区的优惠券（`click_new_user_zone_voucher_use_200600446`），这是一个高权重信号，明确表达了对新用户优惠的兴趣。\n2.  紧接着，用户访问了QRIS扫码支付页面（`show_qris_camera_pg`），这是一个直接指向支付意图的中高权重信号，表明用户正在探索或准备使用某种即时支付方式。\n3.  用户随后查看了营销横幅（`show_specialbanner_subbanner_406`），这可能是一个相关提示或短暂浏览。\n4.  最后，用户查看了两个首页优惠券的详细信息（`show_home_voucher_200600320`和`show_home_voucher_200600446`）。值得注意的是，优惠券ID `200600446` 正是用户在序列开始时点击的优惠券，其额外信息明确指出是针对'QRIS交易'的'100%最高135K'优惠，这完美地将优惠券兴趣与QRIS支付意图连接起来，形成一个完整的意图链条。\n\n这些行为序列清晰地构成了一个从寻找优惠到准备使用特定支付方式进行支付的路径，与历史意图（“积极准备其首次信用卡支付，同时强烈关注新卡开卡礼和消费优惠券，并探索可用的即时支付方式”）高度一致且得到了进一步的加强和确认。行为发生在首次支付前一分钟，意图明确且即将转化为实际行动。",
+        "next_action_prediction": "完成一笔QRIS交易支付，并成功使用其锁定的新用户消费优惠券。",
+        "session_index": 6,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:32:25.584164"
+      },
+      {
+        "intent": "用户正在积极寻求并利用新用户开卡礼或优惠券以最大化其首次信用卡支付的价值。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_specialbanner_subbanner_407",
+          "show_home_voucher_200600319 (额外信息: 【消费】Basic_ALL_disc99%_15K_不领_7天_开卡礼)",
+          "show_specialbanner_3254 (额外信息: 运营_新人_开卡礼)"
+        ],
+        "reasoning": "该用户是一名新批卡用户（审批时间2025-11-23 19:35:00），其所有行为序列（发生在2025-11-23 20:40:00）都紧密发生在其首次支付（2025-11-23 20:41:00）前一分钟，这表明用户正处于信用卡首次使用的关键生命周期阶段，并积极为首次交易做准备。\n\n行为序列显示：用户首先浏览了一个特殊横幅(show_specialbanner_subbanner_407)，紧接着查看了一个明确提及'开卡礼'和'消费'相关信息的优惠券页面(show_home_voucher_200600319)，随后又查看了一个针对'新人'的'开卡礼'营销横幅(show_specialbanner_3254)。尽管这些都是中权重的页面展示行为，但其内容高度聚焦于'新用户'、'开卡礼'和'优惠券'，且发生时间恰好在首次支付前，表明用户正在主动探索并试图利用新用户专属优惠来完成或优化其首笔交易。\n\n历史意图分析指出用户正在积极准备首次信用卡支付，并强烈关注通过利用新用户开卡礼和优惠券来完成支付。当前的行为数据完全验证了这一历史意图，并且用户在行为发生后一分钟内完成了首次支付，进一步证实了其在查看这些优惠时的强烈支付意图和优惠利用意图。因此，用户意图非常明确，即利用优惠券或营销活动进行首次支付。",
+        "next_action_prediction": "在完成首次支付后，用户可能会查看交易详情以确认优惠是否已成功应用，或进一步探索其他可用优惠和信用卡功能。",
+        "session_index": 7,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:32:45.348545"
+      },
+      {
+        "intent": "用户在完成首次信用卡支付时，明确表达了寻求并利用优惠券以最大化交易价值的意图，并已成功提交支付。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.98,
+        "key_behaviors": [
+          "show_paymentpage_voucher",
+          "click_pay_checkout_submit_btn_qr"
+        ],
+        "reasoning": "根据用户信息，该用户在审批后（2025-11-23 19:35:00）立即在首次行为和首次支付（2025-11-23 20:41:00）中完成了交易，显示出非常高的支付紧迫性和意愿。用户行为序列清晰地展示了其思考过程：\n1.  **show_paymentpage_voucher** (中权重信号): 用户在支付页面查看优惠券信息。这直接关联到'优惠券/会员意图'，表明用户在支付前有寻求优惠的明确兴趣。\n2.  **click_pay_checkout_submit_btn_qr** (高权重信号): 用户点击了支付结算提交按钮，这是'支付意图'的最高强度信号，代表着实际的交易转化。\n\n这两个行为发生在同一时间戳，表明它们是紧密相连的支付流程中的连续步骤，即用户在提交支付前先查看或处理了优惠券。这种序列揭示了用户不仅要支付，而且要优化其支付。历史意图分析 ('用户正在积极寻求并利用新用户开卡礼或优惠券以最大化其首次信用卡支付的价值') 与当前行为模式完美契合，进一步强化了这一意图的判断。考虑到这是用户的首次支付，寻求优惠券的行为尤为突出，因此将其主意图归类为'优惠券/会员意图'，但其最终目标是完成'支付意图'。这种组合行为表现出用户对交易价值的高度关注和转化意愿，意图非常明确。",
+        "next_action_prediction": "用户可能会查看交易详情以确认支付是否成功，并核实优惠券是否已成功应用到本次支付中。随后，用户也可能关注其信用额度变化或探索其他新用户权益。",
+        "session_index": 8,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:33:06.211692"
+      },
+      {
+        "intent": "用户在进行首次信用卡支付时，积极寻求并比较可用优惠券，以最大化交易价值的意图。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_membership_voucher_200600446",
+          "show_membership_voucher_200600319",
+          "show_home_voucher_200600320",
+          "show_membership_voucher_200600320",
+          "show_home_voucher_200600446",
+          "show_home_voucher_200600319"
+        ],
+        "reasoning": "该用户为新批卡用户，审批时间（2025-11-23 19:35:00）距首次支付时间（2025-11-23 20:41:00）仅约一小时，表明用户在获批后迅速进行了首次交易。所有行为发生时间（2025-11-23 20:41:00）与首次支付时间完全一致，这强有力地表明这些行为是首次支付流程中或紧密关联的一部分。\n\n用户行为序列显示，所有6个行为均为`show_membership_voucher_xxx`或`show_home_voucher_xxx`类型的事件，并伴随有如'QRIS交易'、'开卡礼'等详细的优惠券信息。这些事件均发生在同一时刻，表明用户在非常短的时间内，高度集中地浏览和比较了所有可用的优惠券。这些行为信号虽然属于中权重的'页面展示'，但其内容的专一性和密集的发生时间，以及与'【消费】'场景的关联性，显著提升了用户意图的清晰度，指向了明确的优惠寻求行为。\n\n历史意图分析结果进一步印证了这一点：'用户在完成首次信用卡支付时，明确表达了寻求并利用优惠券以最大化交易价值的意图，并已成功提交支付。' 当前行为序列完美地与历史意图保持一致，并提供了具体的行为证据。这表明用户正处在（或刚刚完成）通过查看不同优惠券来优化其首次交易价值的过程中。\n\n综合来看，用户意图非常明确，即在进行首次交易时，积极寻求并评估可用的优惠券，以获取最大的优惠。由于用户已经成功提交支付（来自历史意图），这些浏览行为是支付前的决策过程。",
+        "next_action_prediction": "基于其历史意图已成功提交支付，用户在比较优惠券后，最有可能已选择并应用了一张最合适的优惠券来完成其首次支付交易。",
+        "session_index": 9,
+        "session_size": 6,
+        "timestamp": "2025-12-12T15:33:26.994422"
+      }
+    ]
+  },
+  "00f7a87c6ec54a31a7dd9c355074a3b8": {
+    "user_uuid": "00f7a87c6ec54a31a7dd9c355074a3b8",
+    "total_sessions": 6,
+    "sessions": [
+      {
+        "intent": "用户刚激活信用卡，正在主动浏览并探索信用卡功能、新人专属权益和各项服务，尤其关注新用户福利和首页主要功能入口。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.65,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_new_user_zone_page",
+          "show_home_floaticon_2921 (运营_新人_开卡礼)",
+          "show_new_homebanner_C_3211 (运营_新人_ALL)",
+          "show_homepage_yoopay_btn",
+          "show_homepage_installment_section"
+        ],
+        "reasoning": "1. **用户状态和生命周期**: 用户在2025-11-15 14:51:00完成审批并立即触发首次行为，且'show_QSPIN_activate_success_pg'事件明确指出卡片激活成功，表明用户是刚完成激活的新用户。所有行为集中在同一时间点，发生在首次支付（2025-11-15 15:38:00）之前，处于产品使用前的初期探索阶段。\n2. **行为模式**: 用户行为序列由8个独立的'show_xxx'事件组成，且所有事件均发生在同一分钟内，没有'click_xxx'或'show_pay_checkout_xxx'等高权重转化行为。这表明用户正在快速浏览和了解系统提供的各种信息和功能，而非执行具体的交易或操作。\n3. **内容关注点**: 用户首先看到激活成功页面，随后浏览了主页上的多个模块，包括'show_homepage_yoopay_btn'（支付入口）、'show_homepage_installment_section'（分期服务）以及'show_new_user_zone_page'（新人专区）。特别值得注意的是，用户还看到了多个带有“新人”或“积分”字样的营销横幅和浮窗，如'show_home_floaticon_2921'（额外信息: 运营_新人_开卡礼）、'show_new_homebanner_B_3210'（额外信息: 运营_积分_提醒）和'show_new_homebanner_C_3211'（额外信息: 运营_新人_ALL），这些明确指向用户对新用户权益和营销活动的高度兴趣。\n4. **综合判断**: 鉴于用户的新用户身份、行为集中在激活后短时间内、所有行为均为展示性（show）而非操作性（click），且内容涵盖了新人福利、核心功能（支付、分期）以及其他营销信息，用户的核心意图是探索和熟悉新激活的信用卡产品功能及附带权益。",
+        "next_action_prediction": "鉴于用户刚刚激活卡片并积极浏览新人专属优惠和主要功能，下一步极有可能点击某个新人福利活动入口（例如，新人开卡礼、新人专区），或者尝试进行首次小额支付以体验卡片功能。",
+        "session_index": 0,
+        "session_size": 8,
+        "timestamp": "2025-12-12T15:38:06.318329"
+      },
+      {
+        "intent": "用户正在积极参与新人营销活动，旨在领取并查看开卡礼和新人专属优惠券包。该用户刚激活信用卡，对获取初期福利有强烈兴趣。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "click_new_user_zone_voucher_package_receive_279030675",
+          "show_home_floaticon_2921, 额外信息: 运营_新人_开卡礼"
+        ],
+        "reasoning": "用户于2025-11-15 14:51:00获得审批，并立即在14:52:00开始进行行为，此时用户处于新卡激活的初期阶段，尚未进行首次支付（首次支付时间为15:38:00）。行为序列显示，用户首先访问了“新人专区页面” (show_new_user_zone_page)，这是一个中权重行为，表明其正在探索新人专属内容。紧接着，用户执行了高权重的“点击领取新人专区优惠券包”操作 (click_new_user_zone_voucher_package_receive_279030675)，这是一个非常明确且主动的选择行为，直接指向获取优惠。最后，用户又浏览到首页上带有“运营_新人_开卡礼”额外信息的浮动图标 (show_home_floaticon_2921)，进一步确认了其对新人福利和开卡礼的关注。所有行为在极短的时间内（同一分钟）发生，且内容高度一致，构成了一个清晰的用户旅程，即围绕新用户福利和营销活动的参与。这与历史意图中的“尤其关注新用户福利”相符，并且通过明确的点击领取行为，将这种关注转化为强烈的营销活动参与意图。",
+        "next_action_prediction": "用户极有可能下一步会查看已领取的优惠券详情、了解开卡礼具体内容，或准备进行首次支付以使用这些新获得的优惠和福利。",
+        "session_index": 1,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:38:24.090463"
+      },
+      {
+        "intent": "用户正在积极参与新人营销活动，旨在领取并查看开卡礼和新人专属优惠券。该用户刚激活信用卡，对获取初期福利有强烈兴趣。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_membership_voucher_198154269"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-15 14:51:00获得审批，并于14:54:00首次产生行为，这表明用户刚完成信用卡激活或处于激活后的探索阶段。其行为序列首先是访问了'新人专区页面'（show_new_user_zone_page），这是一个中权重信号，明确表明用户正在探索新用户福利。紧接着（在同一时间戳），用户查看了特定的'会员优惠券'（show_membership_voucher_198154269），该优惠券的额外信息明确指出是'【消费】_QR+INAPP_折扣_50%最高20K_次日生效_2天'的消费折扣券。这一行为直接指向了对优惠福利的强烈关注，属于高相关度的优惠券/会员意图信号。这两个行为的顺序和内容与之前的历史意图——'用户正在积极参与新人营销活动，旨在领取并查看开卡礼和新人专属优惠券包'——高度一致，且进一步确认了用户对初期福利的寻求。在首次支付（15:38:00）之前发生这些行为，也强化了用户在进行首次交易前，正在积极寻找并了解可用优惠的意图。综合来看，用户的核心意图是利用新人身份获取营销活动带来的优惠福利。",
+        "next_action_prediction": "用户很可能下一步会尝试领取或使用此优惠券，也可能继续浏览新人专区内的其他开卡礼或优惠活动，为即将进行的首次支付做准备。",
+        "session_index": 2,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:38:38.290933"
+      },
+      {
+        "intent": "用户对新人营销活动及开卡礼有强烈兴趣，正在积极探索和查看其信用卡初次激活后的专属福利。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_new_homebanner_B_3210 (运营_积分_提醒)",
+          "show_home_floaticon_2921 (运营_新人_开卡礼)",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，用户在2025-11-15 14:51:00审批通过，并在15:38:00完成首次支付。所有行为均发生在首次支付之前（15:29:00），这明确表明用户正处于信用卡激活后的早期探索阶段，尤其关注初期福利。\n\n行为序列显示，用户在同一时间段内（15:29:00）连续浏览了三个与新人营销活动高度相关的页面或组件：\n1.  `show_new_homebanner_B_3210` 带有“运营_积分_提醒”的额外信息，显示用户对积分福利的关注。\n2.  `show_home_floaticon_2921` 带有明确的“运营_新人_开卡礼”额外信息，直接指向新人专属的开卡福利。\n3.  `show_new_user_zone_page` 即“新用户专区页面”，进一步证实用户在主动寻找新人专属内容。\n\n尽管这些是'show'事件（中权重），但其内容的高度关联性、用户所处的生命周期阶段（刚激活且在首次支付前）以及这些事件的紧密发生，共同构成了非常明确的营销活动参与意图。这与历史意图“用户正在积极参与新人营销活动，旨在领取并查看开卡礼和新人专属优惠券”高度一致，并通过当前的具体行为得到了进一步的印证和强化。",
+        "next_action_prediction": "用户很可能会点击查看开卡礼详情、积分活动规则，或进入新用户专区以领取或激活相关福利，例如 `click_fullpopup_pribtn_xxx` 或 `click_myvoucher_xxx`。",
+        "session_index": 3,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:38:51.164086"
+      },
+      {
+        "intent": "用户正积极探索和评估新人专属优惠券，以准备并优化其首次信用卡交易的支付体验。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_membership_voucher_198154268 (90%最高30K折扣券，重复访问)",
+          "show_new_user_zone_page (新人专区，重复访问)",
+          "show_voucherusage_pg (优惠券使用页面)"
+        ],
+        "reasoning": "该用户是新批卡用户，审批时间（2025-11-15 14:51:00）距首次行为时间（15:33:00）仅42分钟。更关键的是，其行为序列（15:33:00 - 15:34:00）发生在首次支付时间（15:38:00）之前。这表明用户在首次支付前正进行密集的探索。\n\n行为序列显示，用户高度关注：\n1.  **新人专区 (show_new_user_zone_page)**：该页面被两次访问，权重中等，但结合上下文表明用户正在寻找新人福利。\n2.  **会员优惠券 (show_membership_voucher_xxx)**：用户多次展示了不同优惠券页面，特别是对ID为198154268的“90%最高30K”折扣券进行了重复访问。尽管这些是'show'事件（中权重），但其高折扣性质和重复访问表明强烈兴趣。\n3.  **优惠券使用页面 (show_voucherusage_pg)**：访问此页面是明确的信号，表明用户不仅是浏览优惠券，而是在积极了解如何兑换和使用这些优惠券，为实际交易做准备。这增强了优惠券意图的置信度。\n\n这些行为模式与用户作为新卡用户的生命周期阶段高度吻合，且直接验证并深化了历史意图（对新人营销活动及开卡礼有强烈兴趣，积极探索和查看专属福利）。用户的核心意图是利用发现的优惠券来优化即将到来的支付。",
+        "next_action_prediction": "用户极有可能在短期内领取其关注的优惠券，并在随后的支付交易（特别是首次支付）中使用这些优惠券来获得折扣。",
+        "session_index": 4,
+        "session_size": 10,
+        "timestamp": "2025-12-12T15:39:05.954150"
+      },
+      {
+        "intent": "用户正在积极完成其首次信用卡支付交易，并通过使用优惠券来优化支付体验。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.98,
+        "key_behaviors": [
+          "click_home_bottomnav_qris_btn",
+          "show_pay_checkout_page_qr",
+          "show_paymentpage_voucher",
+          "click_pay_checkout_submit_btn_new_qr",
+          "click_pay_checkout_submit_btn_qr"
+        ],
+        "reasoning": "根据用户信息，该用户是新批准的用户，其首次行为和首次支付时间（2025-11-15 15:37:00 至 15:38:00）与审批时间（14:51:00）紧密相连，表明用户在批准后立即开始使用卡片并完成了一笔交易。这明确揭示了用户处于卡片激活和首次使用的关键生命周期阶段，且具备极高的支付意愿。\n\n行为序列分析：\n1.  用户首先访问了`show_new_user_zone_page`，表明其作为新用户正在探索相关福利。\n2.  紧接着，用户执行了高权重的`click_home_bottomnav_qris_btn`，这强烈表明了其支付意图，并且选择了QRIS支付方式。\n3.  随后的`show_qr_upload_btn`和`show_pay_checkout_page_qr`进一步确认用户已进入QR支付流程并抵达支付结账页面，这些都是支付意图的明确信号。\n4.  在支付结账页面中，用户查看了`show_paymentpage_voucher`和`show_pay_voucher_choose_qr_1`，这表示用户正在尝试应用或选择优惠券来优化本次支付，这与历史意图中的“优化其首次信用卡交易的支付体验”相符，但已从“评估”阶段进入“应用”阶段。\n5.  最终，用户连续执行了两个高权重的转化行为：`click_pay_checkout_submit_btn_new_qr`和`click_pay_checkout_submit_btn_qr`，这两个点击支付提交按钮的动作是完成支付交易的最直接、最强烈的证据。用户的首次支付时间与最后行为时间完全一致，进一步印证了支付的完成。\n\n综合来看，用户从探索新人优惠、选择QR支付、进入支付页面、选择优惠券到最终提交支付，整个流程连贯且目标明确。历史意图准确捕捉了用户前期的探索和优化优惠券的阶段，而当前行为序列则展示了用户已将该意图付诸实践并成功完成了支付，从而确立了其核心的支付意图。",
+        "next_action_prediction": "用户很可能下一步会查看支付结果/交易详情页面、查询交易历史，或根据交易完成后的引导探索其他卡片功能或更多新人福利。",
+        "session_index": 5,
+        "session_size": 9,
+        "timestamp": "2025-12-12T15:39:19.946427"
+      }
+    ]
+  },
+  "014be7f86b524693b1a2b8fbeb5a4b8f": {
+    "user_uuid": "014be7f86b524693b1a2b8fbeb5a4b8f",
+    "total_sessions": 20,
+    "sessions": [
+      {
+        "intent": "用户正在激活新批复的信用卡，以准备进行首次支付交易",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_live_face_verification_page",
+          "show_QSPIN_activate_success_pg"
+        ],
+        "reasoning": "根据用户信息，用户ID '014be7f86b524693b1a2b8fbeb5a4b8f' 在 2025-11-26 12:14:00 获得审批通过。紧接着，用户的行为序列也开始于同一时间点：首先展示了『活体人脸验证页面』（show_live_face_verification_page），然后立即展示了『QSPIN激活成功页面』（show_QSPIN_activate_success_pg）。这表明用户在卡片审批后，正在积极地完成必要的身份验证和产品激活流程。\n\n关键在于，用户的『首次支付时间』记录为 2025-11-26 12:35:00。这发生在激活成功后的21分钟。这一时间间隔非常短，强烈地揭示了用户完成激活流程的根本意图是为了立即使用新批复的信用卡进行支付。活体验证和QSPIN激活是使用信用卡进行交易前的必要步骤。因此，虽然直接行为是账户激活，但其深层意图是为信用卡支付功能做准备，并已通过后续的首次支付行为得到验证。这些高权重的激活成功信号与紧密的支付时间构成了非常明确的支付准备意图。",
+        "next_action_prediction": "用户将尝试使用新激活的信用卡进行一笔支付交易。",
+        "session_index": 0,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:48:03.239418"
+      },
+      {
+        "intent": "用户意图是使用新批复的信用卡进行首次手机充值支付，并在此过程中尝试使用优惠券。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_mobilefee_page",
+          "show_pay_voucher_choose_recharge_phone_2",
+          "show_paymentpage_voucher",
+          "show_pay_checkout_paymethod_sec_recharge_phone"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-26 12:14:00审批通过，并在12:35:00进行了首次支付。当前行为序列发生在12:15:00至12:16:00之间，恰好处于审批通过后、首次支付前的关键准备阶段。用户行为序列显示：\n1.  用户从`show_home_page`开始，迅速进入`show_mobilefee_page`（中权重，表明对手机充值服务的明确兴趣）。\n2.  随后，用户浏览了`show_pay_voucher_choose_recharge_phone_2`和`show_paymentpage_voucher`（中权重，明确显示在手机充值过程中寻求并选择优惠券的意图）。\n3.  最终行为是`show_pay_checkout_paymethod_sec_recharge_phone`（高权重，明确的支付结账页面，且具体指明是针对手机充值支付方式的选择）。\n\n所有行为都紧密围绕“手机充值”和“支付流程”展开，并且在短时间内连续发生，显示出高度的专注和明确的行动目的。这与历史意图“用户正在激活新批复的信用卡，以准备进行首次支付交易”高度吻合，当前行为是该历史意图的具体落地和执行步骤。用户不仅有支付意图，还有明确的优惠券使用意图，但核心目标是完成支付。",
+        "next_action_prediction": "用户很可能会选择支付方式并点击支付按钮（如 `click_pay_checkout_submit_btn_xxx`），以完成手机充值交易，实现其首次支付。",
+        "session_index": 1,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:48:19.902734"
+      },
+      {
+        "intent": "用户正在积极探索新用户权益和优惠券，并已明确导航至交易页面，其核心意图是为即将进行的首次交易（支付）做准备，并希望在此过程中使用优惠券来获取优惠。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_home_top_myvoucher_btn",
+          "show_myvoucher_page",
+          "click_home_bottomnav_transaction_btn",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-26 12:14:00获得审批，并计划在2025-11-26 12:35:00进行首次支付。其行为序列发生于2025-11-26 12:16:00，紧随审批之后，且早于首次支付时间，表明用户正处于新卡批复后的初期探索和支付准备阶段。\n\n行为序列分析：\n1.  **初期探索**：用户首先展示了对“待办事项卡片”（如邮件验证）和“新用户专区”的兴趣（`show_home_todo_card_email_verify`, `show_new_user_zone_page`, `show_home_todo_card_login_email_verify`）。这反映了新用户对平台基础功能和福利的初步了解意愿。\n2.  **明确的优惠券意图**：用户随后访问了“我的优惠券页面”（`show_myvoucher_page`），并紧接着点击了“首页顶部我的优惠券按钮”（`click_home_top_myvoucher_btn`）。这是一个高权重信号，清晰地表明用户对获取或使用优惠券有强烈兴趣，属于明确的`优惠券/会员意图`。\n3.  **明确的交易准备意图**：在浏览个人资料和相关设置（`click_home_bottomnav_profil_btn`, `show_profile_page`, `show_profil_mgm`等）后，用户最终点击了“首页底部导航交易按钮”（`click_home_bottomnav_transaction_btn`）。这是一个高权重信号，表明用户正在积极地寻找或准备进行交易，指向`支付意图`。\n\n**综合分析**：用户的行为序列呈现出“新用户探索 -> 关注优惠券 -> 导航至交易”的清晰路径。考虑到其审批后不久和首次支付前的时间点，可以推断用户正在为首次支付做准备，并且希望通过查看和使用优惠券来优化这笔交易。这与历史意图“用户意图是使用新批复的信用卡进行首次手机充值支付，并在此过程中尝试使用优惠券”高度一致，本次行为序列正是该意图的实际行动体现，尤其是“尝试使用优惠券”和“准备进行首次支付”的准备阶段。\n\n**置信度评估**：存在高权重点击行为（`click_home_top_myvoucher_btn`, `click_home_bottomnav_transaction_btn`），且这些行为形成了一个连贯的、指向最终支付的意图链条，同时与历史意图完美契合。虽然尚未进入实际支付结账页面，但已处于支付前的关键准备阶段，因此置信度非常高。",
+        "next_action_prediction": "用户很可能下一步将选择具体的交易产品或服务（例如手机充值），并进入支付流程，在此过程中尝试应用之前查看或获取的优惠券。",
+        "session_index": 2,
+        "session_size": 12,
+        "timestamp": "2025-12-12T15:48:40.003439"
+      },
+      {
+        "intent": "用户在首次支付前积极浏览和比较各类消费优惠券，意在为其即将进行的首次信用卡交易寻求最大化折扣或优惠。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_home_voucher_201373541",
+          "show_home_voucher_201373474",
+          "show_membership_voucher_201373473"
+        ],
+        "reasoning": "1. **用户生命周期阶段与上下文**: 用户于2025-11-26 12:14:00获得审批，其首次行为在12:19:00发生，而首次支付时间为12:35:00。这表明用户正处于刚刚审批通过且即将进行首次交易的关键过渡阶段。所有行为都发生在首次支付之前，强烈暗示用户正在为此次重要交易做准备。\n2. **行为序列分析**: 用户在短时间内（同一分钟内）连续浏览了三个不同的优惠券页面（`show_home_voucher_xxx`和`show_membership_voucher_xxx`）。这种快速且集中的浏览模式表明用户对优惠券有明确且迫切的兴趣。\n3. **行为内容与权重**: 所有三个行为都是`show_xxx`类型，属于中等权重信号，显示了用户的参与度。更重要的是，这些优惠券的额外信息明确指出是`【消费】`、`INAPP&QRIS_BASIC`、`折扣`等，直接与支付和省钱相关，而非其他类型的优惠或内容。这提升了行为的意图明确性。\n4. **综合意图类型**: 用户的行为完全符合“优惠券/会员意图”的定义，即用户寻求优惠或会员权益。同时，鉴于其发生在首次支付前，也强烈关联了“支付意图”，即通过优惠来促进或完成支付。\n5. **历史意图确认**: 历史意图分析结果（得分0.9）指出用户“正在积极探索新用户权益和优惠券，并已明确导航至交易页面，其核心意图是为即将进行的首次交易（支付）做准备，并希望在此过程中使用优惠券来获取优惠”。当前行为序列完美印证并加强了这一历史判断，进一步确认了用户在进行首次支付前的优惠寻求行为。虽然当前序列未直接展示“导航至交易页面”，但优惠券的性质和时间点（首次支付前）使其支付意图非常明确。\n6. **置信度**: 0.88的置信度反映了意图的清晰度。尽管没有直接的`click_pay_checkout_submit_btn`等高权重支付转化行为，但所有行为都高度聚焦于消费优惠券，且发生在首次支付前这一关键时刻，结合历史意图，使得这一意图具有非常高的确定性。",
+        "next_action_prediction": "用户可能会选择领取或应用其中一张优惠券，或直接进入支付流程尝试使用优惠，最终完成首次支付。鉴于其对优惠的强烈关注，更有可能在支付时寻找优惠入口或再次查看已浏览的优惠券详情。",
+        "session_index": 3,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:48:58.110085"
+      },
+      {
+        "intent": "用户正处于新账户激活与引导阶段，意在完成必要的账户设置（如邮件验证）并探索新用户专区，为后续使用做好准备。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_home_todo_card_login_email_verify",
+          "show_new_user_zone_page",
+          "show_profil_todo_email_verify",
+          "show_profil_todo_login_email_verify",
+          "show_home_todo_card_email_verify"
+        ],
+        "reasoning": "根据用户信息，用户于2025-11-26 12:14:00审批通过，并在12:19:00至12:19:00期间集中发生了7个行为事件，随后在12:35:00完成了首次支付。这表明当前分析的行为序列发生在用户审批通过后、首次支付前，处于非常早期的账户激活和探索阶段。\n\n行为序列中，用户访问了多个与邮件验证相关的页面（'show_home_todo_card_login_email_verify', 'show_profil_todo_email_verify', 'show_profil_todo_login_email_verify', 'show_home_todo_card_email_verify'），以及'show_new_user_zone_page'和'show_profil_mgm'。所有事件均为'show_xxx'类型，显示用户正在浏览或被引导查看这些内容。\n\n这些行为高度聚焦于新用户引导、账户设置和信息验证，是完成账户激活和为后续交易做准备的关键步骤。用户在短暂查看这些页面后很快完成了首次支付，进一步证实了其完成这些初始设置的强烈意图。\n\n与历史意图（浏览优惠券）相比，当前的7个行为事件并未包含任何优惠券或支付流程的直接信号。这可能表明历史意图是在用户完成账户设置后的另一个阶段产生的，或者当前序列展示的是用户在同一'首次支付前'生命周期中的一个更早、更基础的环节。本次分析侧重于当前序列所揭示的意图，即完成账户激活和初期探索，而非优惠券寻求。",
+        "next_action_prediction": "用户很可能会尝试完成其邮件验证或其他待办事项，或继续探索新用户专区的其他功能，以确保账户 fully active 和可用，为后续的信用卡使用（如支付交易）做好准备。",
+        "session_index": 4,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:49:16.753211"
+      },
+      {
+        "intent": "用户正在积极浏览和评估可用的消费优惠券和会员权益，极有可能是在为即将进行的首次支付寻找并选择合适的折扣或福利。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_home_voucher_201373473",
+          "show_home_voucher_201373475",
+          "show_membership_voucher_201373474",
+          "show_membership_voucher_201373541",
+          "show_home_voucher_201373474",
+          "show_home_voucher_201373476",
+          "show_home_voucher_201373540",
+          "show_home_voucher_201373541",
+          "show_membership_voucher_201373473"
+        ],
+        "reasoning": "1. **用户生命周期阶段与行为时间轴交叉分析**：用户于2025-11-26 12:14:00审批通过，并于当日12:35:00完成了首次支付。本次行为序列发生在12:21:00，精确地位于审批通过之后和首次支付之前。这表明用户正处于新用户激活和探索阶段，并且在为即将进行的首次支付做准备。行为序列与首次支付的紧密时间关系是理解其意图的关键上下文。\n2. **用户行为序列分析**：用户在同一时间点（2025-11-26 12:21:00）进行了9次行为，所有事件类型均为`show_home_voucher_xxx`或`show_membership_voucher_xxx`。这些行为虽然属于中等权重（页面展示），但其数量之多（9次）和内容的高度一致性（全部围绕消费券和会员权益）表明用户对此类优惠有明确且强烈的兴趣。\n3. **行为上下文深度分析**：每个`show_xxx`事件的额外信息都明确指出是具体的“消费”类优惠券（例如“折扣_90%最高30K”、“99%最多50K”等），进一步证实用户在积极查找和评估实际可用的消费优惠。这些优惠券类型涵盖了不同的折扣力度、使用方式（QR+INAPP/QRIS）和有效期，说明用户在进行比较和选择。\n4. **历史意图关联与演变**：历史意图分析指出用户处于“新账户激活与引导阶段，意在完成必要的账户设置并探索新用户专区，为后续使用做好准备”。当前行为完全符合“探索新用户专区”并为“后续使用（首次支付）做好准备”的描述。用户从初步的账户设置探索，迅速聚焦到具体的消费优惠，体现了意图从广度探索到深度利益寻求的演变。\n5. **意图置信度评估**：尽管序列中没有直接的“点击”领取优惠券这一高权重行为，但大量且集中的“展示”行为，结合其发生在首次支付之前的关键时间节点，强烈指示用户正在为支付寻找并评估优惠。用户最终完成了首次支付，这为之前的优惠券浏览行为提供了强有力的后续验证，表明其目的性非常强，因此给予0.85的较高置信度。",
+        "next_action_prediction": "用户很可能下一步会尝试领取或激活一个选定的优惠券，然后前往支付页面应用该优惠，或者直接进入支付流程并期待系统自动匹配或提示可用的折扣，以完成首次支付。",
+        "session_index": 5,
+        "session_size": 9,
+        "timestamp": "2025-12-12T15:49:36.933268"
+      },
+      {
+        "intent": "用户正在寻求使用信用卡进行话费充值支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "click_home_featurehub_mobilefee_btn",
+          "show_mobilefee_page"
+        ],
+        "reasoning": "1. **用户生命周期分析**: 用户在2025-11-26 12:14:00审批通过，并于2025-11-26 12:35:00进行了首次支付。当前行为序列发生在2025-11-26 12:21:00，明确指示用户处于信用卡审批通过后、首次支付前的关键探索和激活阶段。\n2. **行为序列分析**: 用户首先访问了`show_new_user_zone_page`（新手专区页面），这表明用户正在探索平台功能，符合新用户生命周期阶段的特征。紧接着，用户执行了高权重的`click_home_featurehub_mobilefee_btn`（点击首页功能中心的移动话费按钮），这是一个明确的兴趣信号。随后，用户被引导至`show_mobilefee_page`（话费充值页面），确认了其对该功能的具体意图。\n3. **行为权重分析**: `click_home_featurehub_mobilefee_btn`是一个高权重信号，直接揭示了用户对特定支付功能的主动选择和明确兴趣。`show_new_user_zone_page`和`show_mobilefee_page`是中权重信号，前者提供了用户探索的上下文，后者则确认了用户点击后的目标页面，进一步强化了支付意图。\n4. **与历史意图的对比**: 历史意图分析指出用户在寻找优惠券和会员权益以准备首次支付，得分0.85。当前的具体行为（话费充值）可以被视为其“首次支付准备”意图的一种具象化和执行路径。用户可能已经完成了优惠券的浏览，现在正在寻找一个具体的支付场景来激活卡片或使用优惠。因此，虽然具体焦点有所不同，但整体上是前一意图的延续和深化，从泛化的“寻找优惠以支付”转变为具象的“选择支付场景以支付”。\n5. **综合判断**: 用户在首次支付前，通过明确点击并进入话费充值页面，表现出强烈的意愿去使用信用卡进行一项具体的支付，即话费充值。",
+        "next_action_prediction": "用户很可能会在话费充值页面输入充值信息（如手机号码和金额），并尝试提交支付订单，以完成首次支付或激活卡片。",
+        "session_index": 6,
+        "session_size": 3,
+        "timestamp": "2025-12-12T15:49:54.165802"
+      },
+      {
+        "intent": "用户希望使用信用卡支付电费或进行电费预充值。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "click_home_featurehub_electricity_btn",
+          "show_electricity_prepaid"
+        ],
+        "reasoning": "根据用户信息，用户（ID: 014be7f86b524693b1a2b8fbeb5a4b8f）于2025-11-26获得审批，并在当日（12:35:00）进行了首次支付，而当前分析的行为序列发生在首次支付之前（12:21:00），表明用户处于新卡激活后的初期探索和使用阶段。\n\n行为序列分析显示，用户先是浏览了用户个人信息管理页面（`show_profil_mgm`）和新用户专区页面（`show_new_user_zone_page`），这代表了初期探索/浏览意图。紧接着，用户执行了高权重行为：点击了首页特色功能中心的“电费”按钮（`click_home_featurehub_electricity_btn`）。此点击行为明确表达了用户对电费服务的兴趣。随后，用户被引导至电费预付页面（`show_electricity_prepaid`），进一步证实了其电费支付的意图。\n\n尽管历史意图指向“话费充值支付”，但当前行为明确且连贯地聚焦于“电费”服务。这表明用户正在积极探索使用其新信用卡支付日常公用事业费用，并已将兴趣从话费转移至电费。高权重的点击行为和随后的相关页面展示，为用户当前的电费支付意图提供了强有力的证据。",
+        "next_action_prediction": "用户将选择电费支付金额或充值套餐，并进入电费支付详情或结算页面，以完成电费的支付操作。",
+        "session_index": 7,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:50:06.429322"
+      },
+      {
+        "intent": "用户希望完成账户的初始设置和验证，尤其是邮件验证。这表明用户正处于信用卡激活后的引导阶段。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.7,
+        "key_behaviors": [
+          "show_home_todo_card_login_email_verify",
+          "show_new_user_zone_page",
+          "show_home_todo_card_email_verify",
+          "show_profil_todo_email_verify"
+        ],
+        "reasoning": "1. **用户生命周期阶段与行为关联**: 用户于2025-11-26 12:14:00获得审批，并于2025-11-26 12:35:00进行了首次支付。当前分析的所有行为（总行为数5个，唯一事件类型数5个）均发生于2025-11-26 12:21:00，即在审批之后、首次支付之前。这强烈表明用户正处于信用卡激活后的初始登录和账户设置/引导阶段。\n2. **行为序列和模式分析**: 所有行为事件均为'show_xxx'类型，且发生时间完全一致，这通常表示用户在进入某个页面或区域后，系统同时展示了多个相关信息或待办事项。这些事件内容高度聚焦于'邮件验证'和'新用户专区'以及'个人资料待办'。\n   - 'show_home_todo_card_login_email_verify'和'show_home_todo_card_email_verify'：都指向主页上的邮件验证待办卡片，显示了系统对邮件验证的强调。\n   - 'show_new_user_zone_page'：明确指出用户进入了新用户专区，该区域通常用于引导新用户完成基础设置或了解产品功能。\n   - 'show_profil_mgm'和'show_profil_todo_email_verify'：显示用户查看了个人资料页面的MGM（推荐活动）信息以及个人资料中的邮件验证待办事项。这进一步确认了用户正在关注账户设置和个人信息完善。\n3. **行为信号权重**: 所有的事件都是'show_xxx'，属于中权重信号。虽然没有高权重点击或支付行为，但事件内容高度一致和重复地指向'邮件验证'和'新用户引导'，使得意图非常明确。\n4. **历史意图对比**: 历史意图是“用户希望使用信用卡支付电费或进行电费预充值”，与当前行为（账户设置、邮件验证）完全不符。且历史分析时间（2025-12-12）晚于当前行为发生时间（2025-11-26）。因此，此历史意图与本次行为序列无关，不影响本次分析结果，当前行为清晰地反映了用户在初次使用时的引导任务。",
+        "next_action_prediction": "用户可能会点击邮件验证相关的按钮或链接，以完成邮件验证流程；或者探索新用户专区中的其他引导内容，以进一步完善账户信息或了解信用卡功能。",
+        "session_index": 8,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:50:24.206416"
+      },
+      {
+        "intent": "用户希望完成账户的邮件验证，作为其新信用卡账户初始设置和激活的一部分。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_profil_todo_login_email_verify"
+        ],
+        "reasoning": "根据用户信息，用户在2025-11-26 12:14:00获得审批，并于同日12:35:00完成了首次支付。其唯一的行为事件发生于12:21:00，即在审批之后、首次支付之前。此时间段的用户通常处于账户激活和初始设置阶段。\n\n用户行为序列中唯一的事件是 `show_profil_todo_login_email_verify`。尽管这是一个“show”类型的行为（中等权重），但其事件名称极其明确，直接指向了“个人资料待办事项：登录邮箱验证”这一具体任务。这表明用户正在查看或被引导至完成其账户的邮件验证步骤。\n\n此行为与历史意图分析结果“用户希望完成账户的初始设置和验证，尤其是邮件验证”高度一致，并为此意图提供了新的、直接的证据。这强化了用户处于信用卡激活后引导阶段、专注于完成核心验证任务的判断。\n\n综合来看，用户在关键的激活时间窗口内，表现出对邮件验证这一重要账户设置任务的明确关注，因此其意图明确且置信度较高。",
+        "next_action_prediction": "用户可能会点击相关按钮（如“发送验证邮件”）以启动邮件验证流程，或者前往其注册邮箱查收并点击验证链接或输入验证码以完成邮件验证。",
+        "session_index": 9,
+        "session_size": 1,
+        "timestamp": "2025-12-12T15:50:38.253452"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户在信用卡审批后，首次支付前，正在积极浏览和探索可用的消费折扣券和会员优惠。\",\n  \"intent_category\": \"voucher_intent\",\n  \"confidence_score\": 0.75,\n  \"key_behaviors\": [\n    \"show_membership_voucher_201373473\",\n    \"show_home_voucher_201373473\",\n    \"show_membership_voucher_201373474\",\n    \"show_home_voucher_201373474\",\n    \"show_home_voucher_201373475\",\n    \"show_home_voucher_201373541\",\n    \"show_membership_voucher_201373541\",\n    \"show_home_voucher_201373540\",\n    \"show_home_voucher_201373476\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段分析**: 用户于2025-11-26 12:14:00获得信用卡审批，并将在12:35:00完成首次支付。所有当前分析的行为都发生在12:21:00，即审批后、首次支付前。这表明用户正处于新卡激活和产品探索的关键阶段，可能在寻找使用新卡的理由或福利。\\n2. **用户行为序列分析**: 在总共27个行为事件中，有24个事件（约89%）是关于展示各种优惠券的事件（'show_membership_voucher_xxx'和'show_home_voucher_xxx'）。尽管所有事件都记录在同一分钟，这可能意味着用户快速浏览了大量优惠信息或系统批量加载显示，但行为内容的高度集中性揭示了其对优惠的强烈关注。序列中反复出现不同及相同的优惠券ID，进一步印证了用户对多种优惠的探索。\\n3. **行为上下文及信号权重**: 'show_xxx'事件属于中等权重信号，表明用户有明确的浏览兴趣和参与度。额外信息中明确提到了“消费”、“折扣”、“优惠”等关键词，直接关联到优惠券内容。虽然缺乏高权重的点击（click_xxx）或支付页面（show_pay_checkout_xxx）行为来表明立即兑换或使用的意图，但大量且持续的展示行为足以表明用户对优惠券的寻求意图。\\n4. **历史意图关联**: 之前的历史意图（邮件验证）发生在2025-12-12，晚于当前行为。这说明用户在获得新卡后，首先探索了卡片福利（当前行为），随后进行了首次支付，并在稍后阶段处理了账户设置中的验证任务。这符合新用户从探索福利到完成交易再到完善账户设置的典型旅程。\\n5. **综合结论**: 鉴于用户的新卡状态和行为的单一高集中性，用户的主要意图是探索和了解其新信用卡提供的消费折扣和会员优惠，以最大化卡片价值。\",\n  \"next_action_prediction\": \"用户下一步很可能会点击某个感兴趣的优惠券来查看详情或尝试领取，或者在寻找合适的消费场景进行首次支付时尝试应用其浏览过的优惠券。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户在信用卡审批后，首次支付前，正在积极浏览和探索可用的消费折扣券和会员优惠。\",\n  \"intent_category\": \"voucher_intent\",\n  \"confidence_score\": 0.75,\n  \"key_behaviors\": [\n    \"show_membership_voucher_201373473\",\n    \"show_home_voucher_201373473\",\n    \"show_membership_voucher_201373474\",\n    \"show_home_voucher_201373474\",\n    \"show_home_voucher_201373475\",\n    \"show_home_voucher_201373541\",\n    \"show_membership_voucher_201373541\",\n    \"show_home_voucher_201373540\",\n    \"show_home_voucher_201373476\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段分析**: 用户于2025-11-26 12:14:00获得信用卡审批，并将在12:35:00完成首次支付。所有当前分析的行为都发生在12:21:00，即审批后、首次支付前。这表明用户正处于新卡激活和产品探索的关键阶段，可能在寻找使用新卡的理由或福利。\\n2. **用户行为序列分析**: 在总共27个行为事件中，有24个事件（约89%）是关于展示各种优惠券的事件（'show_membership_voucher_xxx'和'show_home_voucher_xxx'）。尽管所有事件都记录在同一分钟，这可能意味着用户快速浏览了大量优惠信息或系统批量加载显示，但行为内容的高度集中性揭示了其对优惠的强烈关注。序列中反复出现不同及相同的优惠券ID，进一步印证了用户对多种优惠的探索。\\n3. **行为上下文及信号权重**: 'show_xxx'事件属于中等权重信号，表明用户有明确的浏览兴趣和参与度。额外信息中明确提到了“消费”、“折扣”、“优惠”等关键词，直接关联到优惠券内容。虽然缺乏高权重的点击（click_xxx）或支付页面（show_pay_checkout_xxx）行为来表明立即兑换或使用的意图，但大量且持续的展示行为足以表明用户对优惠券的寻求意图。\\n4. **历史意图关联**: 之前的历史意图（邮件验证）发生在2025-12-12，晚于当前行为。这说明用户在获得新卡后，首先探索了卡片福利（当前行为），随后进行了首次支付，并在稍后阶段处理了账户设置中的验证任务。这符合新用户从探索福利到完成交易再到完善账户设置的典型旅程。\\n5. **综合结论**: 鉴于用户的新卡状态和行为的单一高集中性，用户的主要意图是探索和了解其新信用卡提供的消费折扣和会员优惠，以最大化卡片价值。\",\n  \"next_action_prediction\": \"用户下一步很可能会点击某个感兴趣的优惠券来查看详情或尝试领取，或者在寻找合适的消费场景进行首次支付时尝试应用其浏览过的优惠券。\"\n}\n```",
+        "session_index": 10,
+        "session_size": 27,
+        "timestamp": "2025-12-12T15:51:07.992433"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户的主要意图是进行电费支付，并且在支付流程中积极尝试使用信用卡优惠券。\",\n  \"intent_category\": \"payment_intent\",\n  \"confidence_score\": 0.95,\n  \"key_behaviors\": [\n    \"click_paymentpage_voucher\",\n    \"show_pay_voucher_choose_electricity_1\",\n    \"show_paymentpage_voucher\",\n    \"show_pay_checkout_page_electricity\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段分析**: 用户在2025-11-26 12:14:00审批通过，并将在12:35:00进行首次支付。当前所有行为发生在12:22:00，这明确表明用户正处于信用卡审批后、首次支付前的关键活跃阶段。在此阶段，用户高度倾向于探索和完成首笔交易。\\n2. **行为序列分析**: 尽管所有行为都发生在同一分钟，但其顺序和类型揭示了明确的意图演变：\\n    *   用户首先接触到'show_cannot_use_voucher_page_xxx'，可能暗示此前有过优惠券尝试或页面跳转。\\n    *   紧接着，用户执行了高权重的'click_paymentpage_voucher'行为，这强烈表明用户在支付场景下对优惠券的兴趣和主动尝试。\\n    *   随后，用户再次遇到'show_cannot_use_voucher_page_xxx'，这可能指示优惠券使用遇到障碍。\\n    *   然而，用户并未放弃，继续展示了'show_pay_voucher_choose_electricity_1'和'show_paymentpage_voucher'，表明其持续在支付流程中寻求优惠券。\\n    *   最终，用户成功到达了高权重信号'show_pay_checkout_page_electricity'，这是明确的支付意图信号，且具体指向电费支付。\\n3. **行为信号权重**: 'click_paymentpage_voucher'是高权重信号，表明用户主动操作以使用优惠券。而'show_pay_checkout_page_electricity'更是极其高权重的信号，直接指向支付意图。即使在遇到优惠券使用障碍后，用户依然进展到支付结算页，显示出强烈的支付决心。\\n4. **历史意图关联**: 历史意图分析（发生时间晚于当前行为，但可以作为参考其背景，或此处指输入中的“历史意图分析”部分）指出用户此前处于“积极浏览和探索可用的消费折扣券和会员优惠”的阶段，意图类别为'voucher_intent'，置信度0.75。历史分析的'next_action_prediction'是“用户很可能会点击某个感兴趣的优惠券...或在寻找合适的消费场景进行首次支付时尝试应用其浏览过的优惠券。”当前的精确行为序列完美地印证并深化了这一预测：用户不仅尝试了点击支付页面的优惠券，并且在尝试应用优惠券的过程中进入了具体的支付结算页面。这表明用户意图已从单纯的优惠券探索演变为实际的支付行为，并尝试将优惠券应用于支付。\\n5. **综合结论**: 结合用户的新卡生命周期、行为序列中对优惠券的反复互动（特别是点击行为）以及最终到达支付结算页（特别是高权重的`show_pay_checkout_page_electricity`），我们可以得出用户的主要意图是完成电费支付，并且在支付过程中积极寻求和应用优惠券，即使在遇到困难后也继续推进至支付环节。\",\n  \"next_action_prediction\": \"鉴于用户已处于电费支付结算页面，下一步很可能会点击支付按钮以完成电费支付。如果此前未能成功应用优惠券，用户也可能在此页面上做出最终决定是否继续支付，或返回重新寻找可用优惠。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户的主要意图是进行电费支付，并且在支付流程中积极尝试使用信用卡优惠券。\",\n  \"intent_category\": \"payment_intent\",\n  \"confidence_score\": 0.95,\n  \"key_behaviors\": [\n    \"click_paymentpage_voucher\",\n    \"show_pay_voucher_choose_electricity_1\",\n    \"show_paymentpage_voucher\",\n    \"show_pay_checkout_page_electricity\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段分析**: 用户在2025-11-26 12:14:00审批通过，并将在12:35:00进行首次支付。当前所有行为发生在12:22:00，这明确表明用户正处于信用卡审批后、首次支付前的关键活跃阶段。在此阶段，用户高度倾向于探索和完成首笔交易。\\n2. **行为序列分析**: 尽管所有行为都发生在同一分钟，但其顺序和类型揭示了明确的意图演变：\\n    *   用户首先接触到'show_cannot_use_voucher_page_xxx'，可能暗示此前有过优惠券尝试或页面跳转。\\n    *   紧接着，用户执行了高权重的'click_paymentpage_voucher'行为，这强烈表明用户在支付场景下对优惠券的兴趣和主动尝试。\\n    *   随后，用户再次遇到'show_cannot_use_voucher_page_xxx'，这可能指示优惠券使用遇到障碍。\\n    *   然而，用户并未放弃，继续展示了'show_pay_voucher_choose_electricity_1'和'show_paymentpage_voucher'，表明其持续在支付流程中寻求优惠券。\\n    *   最终，用户成功到达了高权重信号'show_pay_checkout_page_electricity'，这是明确的支付意图信号，且具体指向电费支付。\\n3. **行为信号权重**: 'click_paymentpage_voucher'是高权重信号，表明用户主动操作以使用优惠券。而'show_pay_checkout_page_electricity'更是极其高权重的信号，直接指向支付意图。即使在遇到优惠券使用障碍后，用户依然进展到支付结算页，显示出强烈的支付决心。\\n4. **历史意图关联**: 历史意图分析（发生时间晚于当前行为，但可以作为参考其背景，或此处指输入中的“历史意图分析”部分）指出用户此前处于“积极浏览和探索可用的消费折扣券和会员优惠”的阶段，意图类别为'voucher_intent'，置信度0.75。历史分析的'next_action_prediction'是“用户很可能会点击某个感兴趣的优惠券...或在寻找合适的消费场景进行首次支付时尝试应用其浏览过的优惠券。”当前的精确行为序列完美地印证并深化了这一预测：用户不仅尝试了点击支付页面的优惠券，并且在尝试应用优惠券的过程中进入了具体的支付结算页面。这表明用户意图已从单纯的优惠券探索演变为实际的支付行为，并尝试将优惠券应用于支付。\\n5. **综合结论**: 结合用户的新卡生命周期、行为序列中对优惠券的反复互动（特别是点击行为）以及最终到达支付结算页（特别是高权重的`show_pay_checkout_page_electricity`），我们可以得出用户的主要意图是完成电费支付，并且在支付过程中积极寻求和应用优惠券，即使在遇到困难后也继续推进至支付环节。\",\n  \"next_action_prediction\": \"鉴于用户已处于电费支付结算页面，下一步很可能会点击支付按钮以完成电费支付。如果此前未能成功应用优惠券，用户也可能在此页面上做出最终决定是否继续支付，或返回重新寻找可用优惠。\"\n}\n```",
+        "session_index": 11,
+        "session_size": 7,
+        "timestamp": "2025-12-12T15:51:23.388013"
+      },
+      {
+        "intent": "用户正在积极探索可用的消费优惠券和会员权益，为即将到来的首次支付做准备。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_home_voucher_201373475",
+          "show_home_voucher_201373473",
+          "show_home_voucher_201373474",
+          "show_membership_voucher_201373473",
+          "show_membership_voucher_201373541"
+        ],
+        "reasoning": "1. **用户生命周期阶段分析**: 用户在2025-11-26 12:14:00审批通过，所有行为发生在12:22:00，并且其首次支付时间记录为12:35:00。这明确表明用户正处于信用卡审批通过后、首次支付前的关键活跃阶段。在此阶段，用户高度倾向于探索产品功能和寻找优惠，以完成首笔交易并最大化新卡价值。\n2. **用户行为序列分析**: 用户在12:22:00的短时间内（总行为数9个，唯一事件类型数9个，且均为同一分钟内发生）密集地浏览了多种优惠券。所有行为事件均为`show_home_voucher_xxx`（主页优惠券）和`show_membership_voucher_xxx`（会员优惠券）。这些优惠券的额外信息均指向【消费】场景下的折扣（如50%最高10K，90%最高30K，99%最多50K）。重复出现相同ID的优惠券（如201373473、201373474、201373541）在不同页面类型（home vs. membership）下被展示，表明用户可能在不同入口或分类下对相同或类似优惠进行比对或重复关注，显示出强烈的探索欲望。\n3. **行为信号权重**: 所有行为均为`show_xxx`类型，根据权重规则属于“中权重”信号，表示用户处于浏览模式并表现出参与度。尽管没有“高权重”的点击或支付页面展示，但9个连续且类型一致的`show_voucher_xxx`事件，在极短时间内发生，有力地表明了用户对优惠券的明确和集中兴趣。\n4. **历史意图关联**: 尽管历史意图分析描述了发生时间更晚的（或综合了未来行为的）“电费支付并尝试使用优惠券”的场景，但其分析中明确预测到“用户很可能会点击某个感兴趣的优惠券...或在寻找合适的消费场景进行首次支付时尝试应用其浏览过的优惠券。”当前的9个行为序列完美地印证并构成了这一预测的前置阶段——用户正在积极浏览和选择优惠券，为后续的支付行为做准备。这表明用户意图的连贯性和发展性。\n5. **综合结论**: 结合用户的新卡生命周期（首次支付前）、行为序列对优惠券的密集且专注的浏览模式，以及历史意图对其后续行为的预测，用户当前的主要意图是寻求和探索适用于消费的优惠券和会员福利，以期在即将进行的首次支付中应用这些优惠。",
+        "next_action_prediction": "鉴于用户已密集浏览多项消费优惠券，下一步很可能会点击某个感兴趣的优惠券以查看详情或进行领取/使用操作，或者直接导航至支付页面尝试应用这些优惠券，以完成其首次支付。",
+        "session_index": 12,
+        "session_size": 9,
+        "timestamp": "2025-12-12T15:51:49.415086"
+      },
+      {
+        "intent": "用户正在尝试进行首次电费支付，并在此支付流程中积极寻找并选择可用的优惠券以进行优惠。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_pay_checkout_paymethod_sec_electricity",
+          "show_pay_voucher_choose_electricity_2"
+        ],
+        "reasoning": "根据用户信息，用户在2025-11-26 12:14:00获得审批，并将在2025-11-26 12:35:00完成首次支付，这表明用户正处于账户激活和首次交易的关键生命周期阶段。用户行为序列显示：\n1. 在2025-11-26 12:22:00，用户访问了电费支付的结算页面（`show_pay_checkout_paymethod_sec_electricity`）。这是一个高权重信号，明确指示了用户的支付意图，并且目标是支付电费。\n2. 在同一时间点（2025-11-26 12:22:00），用户紧接着访问了电费支付的优惠券选择页面（`show_pay_voucher_choose_electricity_2`）。这表明用户在支付过程中，正在积极寻找并评估可用的优惠券，以期获得支付优惠。这与历史意图“用户正在积极探索可用的消费优惠券和会员权益，为即将到来的首次支付做准备”高度吻合，并且进一步细化了支付类型和优惠券的特定应用场景。\n\n这两个行为紧密关联，发生时间一致，清晰地展示了用户在进行首次支付前，不仅有明确的支付需求（电费），同时也有强烈的优惠寻求意图。因此，核心意图是支付，并伴随着优化支付成本的优惠券使用需求。",
+        "next_action_prediction": "用户很可能会选择并应用一个优惠券，然后点击提交按钮完成电费支付。",
+        "session_index": 13,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:52:03.343137"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户作为新卡用户，在首次支付前（可能为电费支付），积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠。\",\n  \"intent_category\": \"voucher_intent\",\n  \"confidence_score\": 0.85,\n  \"key_behaviors\": [\n    \"show_membership_voucher_201373474\",\n    \"show_home_voucher_201373473\",\n    \"show_home_voucher_201373474\",\n    \"show_home_voucher_201373476\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段**: 用户是一个新卡用户，其审批时间（2025-11-26 12:14:00）和首次支付时间（2025-11-26 12:35:00）发生在同一天。当前分析的行为序列（2025-11-26 12:23:00）发生在审批之后、首次支付之前。这表明用户正处于准备进行首次交易的关键阶段。\\n2. **行为模式**: 用户的所有4个行为事件都发生在同一时间点，且均为'show_xxx'类型，具体是展示了多种消费相关的优惠券（'show_membership_voucher_xxx'和'show_home_voucher_xxx'）。这些优惠券的额外信息明确指出是针对'消费'的折扣（例如：99%最多50K，90%最高30K）。\\n3. **行为信号权重**: 'show_xxx'事件属于中权重信号，表示浏览模式。然而，当所有行为都高度集中于同一类型（优惠券展示）时，其权重叠加，强烈揭示了用户对优惠券的明确兴趣。\\n4. **历史意图关联**: 尽管历史意图的分析时间晚于当前行为序列，但其内容'用户正在尝试进行首次电费支付，并在此支付流程中积极寻找并选择可用的优惠券以进行优惠'为当前行为提供了重要的上下文。历史意图确认了用户寻找优惠券是为了进行首次支付，并具体提到了“电费支付”。结合当前行为序列发生于首次支付前的时机，进一步证实了用户此刻浏览优惠券是为了即将进行的支付做准备。\\n5. **综合分析**: 新用户在首次支付前集中浏览多种消费优惠券，结合历史意图的上下文，明确显示用户正在积极寻求优惠，以在即将进行的交易中节省开支。虽然本次行为序列中没有直接的支付页面或点击应用优惠券的行为，但其行为模式和时机与历史意图高度吻合，表明用户意图清晰。\",\n  \"next_action_prediction\": \"用户很可能会继续进行支付流程，并尝试选择或使用其在浏览中发现的某张优惠券进行支付。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户作为新卡用户，在首次支付前（可能为电费支付），积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠。\",\n  \"intent_category\": \"voucher_intent\",\n  \"confidence_score\": 0.85,\n  \"key_behaviors\": [\n    \"show_membership_voucher_201373474\",\n    \"show_home_voucher_201373473\",\n    \"show_home_voucher_201373474\",\n    \"show_home_voucher_201373476\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段**: 用户是一个新卡用户，其审批时间（2025-11-26 12:14:00）和首次支付时间（2025-11-26 12:35:00）发生在同一天。当前分析的行为序列（2025-11-26 12:23:00）发生在审批之后、首次支付之前。这表明用户正处于准备进行首次交易的关键阶段。\\n2. **行为模式**: 用户的所有4个行为事件都发生在同一时间点，且均为'show_xxx'类型，具体是展示了多种消费相关的优惠券（'show_membership_voucher_xxx'和'show_home_voucher_xxx'）。这些优惠券的额外信息明确指出是针对'消费'的折扣（例如：99%最多50K，90%最高30K）。\\n3. **行为信号权重**: 'show_xxx'事件属于中权重信号，表示浏览模式。然而，当所有行为都高度集中于同一类型（优惠券展示）时，其权重叠加，强烈揭示了用户对优惠券的明确兴趣。\\n4. **历史意图关联**: 尽管历史意图的分析时间晚于当前行为序列，但其内容'用户正在尝试进行首次电费支付，并在此支付流程中积极寻找并选择可用的优惠券以进行优惠'为当前行为提供了重要的上下文。历史意图确认了用户寻找优惠券是为了进行首次支付，并具体提到了“电费支付”。结合当前行为序列发生于首次支付前的时机，进一步证实了用户此刻浏览优惠券是为了即将进行的支付做准备。\\n5. **综合分析**: 新用户在首次支付前集中浏览多种消费优惠券，结合历史意图的上下文，明确显示用户正在积极寻求优惠，以在即将进行的交易中节省开支。虽然本次行为序列中没有直接的支付页面或点击应用优惠券的行为，但其行为模式和时机与历史意图高度吻合，表明用户意图清晰。\",\n  \"next_action_prediction\": \"用户很可能会继续进行支付流程，并尝试选择或使用其在浏览中发现的某张优惠券进行支付。\"\n}\n```",
+        "session_index": 14,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:52:25.373359"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户作为新卡用户，在首次支付前，积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠。\",\n  \"intent_category\": \"voucher_intent\",\n  \"confidence_score\": 0.88,\n  \"key_behaviors\": [\n    \"show_membership_voucher_201373541\",\n    \"show_membership_voucher_201373473\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段**: 用户ID '014be7f86b524693b1a2b8fbeb5a4b8f' 的审批时间为 '2025-11-26 12:14:00'，首次支付时间为 '2025-11-26 12:35:00'。当前分析的用户行为序列（首次行为时间 '2025-11-26 12:23:00'）精确地发生在审批之后、首次支付之前。这表明用户是一个非常新的卡用户，正处于准备进行首次交易的关键阶段。\\n2. **用户行为模式**: 用户在 '2025-11-26 12:23:00' 进行了两次行为，分别是 'show_membership_voucher_201373541' 和 'show_membership_voucher_201373473'。这两次行为都是展示会员消费优惠券。额外信息明确指出这些是针对'消费'的折扣，如 'INAPP&QRIS_BASIC_99%最多50K' 和 'QR+INAPP_BASIC_折扣_90%最高30K'。\\n3. **行为信号权重与序列分析**: 'show_xxx' 事件属于中权重信号，表示浏览。然而，在此场景下，用户在同一时间点集中且连续地浏览两种不同的消费优惠券，这种行为的专注性极大地强化了用户对优惠券的明确兴趣。这并非随机浏览，而是有目的地探索可用的优惠选项。\\n4. **历史意图关联**: 历史意图分析的结果（意图类别为 'voucher_intent'，置信度为0.85）与当前行为序列高度吻合。历史意图的推理明确提到“用户作为一个新卡用户，在首次支付前...积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠”。历史意图的分析时间晚于当前行为序列，但其推理中提及的审批时间和首次支付时间与当前数据一致，表明历史分析准确捕获了用户在这一关键时间窗口的行为模式和意图，从而为本次分析提供了强有力的确认和上下文支持。\\n5. **综合分析**: 综合用户的新卡用户身份、首次支付前的关键时机、集中浏览消费优惠券的明确行为，以及历史意图的强力印证，可以明确判断用户当前的核心意图是积极寻求并了解可用的消费优惠券，以便在即将进行的首次支付中应用，以期节省开支。\",\n  \"next_action_prediction\": \"用户很可能会在浏览优惠券后，继续进行支付流程，并尝试选择或应用其在浏览中发现的某张消费优惠券进行支付，或者点击优惠券查看详情/领取以备使用。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户作为新卡用户，在首次支付前，积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠。\",\n  \"intent_category\": \"voucher_intent\",\n  \"confidence_score\": 0.88,\n  \"key_behaviors\": [\n    \"show_membership_voucher_201373541\",\n    \"show_membership_voucher_201373473\"\n  ],\n  \"reasoning\": \"1. **用户生命周期阶段**: 用户ID '014be7f86b524693b1a2b8fbeb5a4b8f' 的审批时间为 '2025-11-26 12:14:00'，首次支付时间为 '2025-11-26 12:35:00'。当前分析的用户行为序列（首次行为时间 '2025-11-26 12:23:00'）精确地发生在审批之后、首次支付之前。这表明用户是一个非常新的卡用户，正处于准备进行首次交易的关键阶段。\\n2. **用户行为模式**: 用户在 '2025-11-26 12:23:00' 进行了两次行为，分别是 'show_membership_voucher_201373541' 和 'show_membership_voucher_201373473'。这两次行为都是展示会员消费优惠券。额外信息明确指出这些是针对'消费'的折扣，如 'INAPP&QRIS_BASIC_99%最多50K' 和 'QR+INAPP_BASIC_折扣_90%最高30K'。\\n3. **行为信号权重与序列分析**: 'show_xxx' 事件属于中权重信号，表示浏览。然而，在此场景下，用户在同一时间点集中且连续地浏览两种不同的消费优惠券，这种行为的专注性极大地强化了用户对优惠券的明确兴趣。这并非随机浏览，而是有目的地探索可用的优惠选项。\\n4. **历史意图关联**: 历史意图分析的结果（意图类别为 'voucher_intent'，置信度为0.85）与当前行为序列高度吻合。历史意图的推理明确提到“用户作为一个新卡用户，在首次支付前...积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠”。历史意图的分析时间晚于当前行为序列，但其推理中提及的审批时间和首次支付时间与当前数据一致，表明历史分析准确捕获了用户在这一关键时间窗口的行为模式和意图，从而为本次分析提供了强有力的确认和上下文支持。\\n5. **综合分析**: 综合用户的新卡用户身份、首次支付前的关键时机、集中浏览消费优惠券的明确行为，以及历史意图的强力印证，可以明确判断用户当前的核心意图是积极寻求并了解可用的消费优惠券，以便在即将进行的首次支付中应用，以期节省开支。\",\n  \"next_action_prediction\": \"用户很可能会在浏览优惠券后，继续进行支付流程，并尝试选择或应用其在浏览中发现的某张消费优惠券进行支付，或者点击优惠券查看详情/领取以备使用。\"\n}\n```",
+        "session_index": 15,
+        "session_size": 2,
+        "timestamp": "2025-12-12T15:52:46.232252"
+      },
+      {
+        "intent": "用户在首次支付流程中，积极浏览并选择可用的支付优惠券，以期在即将进行的交易中应用，从而获得优惠。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_pay_voucher_choose_qr_1"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户ID '014be7f86b524693b1a2b8fbeb5a4b8f' 的审批时间为 '2025-11-26 12:14:00'，首次支付时间为 '2025-11-26 12:35:00'。当前分析的用户行为序列（首次行为时间 '2025-11-26 12:33:00'）精确地发生在审批之后、首次支付之前。这表明用户是一个非常新的卡用户，正处于准备进行首次交易的关键“新卡激活”阶段。\n2. **用户行为模式**: 用户唯一的行为事件是 'show_pay_voucher_choose_qr_1'。这是一个展示页面（show_xxx）事件，属于中权重信号。然而，该事件名称具有极高的特异性，明确指向“支付”场景下的“优惠券选择”功能，且可能与“QR”支付方式相关。\n3. **行为信号权重与序列分析**: 尽管是单一的 'show' 事件，但其发生在用户首次支付前极短的时间内，并且事件类型直接与“支付优惠券选择”相关。这种精确的上下文和事件内容，使得其所揭示的意图强度远高于一般的浏览行为。用户不是随机探索，而是有目的地在支付路径中寻找优惠。\n4. **历史意图关联**: 历史意图分析的结果（意图类别为 'voucher_intent'，置信度为0.88）与当前行为序列高度吻合。历史意图的推理明确提到“用户作为一个新卡用户，在首次支付前...积极浏览并了解可用的消费优惠券，以期在即将进行的交易中应用，从而获得优惠”。虽然历史行为（show_membership_voucher_xxx）与当前行为的特定事件名称略有不同，但核心意图（新用户、首次支付前、寻求优惠券）完全一致。历史分析为当前行为提供了强有力的背景和意图确认。\n5. **综合分析**: 综合用户的新卡用户身份、首次支付前的关键时机、在支付流程中主动查看“支付优惠券选择”页面这一高度相关且特定的行为，以及历史意图的有力印证，可以明确判断用户当前的核心意图是积极寻求并选择可用的支付优惠券，以便在即将进行的首次支付中应用，以期节省开支。置信度较高，因为行为事件虽为 'show' 但描述性极强，且与用户生命周期和历史意图高度契合。",
+        "next_action_prediction": "用户很可能会在浏览优惠券选择页面后，继续进行支付流程，并尝试选择或应用其在浏览中发现的支付优惠券以完成首次交易。",
+        "session_index": 16,
+        "session_size": 1,
+        "timestamp": "2025-12-12T15:53:03.344344"
+      },
+      {
+        "intent": "用户正在积极寻找并评估可用于首次支付的消费优惠券，以期在即将进行的交易中获得折扣。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_basic_homepage_danainstanbill",
+          "show_home_voucher_201373474",
+          "show_home_voucher_201373540",
+          "show_home_voucher_201373476",
+          "show_home_voucher_201373473"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 根据用户信息，用户在审批通过 (2025-11-26 12:14:00) 之后，立即在 2025-11-26 12:34:00 进行了行为，并在 2025-11-26 12:35:00 完成了首次支付。这表明用户正处于信用卡获批后的“首次支付准备”阶段。\n2. **行为序列分析**: 用户首先访问了主页 (`show_basic_homepage_danainstanbill`)，随后在极短的时间间隔内（全部在同一分钟内）连续浏览了四个不同的消费类优惠券（事件类型均为 `show_home_voucher_xxx`）。这种快速、集中的行为模式，从浏览主页迅速转向特定优惠券的探索，显示了用户对优惠券的强烈、直接兴趣。\n3. **行为上下文**: 被浏览的每个优惠券都带有“消费”、“折扣”等额外信息，明确指出了这些优惠券的用途和价值。虽然都是“show”事件（中等权重），但如此数量和主题一致的连续“show”事件，在用户首次支付前发生，其揭示的意图权重被显著提高。\n4. **历史意图**: 历史意图分析结果与当前行为模式高度吻合，指出用户“在首次支付流程中，积极浏览并选择可用的支付优惠券，以期在即将进行的交易中应用，从而获得优惠”，并且得分很高 (0.85)。这进一步印证了当前分析的准确性和用户意图的持续性。\n5. **综合判断**: 用户在首次支付前密集浏览消费优惠券，旨在通过优惠降低其首次支付成本。因此，其核心意图是寻求和评估优惠券，这与支付意图紧密相关。",
+        "next_action_prediction": "用户最有可能的下一步行动是：选择并应用一个合适的优惠券，然后继续前往支付页面完成首次交易；或者，如果当前优惠券不符合预期，可能会返回再次浏览或直接进入支付流程查看更多优惠选项。",
+        "session_index": 17,
+        "session_size": 5,
+        "timestamp": "2025-12-12T15:53:19.945875"
+      },
+      {
+        "intent": "用户在首次支付后探索平台功能、新用户权益并关注账户初始化待办事项。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.7,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_home_todo_card_email_verify",
+          "show_home_todo_card_login_email_verify"
+        ],
+        "reasoning": "1. **用户生命周期阶段分析**: 根据用户信息，用户于2025-11-26 12:14:00获得审批，并在2025-11-26 12:35:00完成首次支付。所有行为序列也发生在同一时间点（2025-11-26 12:35:00），这表明用户正处于成为新用户并完成首笔交易后的即时探索阶段。\n2. **用户行为序列分析**: \n   - 行为事件均为`show_xxx`类型，属于中等权重信号，表明用户处于浏览和了解模式，而非直接进行高意图的转化操作（如点击支付）。\n   - 序列中两次出现`show_new_user_zone_page`，表明用户对新用户专区的内容有持续的兴趣和探索意愿。重复访问同一页面可以视为深度探索或对该区域内容的关注。\n   - `show_home_todo_card_email_verify` 和 `show_home_todo_card_login_email_verify` 事件显示用户正在查看或被系统提示完成账户相关的待办事项，如邮箱验证。这符合新用户在完成基本操作后，进一步完善账户信息的行为模式。\n   - 所有行为发生时间相同，表明这是一个快速连续的交互，可能是系统引导或者用户在同一界面内快速查看不同模块。\n3. **行为与金融信用卡行业意图关联**: 这些行为不直接指向支付、额度管理、分期或明确的优惠券领取，而是更侧重于新用户对平台功能的初步探索、了解自身权益以及处理账户设置。因此，最符合的意图是探索/浏览意图。\n4. **历史意图分析**: 历史意图分析结果（2025-12-12）晚于当前行为发生时间（2025-11-26），这意味着历史意图是针对该用户后续或不同行为模式的分析。当前行为序列发生在首次支付的当下，用户主要表现为对新用户界面和待办事项的探索和关注，与历史意图中“寻找优惠券用于首次支付”的描述在时间点和具体行为内容上存在差异。当前阶段用户已完成首次支付，更侧重于“支付后”的初始化和探索，而非“支付前”的优惠寻求。\n5. **综合判断**: 结合用户的新用户身份、首次支付后的时间节点，以及行为序列中对新用户专区的重复访问和待办事项的查看，用户的主要意图是探索平台功能，了解新用户可获得的权益，并被引导完成账户的初始化设置。",
+        "next_action_prediction": "用户可能会点击新用户专区内的具体优惠、活动或功能模块，或者点击待办事项卡片以完成邮箱验证等账户设置操作，以进一步了解和使用平台服务。",
+        "session_index": 18,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:53:42.855355"
+      },
+      {
+        "intent": "用户正在进行首次电费支付，并积极尝试使用优惠券来获取折扣，尽管遭遇优惠券无法使用的情况，最终仍完成了支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_home_featurehub_electricity_btn",
+          "show_pay_checkout_page_electricity",
+          "click_pay_voucher_choose_btn_electricity_2",
+          "show_cannot_use_voucher_page_0_xxx",
+          "click_pay_checkout_submit_btn_electricity"
+        ],
+        "reasoning": "根据用户信息，该用户是一个新用户，其审批时间、首次支付时间、首次行为时间与最后行为时间均集中在2025-11-26 12:35:00，这表明所有行为均发生在其平台首次支付的同一分钟内，这是一次非常即时的首次交互。行为序列清晰地展示了用户从探索电费预付功能（`show_electricity_prepaid`、`click_home_featurehub_electricity_btn`、`click_electricity_prepaid`）开始，随即进入电费支付页面（`show_pay_checkout_page_electricity`）。\n\n在支付流程中，用户表现出强烈的优惠券寻求意图，通过多次点击和展示优惠券选择页面（`show_pay_voucher_choose_electricity_2`、`show_paymentpage_voucher`、`click_pay_voucher_choose_btn_electricity_2`、`click_paymentpage_voucher`）来尝试应用优惠。然而，这些尝试遭遇了阻碍，系统多次提示优惠券无法使用（`show_cannot_use_voucher_page_0_xxx`）。尽管如此，用户最终仍然点击了支付提交按钮（`click_pay_checkout_submit_btn_electricity`），完成了电费支付。\n\n历史意图提到用户在首次支付后探索平台功能、新用户权益并关注账户初始化待办事项。本次行为序列正是用户首次支付的具体实现，印证了其在探索平台核心支付功能并寻求新用户权益（如优惠券）的意图。最终的支付提交行为是一个明确的转化，显示了核心的支付意图已达成，而优惠券的尝试是支付过程中的重要考量。\n\n因此，核心意图是支付，辅以寻求优惠券的强烈愿望。",
+        "next_action_prediction": "用户很可能会查询支付结果，确认电费是否成功缴纳。鉴于其未能成功使用优惠券，用户也可能继续探索其他可用的新用户优惠或平台其他功能。",
+        "session_index": 19,
+        "session_size": 18,
+        "timestamp": "2025-12-12T15:53:58.640577"
+      }
+    ]
+  },
+  "0154c2f34c514f24b2efce90ddb04fa5": {
+    "user_uuid": "0154c2f34c514f24b2efce90ddb04fa5",
+    "total_sessions": 3,
+    "sessions": [
+      {
+        "intent": "用户作为新批卡用户，正在积极探索并了解开卡礼/消费优惠券权益。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_home_voucher_202087775",
+          "show_home_voucher_202087776",
+          "show_home_voucherhint"
+        ],
+        "reasoning": "根据用户信息，用户ID为0154c2f34c514f24b2efce90ddb04fa5，审批时间与首次行为时间相同，且首次支付时间为'NaT'，这明确指出该用户是**刚刚完成信用卡审批并首次激活的新用户**，尚未进行任何支付交易。用户行为序列分析如下：\n\n1.  **2025-11-28 12:41:00, 事件: show_QSPIN_activate_success_pg**：此行为是用户首次行为，且发生在审批完成后，表明用户刚刚成功激活了信用卡，处于新卡使用的起始阶段。\n2.  **2025-11-28 12:41:00, 事件: show_home_voucher_202087775, 额外信息: 【消费】Basic_ALL_disc99%_15K_不领_7天_开卡礼**：紧接着激活成功，用户立即浏览了主页上的优惠券。额外信息明确指出这是一张“开卡礼”消费券，显示用户对新卡福利的关注。\n3.  **2025-11-28 12:41:00, 事件: show_home_voucherhint**：用户又看到了一个优惠券提示，进一步印证了其对优惠券内容的兴趣。\n4.  **2025-11-28 12:41:00, 事件: show_home_voucher_202087776, 额外信息: 【消费】Basic_ALL_disc99%_10K_次日生效_不领_7天_开卡礼**：用户再次浏览了另一张“开卡礼”消费优惠券。两次连续浏览不同但同属“开卡礼”的优惠券，且都在激活后的第一时间发生，表明用户强烈意图了解新用户专属的优惠和福利。\n\n综合分析，用户在完成新卡激活后，立即且密集地查看了多张“开卡礼”相关的消费优惠券。这表明用户当前的核心意图是探索和了解作为新批卡用户所能获得的优惠券权益，并可能计划使用这些优惠进行消费。这是一个非常明确的优惠券寻求意图。",
+        "next_action_prediction": "用户可能会点击具体的优惠券以查看其使用详情（如有效期、使用条件等）、尝试领取优惠券，或者寻找符合优惠券使用条件的支付场景进行首次消费。",
+        "session_index": 0,
+        "session_size": 4,
+        "timestamp": "2025-12-12T15:56:43.234764"
+      },
+      {
+        "intent": "用户关注信用额度管理，尤其对临时额度提升表现出初步兴趣。",
+        "intent_category": "credit_limit_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_homepage_tempolimit_increase_tooltips"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-28审批通过，且首次支付时间为'NaT'，表明其为一名新批卡用户，尚未进行首次支付。其唯一的行为记录是'show_homepage_tempolimit_increase_tooltips'，发生在审批通过的同一时间，这通常是用户首次登录应用或查看卡片信息的早期行为。此行为属于'show_xxx'类型，显示了用户的浏览模式，但其内容具体指向了'临时额度提升'相关的工具提示。在用户行为信号权重中，'show_limit_xxx'或'额度相关'的展示属于高权重信号。虽然这只是一个展示行为而非点击，但作为新用户的第一步操作，且指向具体功能（额度管理），表明用户对自身信用额度，特别是提升额度方面有明确的初期关注。与历史意图（探索开卡礼/优惠券）相比，此行为发生时间更早，显示了用户在关注优惠权益之前，可能更优先关注信用卡的实际使用能力和额度状况。因此，当前意图被识别为额度管理意图，且置信度较高。",
+        "next_action_prediction": "用户下一步很可能会点击该临时额度提升工具提示，进入额度管理页面了解详情，或探索首页其他额度相关功能，如查询固定额度、额度调整申请等。鉴于其新用户身份，也可能在完成额度探索后，转向了解开卡礼或消费优惠券，与历史意图相衔接。",
+        "session_index": 1,
+        "session_size": 1,
+        "timestamp": "2025-12-12T15:57:01.344121"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户对新卡开卡礼或新用户营销活动表现出强烈兴趣，旨在了解并可能领取新用户专属福利。\",\n  \"intent_category\": \"marketing_intent\",\n  \"confidence_score\": 0.75,\n  \"key_behaviors\": [\n    \"show_home_floaticon_3259 (额外信息: 运营_新人_开卡礼)\"\n  ],\n  \"reasoning\": \"1. **用户状态和生命周期阶段**: 用户ID '0154c2f34c514f24b2efce90ddb04fa5' 的审批时间 (2025-11-28 12:41:00) 与其首次行为时间及最后行为时间完全一致，且首次支付时间为 'NaT'。这表明用户刚获得信用卡审批，是一个全新的卡片持有者，尚未进行首次支付，正处于了解和激活卡片福利的初期阶段。\\n2. **用户行为序列分析**: 用户唯一的行为是 'show_home_floaticon_3259'，事件时间与审批时间相同。虽然这是页面展示（'show_xxx'），权重中等，但其附带的额外信息 '运营_新人_开卡礼' 提供了极强的上下文。\\n3. **行为上下文**: '新人_开卡礼' 明确指出这是一个针对新用户的欢迎礼遇或营销活动。结合用户刚获批且未首次支付的状态，这一行为具有非常高的指向性，表明用户在第一时间关注的是新用户福利。\\n4. **历史意图对比**: 尽管历史意图分析指出用户之前关注信用额度管理（得分0.8），但本次分析的用户行为发生在2025-11-28，而历史意图的分析时间是2025-12-12。这表明当前的这一行为（用户首次行为）早于历史意图的分析时间。因此，对于用户作为新卡用户的第一时间互动，当前行为所揭示的意图更为直接和优先。用户在刚审批通过后立刻查看开卡礼，体现了其当前阶段的核心兴趣是新用户营销活动。\\n5. **意图归类**: 用户的行为高度匹配 '营销活动参与意图' 和 '优惠券/会员意图'。考虑到 '开卡礼' 通常是营销活动的一部分，'marketing_intent' 更为全面和准确。\\n6. **置信度计算**: 这是一个单一的 'show' 事件，通常置信度不会极高。然而，其发生的时机（用户首次行为、刚获批）、明确的额外信息（'新人_开卡礼'）与用户生命周期阶段完美契合，使得此 'show' 事件具有非常强的意图指向性。因此，给予0.75的较高置信度，表明用户对该营销活动有明确兴趣，但尚未发生点击或转化。\",\n  \"next_action_prediction\": \"用户很可能会点击该浮动图标，进入开卡礼详情页面，了解具体的福利内容、领取方式或参与条件。也可能进一步探索主页上的其他新人指引或福利入口。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户对新卡开卡礼或新用户营销活动表现出强烈兴趣，旨在了解并可能领取新用户专属福利。\",\n  \"intent_category\": \"marketing_intent\",\n  \"confidence_score\": 0.75,\n  \"key_behaviors\": [\n    \"show_home_floaticon_3259 (额外信息: 运营_新人_开卡礼)\"\n  ],\n  \"reasoning\": \"1. **用户状态和生命周期阶段**: 用户ID '0154c2f34c514f24b2efce90ddb04fa5' 的审批时间 (2025-11-28 12:41:00) 与其首次行为时间及最后行为时间完全一致，且首次支付时间为 'NaT'。这表明用户刚获得信用卡审批，是一个全新的卡片持有者，尚未进行首次支付，正处于了解和激活卡片福利的初期阶段。\\n2. **用户行为序列分析**: 用户唯一的行为是 'show_home_floaticon_3259'，事件时间与审批时间相同。虽然这是页面展示（'show_xxx'），权重中等，但其附带的额外信息 '运营_新人_开卡礼' 提供了极强的上下文。\\n3. **行为上下文**: '新人_开卡礼' 明确指出这是一个针对新用户的欢迎礼遇或营销活动。结合用户刚获批且未首次支付的状态，这一行为具有非常高的指向性，表明用户在第一时间关注的是新用户福利。\\n4. **历史意图对比**: 尽管历史意图分析指出用户之前关注信用额度管理（得分0.8），但本次分析的用户行为发生在2025-11-28，而历史意图的分析时间是2025-12-12。这表明当前的这一行为（用户首次行为）早于历史意图的分析时间。因此，对于用户作为新卡用户的第一时间互动，当前行为所揭示的意图更为直接和优先。用户在刚审批通过后立刻查看开卡礼，体现了其当前阶段的核心兴趣是新用户营销活动。\\n5. **意图归类**: 用户的行为高度匹配 '营销活动参与意图' 和 '优惠券/会员意图'。考虑到 '开卡礼' 通常是营销活动的一部分，'marketing_intent' 更为全面和准确。\\n6. **置信度计算**: 这是一个单一的 'show' 事件，通常置信度不会极高。然而，其发生的时机（用户首次行为、刚获批）、明确的额外信息（'新人_开卡礼'）与用户生命周期阶段完美契合，使得此 'show' 事件具有非常强的意图指向性。因此，给予0.75的较高置信度，表明用户对该营销活动有明确兴趣，但尚未发生点击或转化。\",\n  \"next_action_prediction\": \"用户很可能会点击该浮动图标，进入开卡礼详情页面，了解具体的福利内容、领取方式或参与条件。也可能进一步探索主页上的其他新人指引或福利入口。\"\n}\n```",
+        "session_index": 2,
+        "session_size": 1,
+        "timestamp": "2025-12-12T15:57:24.112787"
+      }
+    ]
+  },
+  "016909b1e4684525942876c9b7f89802": {
+    "user_uuid": "016909b1e4684525942876c9b7f89802",
+    "total_sessions": 9,
+    "sessions": [
+      {
+        "intent": "用户希望使用新卡进行首次支付，同时积极关注新用户专享的营销活动和开卡礼。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "click_homepage_yoopay_btn",
+          "show_homepage_yoopay_btn",
+          "show_new_user_zone_page",
+          "show_home_floaticon_2921, 额外信息: 运营_新人_开卡礼",
+          "show_homepage_installment_section"
+        ],
+        "reasoning": "该用户刚刚完成信用卡审批（审批时间: 2025-11-25 10:09:00）并激活了账户（事件: show_QSPIN_activate_success_pg），处于新用户生命周期的初期。用户的总行为数和唯一事件类型数较高，表明用户在短时间内（从10:09到10:10）进行了密集的探索。\n\n行为序列分析揭示了以下几点：\n1.  **新用户激活与探索（初始化）**: 用户在激活成功后立即进入首页（show_home_page），这是典型的新用户首次登陆行为。\n2.  **多功能探索（中等权重）**: 用户接着浏览了分期付款区域（show_homepage_installment_section），显示出对卡片使用方式的初步兴趣。同时，用户也关注到了Yoopay按钮（show_homepage_yoopay_btn），这是一个潜在的支付入口。\n3.  **营销活动/新用户福利高度关注（中等权重）**: 用户反复访问了“新人专区”页面（show_new_user_zone_page，共2次），并查看了多个带有“运营_新人_ALL”额外信息的首页横幅（show_new_homebanner_C_3211 2次，show_new_homebanner_A_3209），以及明确提及“运营_新人_开卡礼”的浮动图标（show_home_floaticon_2921）。这些行为聚合表明用户对新用户专属福利和营销活动有强烈兴趣，可能在寻找如何最大化利用新卡的价值。\n4.  **明确的支付意图（高权重）**: 在一系列浏览和探索行为之后，用户执行了高权重的点击操作：click_homepage_yoopay_btn。这个点击信号是最直接、最明确地表达了用户希望进行支付或进入支付流程的意图。尽管用户在本次行为序列中尚未产生首次支付（首次支付时间为次日），但此点击行为是后续支付行为的强烈前兆。\n\n综合来看，用户作为新卡用户，在探索卡片基本功能和新用户福利的同时，最终通过点击支付相关按钮明确表达了其进行首次支付的意图。新用户福利的关注与支付意图相结合，表明用户可能在寻求如何在首次支付中利用这些福利。",
+        "next_action_prediction": "用户最有可能进入Yoopay支付流程，例如进行支付绑定、扫码支付或选择特定商户进行交易。在此过程中，用户也可能继续寻找与新用户开卡礼或优惠活动相关的指引，以在首次支付中获得最大收益。",
+        "session_index": 0,
+        "session_size": 11,
+        "timestamp": "2025-12-12T16:02:07.933604"
+      },
+      {
+        "intent": "用户对新卡权益、积分活动或新户营销信息有初步探索和关注的兴趣。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_new_homebanner_B_3210 (运营_积分_提醒)"
+        ],
+        "reasoning": "综合分析：\n1.  **用户生命周期**: 用户在2025-11-25 10:09:00审批通过，紧接着在10:10:00即发生了首次行为。其首次支付时间是2025-11-26 08:50:00，这意味着在当前行为发生时，用户尚未完成首次支付，正处于新卡激活和初次使用的探索阶段。\n2.  **用户行为序列**: 唯一的行为是`show_new_homebanner_B_3210`。这是一个“展示”类型的行为，权重属于中等。然而，其`额外信息: 运营_积分_提醒`是关键上下文，明确指示该横幅是运营推广性质，且与“积分”相关。\n3.  **行为上下文**: “运营_积分_提醒”强烈表明用户正在接触或被提醒与新卡福利、积分规则或营销活动相关的信息。对于一个刚获批的新用户而言，关注这些信息是自然且合理的。\n4.  **历史意图**: 历史分析指出用户“关注新用户专享的营销活动和开卡礼”，这与当前行为中展示的“运营_积分_提醒”高度吻合，确认了用户对新卡营销福利的持续兴趣。\n\n**总结**: 尽管用户只进行了一次“展示”行为，但鉴于其发生在新卡审批后极短的时间内（1分钟），且展示内容明确指向“运营_积分_提醒”这一营销/福利信息，表明用户作为新卡用户，在准备首次使用前，对新卡的权益、积分活动或新户专属营销活动表现出明确的兴趣。这并非随机浏览，而是有针对性地接收并关注卡片带来的额外价值。",
+        "next_action_prediction": "用户可能会点击该横幅以了解更多积分活动或新户礼遇详情；或者在了解积分规则后，被激励前往进行首次支付，以获取相应的积分奖励；也可能进一步探索应用内的“我的积分”或“会员中心”页面。",
+        "session_index": 1,
+        "session_size": 1,
+        "timestamp": "2025-12-12T16:02:29.703347"
+      },
+      {
+        "intent": "用户对新卡权益、积分活动及新户引导任务有初步探索与参与的意图。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_home_task_b72129328f1a45939d5cd2267ddb6f60",
+          "show_home_task_53c22626031845f09fce5eacacb31e00",
+          "show_home_task_37744a03322743b49957eaf2b7548482",
+          "show_home_task_8348ec88466e4b2ebea5769b71be9127",
+          "show_home_task_b519b1bf69ac48cf974698628862fc0b",
+          "show_new_homebanner_B_3210 (额外信息: 运营_积分_提醒)"
+        ],
+        "reasoning": "根据用户信息，用户于2025-11-25 10:09:00获得信用卡审批，并在同一天的12:33:00（即审批后约2小时24分钟）进行了首次行为，且所有6个行为都发生在此时间点，位于其首次支付（2025-11-26 08:50:00）之前。这表明用户正处于新卡激活和早期探索的生命周期阶段。\n\n行为序列显示，用户同时被展示了多个主页任务（`show_home_task_xxx`，共5个）和一个带有明确“运营_积分_提醒”信息的首页新横幅（`show_new_homebanner_B_3210`）。这些都是'show_xxx'类型的事件，属于中等权重信号，指示用户正在浏览和关注页面内容。\n\n这些行为模式与金融信用卡行业特定意图类型中的“营销活动参与意图”和“优惠券/会员意图”高度相关。'show_home_task_xxx'通常是为新用户设计的引导任务或营销活动入口，而带有“积分_提醒”的横幅则直接指向用户对积分权益或奖励的关注。虽然缺乏高权重的点击行为来表明深度互动，但作为新用户首次行为，这些展示内容极具指向性。\n\n历史意图分析结果“用户对新卡权益、积分活动或新户营销信息有初步探索和关注的兴趣”与当前的行为数据完美契合，当前行为进一步证实了用户在新卡审批后，立即被平台引导或主动关注其新户特权和积分福利，以完成初期任务并激发使用。因此，目前的意图是持续且得到强化的。",
+        "next_action_prediction": "用户可能会点击某个主页任务或积分提醒横幅，以进一步了解新用户权益、积分详情或完成入门任务。考虑到其首次支付发生在次日，后续也可能直接进行支付以激活卡片并获取相应新户奖励。",
+        "session_index": 2,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:02:51.527736"
+      },
+      {
+        "intent": "作为新批准的卡用户，用户正在积极探索其新卡权益、专属开卡礼、积分活动以及其他新人专属福利。其意图倾向于了解和利用新卡提供的价值与促销活动。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_home_floaticon_2921 (额外信息: 运营_新人_开卡礼)",
+          "show_new_user_zone_page",
+          "show_home_voucherhint",
+          "show_new_homebanner_B_3210 (额外信息: 运营_积分_提醒)"
+        ],
+        "reasoning": "用户在审批当天（2025-11-25）即产生了行为，并且是在首次支付（2025-11-26）之前。这表明用户处于新卡激活和权益探索的初期阶段。所有观察到的行为（共5个，发生在1分钟内）虽然均为页面展示事件（中权重），但其额外信息和页面类型高度聚焦于“新用户”、“开卡礼”、“优惠券”和“积分活动”：\n\n1.  `show_home_floaticon_2921` 明确指向“运营_新人_开卡礼”，显示用户对新户奖励有直接兴趣。\n2.  `show_new_user_zone_page` 表明用户进入了为新用户设计的专属区域，意图探索相关内容。\n3.  `show_home_voucherhint` 和 `show_new_homebanner_B_3210` （包含“运营_积分_提醒”）进一步强化了用户对优惠券、会员权益和积分回馈的关注。\n\n这些行为构成了一个连贯的序列，清晰地描绘了用户对新卡促销和福利的探索。尽管没有点击（高权重）或支付行为，但信息展示的深度和聚焦性使其意图非常明确。此次分析与历史意图高度一致，证实了用户对新卡权益和新户引导任务的持续关注。",
+        "next_action_prediction": "用户接下来可能会点击具体的开卡礼、优惠券或积分活动横幅，以深入了解活动详情、参与方式或领取福利；或尝试进行首笔交易以激活可能与新人奖励挂钩的权益。",
+        "session_index": 3,
+        "session_size": 5,
+        "timestamp": "2025-12-12T16:03:06.475568"
+      },
+      {
+        "intent": "用户表现出强烈的支付意图，可能正在探索使用新卡进行交易或准备其首次支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_rechargephone_page",
+          "click_home_bottomnav_bayar_btn"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-25 10:09:00获得审批，并于同一天下午14:23:00开始了其首次行为，且首次支付时间定于2025-11-26 08:50:00，这表明在当前行为发生时，用户是一名刚刚获得卡片且尚未完成首次支付的新用户。用户行为序列清晰地指向支付意图：\n1.  用户首先访问了**电话充值页面 (show_rechargephone_page)**，这是一个具体的支付场景，表明用户对交易功能产生了兴趣。\n2.  紧接着，用户立即点击了**首页底部导航栏的‘支付’按钮 (click_home_bottomnav_bayar_btn)**。‘click_xxx’是高权重信号，明确表示用户的主动选择和强烈的兴趣。‘Bayar’（印尼语“支付”）更是直接指向支付功能。\n\n这两个行为紧密相连且都与支付相关，特别是高权重的‘点击支付按钮’操作，使其意图从一般的探索转向了具体的支付交易。与历史意图相比，用户已经从“探索新卡权益”的宽泛阶段，进入到更加具象和操作层面的“尝试或准备支付”阶段，意图更为明确。鉴于用户是新卡用户且尚未进行首次支付，其行为很可能是在熟悉支付流程或准备进行首次交易。",
+        "next_action_prediction": "用户可能会进一步探索具体的支付服务选项、选择支付方式，或者尝试完成其首次使用新信用卡的支付交易。",
+        "session_index": 4,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:03:21.608234"
+      },
+      {
+        "intent": "用户正在积极探索其新信用卡或会员资格所附带的优惠券和会员权益，以寻求节省或获取奖励，很可能是在为即将到来的首次支付做准备。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_home_bottomnav_membership_btn",
+          "show_membership_voucher_200949931",
+          "show_membership_voucher_200949933",
+          "show_membership_voucher_200949935",
+          "show_membership_task_1929985932346262528"
+        ],
+        "reasoning": "该用户于2025-11-25获得审批，并且计划在次日（2025-11-26）进行首次支付。当前的全部8个行为都发生在审批当天，即首次支付之前。用户行为序列显示：\n1.  用户主动点击了底部导航栏的【会员】按钮（`click_home_bottomnav_membership_btn`，高权重信号），表明其对会员权益有明确兴趣。\n2.  随后，用户连续浏览了多个会员优惠券（`show_membership_voucher_xxx`）和会员任务（`show_membership_task_xxx`）。这些都是中权重信号，且持续性地聚焦于会员福利。\n3.  优惠券的额外信息明确指出是【消费】类折扣，例如`【消费】_QR+INAPP_折扣_50%最高20K_次日生效_2天`。其中'次日生效'与用户的'首次支付时间'（2025-11-26）完美契合，强烈暗示用户正在积极寻找可用于首次支付的优惠。\n\n综合来看，用户在获得新卡后，立即并有针对性地探索会员权益和优惠券，其目标是获取将在近期支付中使用的折扣或福利。这与历史意图中的'强烈的支付意图'形成逻辑上的前置阶段，即用户正在为支付做准备，寻求最大化收益。尽管部分优惠券显示'不领'，但这可能只是暂时的行为，或者用户正在比较不同优惠，等待最佳时机领取或选择最适合其首次支付的优惠。因此，用户意图高度明确，且与用户生命周期（新卡激活前夕）高度匹配。",
+        "next_action_prediction": "领取或激活会员优惠券，并尝试在首次支付交易中使用这些优惠券。",
+        "session_index": 5,
+        "session_size": 8,
+        "timestamp": "2025-12-12T16:03:40.865262"
+      },
+      {
+        "intent": "用户正在积极探索如何使用信用卡进行支付，特别是针对手机充值或账单支付（pulsa）这类日常小额交易。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "click_home_bottomnav_transaction_btn",
+          "click_home_bottomnav_bayar_btn",
+          "show_pulsa_page"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-25 10:09:00获得审批，并于同一天14:24:00开始进行首次行为，其首次支付时间定于2025-11-26 08:50:00，这表明用户正处于信用卡获批后的初期探索阶段，且在首次实际支付前。用户行为序列清晰地展现了从导航到支付意图的演变：\n\n1.  用户首先通过`click_nav_home_btn`进入主页，随后展示了对交易记录的关注（`show_mytrx_page`和`click_home_bottomnav_transaction_btn`）。对于新用户而言，此时可能还没有交易记录，这可能代表用户在了解卡的管理功能。\n2.  紧接着，用户执行了高权重的`click_home_bottomnav_bayar_btn`（支付按钮点击），这明确表达了其支付意图。\n3.  最后，用户访问了`show_pulsa_page`。'Pulsa'通常指手机充值或小额账单支付页面，进一步细化了支付意图的具体方向。\n\n所有行为都发生在同一时间戳，表明用户正在快速、有目的地探索支付功能。`click_home_bottomnav_bayar_btn`是高权重行为，直接指向支付，而`show_pulsa_page`进一步明确了支付类型。尽管存在历史意图（发生在首次支付之后，时间更晚），其侧重于优惠券和会员权益，但当前的行为序列（发生在首次支付之前）更直接地展示了用户对进行实际支付操作的兴趣，特别是日常小额支付，可视为对信用卡基础使用功能的探索和尝试，为后续的首次支付做准备。因此，核心意图是支付，且目标明确。",
+        "next_action_prediction": "用户很可能在pulsa页面上选择充值金额或输入支付详情，并尝试进行首次pulsa支付，或者进一步探索其他支付选项。",
+        "session_index": 6,
+        "session_size": 5,
+        "timestamp": "2025-12-12T16:03:56.344241"
+      },
+      {
+        "intent": "用户作为新批准的信用卡用户，正在进行初始探索，主要关注新人专属福利、积分机制以及应用展示的核心功能。当前意图倾向于熟悉平台界面和了解新手权益。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.55,
+        "key_behaviors": [
+          "show_home_floaticon_2921 (运营_新人_开卡礼)",
+          "show_new_homebanner_B_3210 (运营_积分_提醒)",
+          "show_new_user_zone_page",
+          "show_homepage_tempolimit_increase_tooltips",
+          "show_new_homebanner_A_3209 (运营_新人_ALL)",
+          "show_new_homebanner_C_3211 (运营_新人_ALL)"
+        ],
+        "reasoning": "该用户在2025-11-25 10:09:00获得审批，并于同一天14:24:00进行了一系列行为，这明确表明用户正处于信用卡获批后的极早期生命周期阶段，即初次接触和探索阶段。所有行为都发生在同一时间点（2025-11-25 14:24:00），且均为'show_xxx'事件，这说明用户正在快速浏览应用界面，可能是首次登录后的自动引导或快速浏览。行为内容高度集中于'新人'（新用户）相关的营销活动（如'运营_新人_开卡礼'、'运营_新人_ALL'横幅）和新手专区（'show_new_user_zone_page'），以及积分提醒（'运营_积分_提醒'）。'show_homepage_tempolimit_increase_tooltips'虽然与额度相关，但在所有行为都是'show'且集中在新手内容的环境下，更倾向于被视为应用向新用户展示其功能的一部分，而非用户主动寻求额度管理。鉴于没有出现'click_xxx'或明确的支付页面（如'show_pay_checkout_xxx'）等高权重信号，用户的意图更多是初步的浏览和信息获取，而非即时交易或深度功能使用。历史意图虽然指向支付探索，但其分析时间（2025-12-12）远晚于当前行为序列（2025-11-25），且在用户首次支付（2025-11-26）之后，因此不适用于当前这个用户刚获批、尚未进行首次支付的初始探索阶段。",
+        "next_action_prediction": "用户可能会点击感兴趣的新手引导或营销活动横幅以了解更多详情，或开始尝试使用信用卡进行首次支付交易，因为其首次支付时间定在次日。",
+        "session_index": 7,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:04:17.361123"
+      },
+      {
+        "intent": "用户正在探索使用信用卡支付电费的选项，可能在比较预付费和后付费服务的差异，为即将进行的首次支付寻找合适的场景。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.68,
+        "key_behaviors": [
+          "show_electricity_prepaid",
+          "show_electricity_postpaid"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户于2025-11-25 10:09:00获得信用卡审批，并在当天下午（2025-11-25 14:25:00）产生了行为。值得注意的是，其首次支付时间定于次日（2025-11-26 08:50:00）。这表明用户正处于新卡获批后、首次实际支付前的探索和熟悉平台功能的关键阶段。\n2. **行为序列分析**: 用户在极短的时间内（精确到秒）连续访问了`show_electricity_prepaid`和`show_electricity_postpaid`页面。这种行为序列（从一种电费支付方式浏览到另一种）显示用户对“电费支付”这一具体功能有明确兴趣，并且可能在对比两种支付选项的详细信息。\n3. **行为权重与上下文**: `show_xxx`事件属于中等权重，表示用户的参与和浏览模式。尽管没有出现高权重的`click_pay_checkout_submit_btn_xxx`等直接支付操作，但对特定且紧密相关的支付功能页面的连续访问，表明用户并非泛泛浏览，而是针对性地探索支付场景。这在首次支付前的阶段尤为重要，用户可能正在寻找一个合适的支付场景来完成首次交易。\n4. **历史意图演变**: 历史意图分析指出用户作为新批准用户，正在进行初始探索，关注核心功能和新人权益。当前行为进一步细化了这一探索性意图，将其聚焦到了具体的“电费支付”这一高频生活场景上。这验证了用户在熟悉平台的同时，也在积极寻找实际使用信用卡的机会，以将新卡融入日常消费。意图从泛泛的“探索新手权益”转变为更具体的“探索特定支付方式”。",
+        "next_action_prediction": "用户很可能会点击进入其中一种电费支付流程（例如`click_electricity_prepaid`或`click_electricity_postpaid`）以了解支付详情，或进一步查看其他类型的公用事业账单支付选项（如水费、燃气费），或在确认合适的场景后，在短期内尝试完成一笔实际的电费支付。",
+        "session_index": 8,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:04:33.186017"
+      }
+    ]
+  },
+  "01710bbfe7064a7fa2252d3dc6c93650": {
+    "user_uuid": "01710bbfe7064a7fa2252d3dc6c93650",
+    "total_sessions": 4,
+    "sessions": [
+      {
+        "intent": "用户作为新卡用户，正在探索新用户引导流程及初期福利，旨在了解并可能领取新人开卡礼等优惠。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_home_floaticon_2921 (额外信息: 运营_新人_开卡礼)",
+          "show_new_user_zone_page",
+          "show_home_task_2cc4c5a5a01b4d4b89b72b6e14134743"
+        ],
+        "reasoning": "该用户在审批时间（2025-11-18 14:29:00）后立即产生了多项行为，且首次支付时间为NaT，表明其是一位刚刚激活信用卡的新用户，处于生命周期的早期阶段（ onboarding / activation）。\n\n用户行为序列显示，在成功激活页面（show_QSPIN_activate_success_pg）之后，用户立即浏览了与“新人”相关的内容：\n1. `show_home_floaticon_2921`，其额外信息明确指出是“运营_新人_开卡礼”，这直接表明用户对新用户专享的优惠或福利有明确兴趣（高权重信号的上下文）。\n2. 随后，用户访问了 `show_new_user_zone_page`，这是一个专门为新用户设计的页面，通常聚合了新手指引和专属福利。\n3. 用户还多次访问了 `show_home_task_xxx` 页面，这些任务通常旨在引导新用户熟悉产品功能、完成认证或领取奖励。\n\n尽管所有行为都是“show”事件（中等权重），但其紧密的发生时间（都在同一秒）、明确的“新用户”主题以及对“开卡礼”的关注，清晰地揭示了用户当前的主要意图是探索平台为新用户提供的各项指引、福利和任务，尤其侧重于发现和了解如开卡礼之类的优惠。这与`优惠券/会员意图`（用户寻求优惠或会员权益）高度吻合。\n\n历史意图缺失，本次分析为首次。本次意图分析基于用户生命周期阶段（新用户）、行为顺序（激活后立即探索新人内容）和行为类型（显示而非点击，但上下文极强）。",
+        "next_action_prediction": "用户很可能会点击具体的“新人开卡礼”或“新人任务”以了解详细信息、进行领取操作或尝试完成其中一个任务。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:17:23.394853"
+      },
+      {
+        "intent": "用户刚获得审批，立即关注并查看了其信用额度，特别是现金贷相关额度。这表明用户当前的核心意图是了解和管理其可用额度。",
+        "intent_category": "credit_limit_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_limit_page_module_cashloan",
+          "show_limit_pg"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户于2025-11-18 14:29:00获得审批，且'首次支付时间'为NaT，'首次行为时间'紧随审批时间，表明用户是刚获批的“新用户”或“待激活用户”，尚未产生实际消费行为，正处于初期探索阶段。\n2. **用户行为序列分析**: 用户在审批后立即（2025-11-18 14:30:00）进行了两次行为，分别是`show_limit_page_module_cashloan`（显示现金贷额度模块）和`show_limit_pg`（显示额度页面）。这两个行为发生时间完全一致，说明用户在审批后第一时间且非常迅速地将注意力集中在额度相关信息上。\n3. **行为信号权重**: 根据权重规则，`show_limit_xxx`（额度相关）是显示用户“额度关注”的高权重信号。这两次行为都直接指向额度信息，显示出用户明确的兴趣点。\n4. **意图类型匹配**: 用户的行为序列`show_limit_page_module_cashloan`和`show_limit_pg`直接匹配“额度管理意图”的信号（`show_limit_xxx`, `show_limit_page_module_xxx`），这是金融信用卡行业中非常具体的意图类型。\n5. **历史意图对比**: 历史意图分析提到用户可能在探索新人引导流程及初期福利。虽然用户仍处于新用户阶段，但当前的具体行为序列（仅限额度相关页面）使得意图从泛泛的“新人探索”聚焦到明确的“额度管理”。这表明用户在新人探索过程中，对额度（尤其是现金贷额度）的关注是其当前最优先和最明确的需求。\n6. **综合判断**: 结合用户的新手状态、行为的即时性、专注性和高权重信号，可以高度自信地判断用户当前最主要的意图是了解和管理其新获得的信用额度，特别是对现金贷额度有明确兴趣。",
+        "next_action_prediction": "用户可能会点击查看现金贷产品的详细介绍，探索额度的具体使用规则，尝试进行额度激活，或寻找关于如何使用其可用额度的指南。",
+        "session_index": 1,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:17:36.657238"
+      },
+      {
+        "intent": "用户当前的核心意图是了解和管理其可用信用额度，特别是对现金贷额度的关注度极高，可能正考虑如何利用这部分额度。",
+        "intent_category": "credit_limit_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_limit_page_module_cashloan",
+          "click_homepage_qris_btn (重复)",
+          "show_new_user_zone_page (重复)"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-18 14:29:00获得审批，且首次支付时间为NaT，这表明用户处于刚刚获得审批且尚未进行首次支付的新用户生命周期阶段。在此阶段，用户通常会探索其新获得的信用额度以及如何使用。用户行为序列印证了这一点：\n\n1.  **2025-11-18 14:30:00: click_homepage_qris_btn (高权重)**：用户首先点击了首页的QRIS按钮，这显示了其对支付方式或相关营销活动的初步兴趣。\n2.  **2025-11-18 14:30:00: show_new_user_zone_page (中权重)**：随后用户访问了新手专区页面，表明其作为新用户正在积极探索平台功能或优惠。\n3.  **2025-11-18 14:35:00: click_homepage_qris_btn (高权重，重复)**：在5分钟后，用户再次点击了QRIS按钮，这进一步强化了对QRIS功能的兴趣，可能是在寻找支付方式或相关优惠。\n4.  **2025-11-18 14:35:00: show_limit_page_module_cashloan (高权重)**：**紧接着QRIS点击之后，用户查看了现金贷额度模块。这是一个非常明确且高权重的信号，直接表明用户对可用的现金贷额度有强烈兴趣。** 这种从支付方式探索到直接查看特定额度模块的序列，暗示了用户可能在考虑通过现金贷来满足某种资金需求，或者是在了解其信用额度中包含的这项重要功能。\n5.  **2025-11-18 14:35:00: show_new_user_zone_page (中权重，重复)**：最后，用户再次访问了新手专区，可能是在寻求关于现金贷使用、额度管理或新用户权益的更多信息。\n\n综合分析，用户在刚获得审批后，虽然探索了支付方式和新手福利，但最明确和最具决定性的行为是查看了现金贷额度。这与历史意图分析“用户刚获得审批，立即关注并查看了其信用额度，特别是现金贷相关额度”高度一致并得到了加强。用户当前的关注点已从泛泛的探索转向了具体的额度使用，尤其是现金贷这一高价值功能。因此，用户意图主要围绕额度管理，尤其是现金贷的了解和潜在使用。",
+        "next_action_prediction": "用户下一步可能会点击查看现金贷的详细信息（如利率、还款计划），尝试申请现金贷，或者在新手专区中寻找关于现金贷使用的具体指南或帮助文档。",
+        "session_index": 2,
+        "session_size": 5,
+        "timestamp": "2025-12-12T16:17:55.055657"
+      },
+      {
+        "intent": "用户当前的核心意图是探索其新卡账户的会员权益、可用优惠券和任务，以了解如何获得和利用这些附加价值。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.65,
+        "key_behaviors": [
+          "show_membership_voucher_198945243",
+          "show_membership_task_1927514750791450624"
+        ],
+        "reasoning": "用户是新审批通过且尚未首次支付的新用户，处于账户的初始探索阶段。其唯一的两个行为（在同一时间发生）均为中等权重的'show_xxx'事件：查看了会员优惠券（'show_membership_voucher'，具体信息显示为消费折扣）和会员任务（'show_membership_task'）。这些行为直接表明用户对新卡带来的会员福利、优惠活动和潜在奖励任务感兴趣。虽然没有点击等高权重行为，但事件内容的明确性使得此意图的置信度达到中等水平。与历史意图（关注信用额度）相比，当前行为显示用户兴趣点已转向会员权益和优惠探索，这符合新用户激活和价值发现的阶段。",
+        "next_action_prediction": "用户下一步可能点击查看优惠券详情以领取或使用（如click_myvoucher_xxx），或点击进入会员任务页面以了解具体任务内容并尝试完成（如click_membership_task_xxx），也可能继续浏览其他与会员或福利相关的页面。",
+        "session_index": 3,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:18:12.449553"
+      }
+    ]
+  },
+  "017b35ed464242a8ae62d21b5a26197f": {
+    "user_uuid": "017b35ed464242a8ae62d21b5a26197f",
+    "total_sessions": 6,
+    "sessions": [
+      {
+        "intent": "用户意图是探索或尝试进行QRIS支付，但在支付流程中途关闭了摄像头。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_qris_camera_pg",
+          "show_qr_upload_btn",
+          "click_qris_camera_close_btn"
+        ],
+        "reasoning": "根据用户信息，该用户（ID: 017b35ed464242a8ae62d21b5a26197f）于2025-11-16 09:29:00获得审批，且'首次支付时间'为NaT，表明该用户是新用户，尚未进行首次支付。所有行为均发生在其审批后同一分钟内，显示其在首次使用APP。用户行为序列如下：\n1. `show_qris_camera_pg` (中权重): 用户首先进入了QRIS摄像头页面，这明确指示了对QRIS支付功能的兴趣或尝试意图。\n2. `show_qr_upload_btn` (中权重): 紧接着，用户看到了QR上传按钮，这是QRIS支付流程中的一个关键步骤，进一步强化了支付意图。\n3. `click_qris_camera_close_btn` (高权重，但含义是放弃): 用户最终点击了QRIS摄像头的关闭按钮。虽然点击操作通常表示强兴趣，但关闭按钮意味着用户退出了当前的支付流程，放弃了当前的支付尝试或探索。\n\n综合来看，用户明确表现出对QRIS支付功能的探索或尝试意图，并积极进入了支付流程。然而，最终的关闭行为表明其未完成支付。考虑到用户是新批准且尚未有支付记录，这可能是一次对新功能的好奇探索，也可能是在支付过程中遇到了某些障碍而选择放弃。由于其进入了具体的支付流程，而非仅仅浏览首页，因此支付意图是核心，但其状态是“未完成”或“探索性”。",
+        "next_action_prediction": "用户可能会重新尝试QRIS支付（如果之前是外部原因导致关闭），或者探索其他支付方式（如线上支付），也可能浏览应用内的其他功能（如查询额度、查看优惠活动）。",
+        "session_index": 0,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:21:11.180062"
+      },
+      {
+        "intent": "用户正在进行新卡激活和安全设置，包括PIN码设置和生物识别ID配置。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_set_pin_page",
+          "show_enter_PIN01_pg",
+          "show_enter_PIN02_pg",
+          "show_biological_id_setting_popup_face"
+        ],
+        "reasoning": "根据用户信息，该用户ID (017b35ed464242a8ae62d21b5a26197f) 的审批时间和首次行为时间均为2025-11-16 09:29:00，且'首次支付时间'为NaT。这表明用户刚刚获得信用卡批准，并且正在进行首次互动，处于账户激活的生命周期阶段。用户行为序列紧密地发生在同一时间点，包括依次展示PIN码设置页面（'show_set_pin_page'、'show_enter_PIN01_pg'、'show_enter_PIN02_pg'）以及生物识别ID设置弹窗（'show_biological_id_setting_popup_face'）。这些行为是新卡激活和账户安全配置的必要和关键步骤。尽管这些是'show_xxx'类型的行为（中等权重），但考虑到用户所处的生命周期阶段和行为的顺序与逻辑性，它们共同揭示了用户积极参与激活流程并配置安全功能的强烈意图，而非一般的随机浏览。历史意图提及用户曾尝试QRIS支付，但其分析时间（2025-12-12）晚于当前行为序列的发生时间（2025-11-16），这进一步说明当前的行为是用户在尝试进行任何支付操作之前的必要准备和安全配置。",
+        "next_action_prediction": "用户最可能的下一步是完成PIN码的设置提交（例如点击确认按钮），或对生物识别ID设置做出选择（例如接受或跳过），进而完成账户的激活流程。完成这些安全设置后，用户可能会进入主页，并可能尝试进行首次交易。",
+        "session_index": 1,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:21:34.720873"
+      },
+      {
+        "intent": "用户正在积极探索并领取新用户专属优惠券或福利包。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_new_user_zone_voucher_package_receive_279162603",
+          "click_new_user_zone_voucher_package_receive_279162600",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户提供的信息和行为序列，分析如下：\n\n1.  **用户生命周期阶段**：用户审批时间为2025-11-16 09:29:00，首次行为时间紧随其后为2025-11-16 09:30:00，且首次支付时间为'NaT'，表明用户是刚获批的新用户，尚未进行首次支付。这符合新用户探索福利的生命周期阶段。\n\n2.  **行为序列分析**：\n    *   用户行为全部发生在一分钟内，显示出高度集中的探索。\n    *   行为主要围绕 `show_new_user_zone_page` (页面展示，中权重) 和两次 `click_new_user_zone_voucher_package_receive_xxx` (点击领取优惠包，高权重) 事件。\n    *   用户先进入新用户专区页面，然后主动点击了领取两个不同的优惠券包，随后再次回到专区页面。这种 `show -> click -> show -> click -> show` 的序列模式明确表明用户有目的性地在寻找并领取新用户福利。\n\n3.  **行为信号权重**：\n    *   两次 `click_new_user_zone_voucher_package_receive_xxx` 属于高权重信号，直接揭示了用户对领取优惠券的明确兴趣。\n    *   `show_new_user_zone_page` 作为页面展示，提供了行为的上下文，显示用户正在新用户专区内浏览和操作。\n\n4.  **与历史意图的对比**：历史意图是“新卡激活和安全设置”，当前行为已从基础设置转向探索并获取新用户福利。这表明用户在完成或正在完成基础设置后，其意图演变为关注如何利用新卡的权益和优惠。\n\n5.  **综合判断**：用户的核心行为是主动点击领取新用户专区的优惠券包，结合其新用户的身份以及无首次支付记录，非常明确地指向了用户寻求优惠券或会员权益的意图。",
+        "next_action_prediction": "用户在领取优惠券后，最有可能的下一步行动是查看已领取的优惠券详情、探索优惠券的使用规则，或在接下来的支付场景中尝试使用这些优惠券。",
+        "session_index": 2,
+        "session_size": 5,
+        "timestamp": "2025-12-12T16:21:49.417360"
+      },
+      {
+        "intent": "```json\n{\n  \"intent\": \"用户正在积极探索并寻求新用户专属的开卡礼或福利包。\",\n  \"intent_category\": \"marketing_intent\",\n  \"confidence_score\": 0.95,\n  \"key_behaviors\": [\n    \"show_home_floaticon_2921 (运营_新人_开卡礼)\",\n    \"show_home_task_a60213339ff74891aec142c255601824\",\n    \"show_home_task_efd00c9a66cc46a4aab061645795d508\",\n    \"重复查看 show_home_floaticon_2921 (运营_新人_开卡礼)\"\n  ],\n  \"reasoning\": \"该用户于2025-11-16 09:29:00获得审批，并于1分钟后（09:30:00）开始首次行为，且至今未有首次支付记录（'首次支付时间': 'NaT'）。这表明用户是一位刚刚获批且处于初期探索阶段的新用户，尚未进行任何交易。\\n\\n行为序列分析显示，用户在极短时间内（1分钟内）进行了4次行为：\\n1.  用户首先查看了带有明确标签“运营_新人_开卡礼”的浮动图标（`show_home_floaticon_2921`）。这是一个高关联度的信号，直接表明用户对新用户专属福利的兴趣。\\n2.  随后，用户查看了两个不同的“任务”页面（`show_home_task_xxx`）。这些任务通常是引导新用户了解平台功能或完成特定操作以获得奖励的活动，与新用户福利高度相关。\\n3.  最关键的是，用户在查看了两个任务页面后，再次重复查看了“运营_新人_开卡礼”的浮动图标（`show_home_floaticon_2921`）。这种重复访问特定内容的模式，尤其是在查看其他相关信息后返回，强烈表明用户对此特定“新人开卡礼”有着持续且高度集中的兴趣，可能在进行比较或考虑下一步操作。\\n\\n综合来看，用户在成为新用户后立即参与的活动主要围绕“新人开卡礼”和“任务”，这些都属于营销活动或旨在吸引新用户的福利机制。这些行为模式与“营销活动参与意图”和“优惠券/会员意图”（寻求福利）高度吻合。\\n\\n历史意图分析结果（“用户正在积极探索并领取新用户专属优惠券或福利包”，得分0.95）与当前行为分析结果完全一致，进一步印证了用户意图的明确性和稳定性，增强了本次分析的置信度。\",\n  \"next_action_prediction\": \"用户极有可能点击“新人开卡礼”相关的浮窗或按钮，以了解更多详情或领取福利；或者点击任务以完成并获得奖励，进而激活其新用户权益。\"\n}\n```",
+        "confidence_score": 0.5,
+        "raw_response": "```json\n{\n  \"intent\": \"用户正在积极探索并寻求新用户专属的开卡礼或福利包。\",\n  \"intent_category\": \"marketing_intent\",\n  \"confidence_score\": 0.95,\n  \"key_behaviors\": [\n    \"show_home_floaticon_2921 (运营_新人_开卡礼)\",\n    \"show_home_task_a60213339ff74891aec142c255601824\",\n    \"show_home_task_efd00c9a66cc46a4aab061645795d508\",\n    \"重复查看 show_home_floaticon_2921 (运营_新人_开卡礼)\"\n  ],\n  \"reasoning\": \"该用户于2025-11-16 09:29:00获得审批，并于1分钟后（09:30:00）开始首次行为，且至今未有首次支付记录（'首次支付时间': 'NaT'）。这表明用户是一位刚刚获批且处于初期探索阶段的新用户，尚未进行任何交易。\\n\\n行为序列分析显示，用户在极短时间内（1分钟内）进行了4次行为：\\n1.  用户首先查看了带有明确标签“运营_新人_开卡礼”的浮动图标（`show_home_floaticon_2921`）。这是一个高关联度的信号，直接表明用户对新用户专属福利的兴趣。\\n2.  随后，用户查看了两个不同的“任务”页面（`show_home_task_xxx`）。这些任务通常是引导新用户了解平台功能或完成特定操作以获得奖励的活动，与新用户福利高度相关。\\n3.  最关键的是，用户在查看了两个任务页面后，再次重复查看了“运营_新人_开卡礼”的浮动图标（`show_home_floaticon_2921`）。这种重复访问特定内容的模式，尤其是在查看其他相关信息后返回，强烈表明用户对此特定“新人开卡礼”有着持续且高度集中的兴趣，可能在进行比较或考虑下一步操作。\\n\\n综合来看，用户在成为新用户后立即参与的活动主要围绕“新人开卡礼”和“任务”，这些都属于营销活动或旨在吸引新用户的福利机制。这些行为模式与“营销活动参与意图”和“优惠券/会员意图”（寻求福利）高度吻合。\\n\\n历史意图分析结果（“用户正在积极探索并领取新用户专属优惠券或福利包”，得分0.95）与当前行为分析结果完全一致，进一步印证了用户意图的明确性和稳定性，增强了本次分析的置信度。\",\n  \"next_action_prediction\": \"用户极有可能点击“新人开卡礼”相关的浮窗或按钮，以了解更多详情或领取福利；或者点击任务以完成并获得奖励，进而激活其新用户权益。\"\n}\n```",
+        "session_index": 3,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:22:09.064973"
+      },
+      {
+        "intent": "用户正在寻求并打算利用特定消费优惠券进行首次支付交易。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_myvoucher_198304053, 额外信息: 【消费】_QRIS交易_RotiO_50%最高10K_當月領取有效",
+          "click_home_bottomnav_bayar_btn (两次)",
+          "show_new_homebanner_C_3211, 额外信息: 运营_新人_ALL"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-16 09:29:00获得审批，并于2分钟后（09:31:00）开始首次行为，且至今未有首次支付记录（`首次支付时间: NaT`）。这表明用户是一位刚刚获批、处于初期探索和激活阶段的新用户，尚未进行任何交易。其行为在极短时间内（1分钟内）发生，显示出高度的参与和专注。\n\n用户行为序列分析如下：\n1.  用户首先点击了首页底部导航栏的“支付”按钮（`click_home_bottomnav_bayar_btn`）。这是一个中等权重的信号，表明用户对支付功能有初步兴趣或正在寻找支付入口。\n2.  随后，用户看到了一个“新人”相关的首页横幅（`show_new_homebanner_C_3211, 额外信息: 运营_新人_ALL`）。此信息进一步确认了用户的新用户身份，并暗示其可能正在关注与新用户相关的营销活动或福利。\n3.  **最关键的行为是用户紧接着点击了一个具体的优惠券**（`click_myvoucher_198304053, 额外信息: 【消费】_QRIS交易_RotiO_50%最高10K_當月領取有效`）。这是一个高权重信号，明确揭示了用户对该特定消费优惠券（一张QRIS交易的50%折扣券）的强烈兴趣和使用意愿。\n4.  在点击优惠券后，用户立即再次点击了首页底部导航栏的“支付”按钮（`click_home_bottomnav_bayar_btn`）。这种在查看并点击特定优惠券后立即返回支付入口的模式，强烈暗示用户正准备进行支付，并且很可能希望在支付过程中应用或查看该优惠券的使用方式。\n\n综合来看，用户的核心意图已从历史意图中描述的泛泛探索“新用户开卡礼或福利包”具体化为：**寻求并打算利用特定的消费优惠券进行支付**。历史意图的“marketing_intent”背景与当前用户关注新用户优惠券的行为相符，但当前行为更进一步，明确指出了利用优惠券进行交易的意图。用户在成为新卡用户后，正在积极寻找激活其卡片并完成首次交易的方式，而优惠券正是促成这一行为的关键动力。因此，本次分析认为用户的意图主要集中在利用优惠券进行支付。",
+        "next_action_prediction": "用户极有可能进入支付流程，寻找应用该“QRIS交易_RotiO_50%最高10K”优惠券的选项，并可能立即完成一笔涉及QRIS的支付交易以使用该优惠券。",
+        "session_index": 4,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:22:30.120443"
+      },
+      {
+        "intent": "用户正在进行首次探索和导航，以熟悉平台。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.3,
+        "key_behaviors": [
+          "click_nav_home_btn"
+        ],
+        "reasoning": "该用户（用户ID: 017b35ed464242a8ae62d21b5a26197f）于2025-11-16 09:29:00完成审批，并在短短几分钟后（2025-11-16 09:32:00）产生了其唯一的行为：click_nav_home_btn。用户信息显示其首次支付时间为'NaT'，表明用户尚未进行任何支付交易，处于非常早期的生命周期阶段（新批准但未激活交易）。\n\n用户行为序列中仅包含一个事件：'click_nav_home_btn'。根据权重规则，这是一个低权重的导航行为，表明用户在应用程序内进行初步移动。此行为发生在审批后不久，很可能代表用户首次登录或尝试熟悉平台界面，而非针对某个特定金融产品或服务的明确需求。\n\n分析中没有出现任何高权重（如click_xxx、show_pay_checkout_xxx、show_limit_xxx）或中权重（如show_xxx页面展示）的信号，来指示支付、额度、分期或优惠券等具体意图。因此，当前用户行为无法支持任何更具体的意图。\n\n历史意图虽然描述了用户可能寻求优惠券进行首次支付的意图，但其分析时间（2025-12-12）远晚于当前行为序列的时间（2025-11-16）。这意味着历史意图是未来某个时间点对用户行为的总结，而不是当前这个单一行为所反映的意图。对于当前这个时间点和行为，用户意图仍停留在探索和导航阶段。",
+        "next_action_prediction": "用户可能会继续浏览首页的不同模块（show_homepage_module_xxx），查看其可用额度（show_limit_page_xxx），或寻找新手引导/营销活动（show_new_user_promo_xxx）。",
+        "session_index": 5,
+        "session_size": 1,
+        "timestamp": "2025-12-12T16:22:46.524902"
+      }
+    ]
+  },
+  "021f9fc1eeca4801bcbcad0f08a27840": {
+    "user_uuid": "021f9fc1eeca4801bcbcad0f08a27840",
+    "total_sessions": 10,
+    "sessions": [
+      {
+        "intent": "用户已成功激活账户，目前正处于产品功能和营销活动的全方位探索阶段，尤其关注新人优惠、积分权益、支付功能和分期选项。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_homepage_yoopay_btn",
+          "show_homepage_installment_section",
+          "show_new_homebanner_A_3209 (运营_新人_ALL)",
+          "show_new_homebanner_C_3211 (运营_新人_ALL)",
+          "show_new_homebanner_B_3210 (运营_积分_提醒)"
+        ],
+        "reasoning": "该用户（ID: 021f9fc1eeca4801bcbcad0f08a27840）的审批时间与首次行为时间相同，且在首次行为序列中出现了'show_QSPIN_activate_success_pg'，这明确表明用户刚刚完成账户激活，处于其生命周期的早期阶段。所有行为事件均为'show_xxx'类型，且发生时间完全一致，这通常代表用户在激活后首次进入主页时，系统自动或用户快速浏览了多个核心功能区域和营销内容，而非进行深度交互或点击。此阶段先于用户的首次支付时间（2025-11-16 12:46:00）。\n\n关键行为信号包括：\n- 'show_QSPIN_activate_success_pg'：确认用户激活成功，为后续探索提供上下文。\n- 'show_homepage_yoopay_btn'：显示用户接触到支付功能，暗示其对支付场景的潜在关注（中权重）。\n- 'show_homepage_installment_section'：显示用户接触到分期功能，暗示其对额度使用和分期还款的潜在兴趣（中权重）。\n- 'show_new_homebanner_A_3209' 和 'show_new_homebanner_C_3211'（额外信息: 运营_新人_ALL）：这两个事件表明用户被展示了针对新用户的营销活动，显示出用户对新人福利的关注（中权重）。\n- 'show_new_homebanner_B_3210'（额外信息: 运营_积分_提醒）：显示用户接触到积分相关的营销内容，表明对会员权益或积分奖励的潜在兴趣（中权重）。\n\n综合来看，用户在激活后立即浏览了首页上的多个关键功能（支付、分期）和营销横幅（新人福利、积分提醒），但尚未进行点击等高权重互动。这表明用户的主要意图是进行广泛的探索，了解新开通账户所提供的各项服务和优惠，为后续决策做准备。因此，将其定义为'exploration_intent'，并考虑到涉及了支付、分期、优惠券/会员、营销活动等多个子类目的信息浏览，其探索意图较为明确且多元，故置信度较高。",
+        "next_action_prediction": "用户很可能点击已展示的营销横幅（尤其是新人或积分活动），或点击Yoopay按钮、分期版块以深入了解功能或优惠，并最终进行首次支付。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:26:53.705949"
+      },
+      {
+        "intent": "用户对新人开卡礼营销活动表现出强烈兴趣，并意图参与或领取该优惠。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_fullpopup_3642, 额外信息: 运营_新人_开卡礼",
+          "click_fullpopup_pribtn_3642, 额外信息: 运营_新人_开卡礼"
+        ],
+        "reasoning": "根据用户行为分析，该用户在2025-11-16 09:10:00完成了所有6项行为，且其审批时间和首次行为时间相同，而首次支付时间（2025-11-16 12:46:00）晚于当前所有行为的发生时间，表明该用户正处于审批成功后的初期探索和新用户引导阶段。\n\n**行为序列揭示的意图：**\n1.  用户行为始于访问 `show_new_user_zone_page`，这明确表明用户作为新用户，正在探索平台为新用户提供的专属内容。\n2.  紧接着，用户被展示了多个营销活动相关的弹窗和浮窗，包括针对“运营_新人_开卡礼”的 `show_home_middlepopup_3642` 和 `show_fullpopup_3642`，以及“运营_获客_Pennydrop”和“优惠券提示”等。\n3.  最关键且具有高权重（明确兴趣）的信号是用户执行了 `click_fullpopup_pribtn_3642, 额外信息: 运营_新人_开卡礼`。这一行为明确表示用户对该“新人开卡礼”营销活动具有强烈的主动兴趣和参与意愿，而不仅仅是浏览。\n\n**与历史意图的关联：**\n尽管历史意图分析的时间点晚于当前行为序列，但其提及用户“尤其关注新人优惠、积分权益、支付功能和分期选项”。当前行为序列的 `click_fullpopup_pribtn_3642` 正是“关注新人优惠”这一历史意图的直接且强烈的具体体现和验证，表明用户在新用户阶段对平台提供的入门级优惠活动有高度的响应性。\n\n**综合判断：** 用户在初次接触平台时，通过一系列展示和最终的明确点击行为，清晰地表达了其对新人开卡礼营销活动的强烈参与意图。",
+        "next_action_prediction": "用户接下来很可能会进入新人开卡礼活动的详情页面，查看具体的领取条件和步骤，或者被引导完成该活动要求的特定任务，例如完成首次支付以激活礼品，或者进行注册/绑定操作。",
+        "session_index": 1,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:27:13.903794"
+      },
+      {
+        "intent": "用户意图进行手机话费充值支付，并积极寻找可用的优惠券以降低支付成本。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_pay_checkout_page_recharge_phone",
+          "show_pay_checkout_page_new_recharge_phone",
+          "show_paymentpage_voucher",
+          "show_pay_voucher_choose_recharge_phone_1"
+        ],
+        "reasoning": "根据用户信息，用户于2025-11-16 09:10:00获得审批并立即产生行为，且首次支付时间（2025-11-16 12:46:00）晚于此行为序列。这表明用户正处于开卡后的初期使用阶段，意图进行首次或早期交易。\n\n行为序列分析显示，用户在2025-11-16 09:10:00这一瞬间，连续进行了以下操作：\n1.  查看了手机充值支付结算页面（`show_pay_checkout_page_recharge_phone`）。\n2.  紧接着查看了另一个手机充值支付结算页面（`show_pay_checkout_page_new_recharge_phone`），这进一步强化了用户进行手机充值支付的意图（高权重信号）。\n3.  随后，用户查看了支付页面的优惠券区域（`show_paymentpage_voucher`）。\n4.  最后，用户查看了针对手机充值的具体优惠券选择页面（`show_pay_voucher_choose_recharge_phone_1`），这是一个高度明确的优惠券寻求行为（高权重信号）。\n\n所有行为都发生在同一秒内，表明这是一个连贯且目标明确的操作流，用户从启动手机充值支付流程开始，并迅速地在支付环节中寻找并关注优惠券。这显示了用户不仅有明确的支付意图，而且强烈希望利用优惠券来完成支付。\n\n结合历史意图（虽然在时间戳上，历史意图的分析时间晚于当前行为序列，但其描述的是之前的一个用户意图），用户之前对“新人开卡礼营销活动”表现出强烈兴趣并意图参与或领取。当前用户在卡片审批后立即进行手机充值并积极寻找优惠券的行为，很可能就是为了兑现或使用开卡礼中包含的充值优惠券，从而将历史的营销活动参与意图转化为具体的交易行为。",
+        "next_action_prediction": "用户下一步最有可能点击选择一个适用于手机充值的具体优惠券，然后返回支付页面并提交支付订单。",
+        "session_index": 2,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:27:36.221899"
+      },
+      {
+        "intent": "用户作为新获批用户，正在探索平台的新人福利和信用卡功能，并尤其关注额度管理相关信息，如临时额度提升。",
+        "intent_category": "credit_limit_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_homepage_tempolimit_increase_tooltips",
+          "show_new_homebanner_A_3209, 额外信息: 运营_新人_ALL"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 根据用户信息，用户于2025-11-16 09:10:00获得审批，其所有行为均发生在2025-11-16 11:02:00，早于其首次支付时间2025-11-16 12:46:00。这表明用户正处于新用户首次登录后的探索阶段，尚未进行实际交易，正在了解平台功能和自身权益。\n2. **行为信号分析**: \n   - `show_new_user_zone_page` (页面展示, 中权重): 显示用户正在浏览专为新用户设计的区域，表明对新人福利和引导有兴趣。\n   - `show_homepage_tempolimit_increase_tooltips` (页面展示, 中权重): 这是此次行为序列中最明确的意图信号。用户在首页看到了临时额度提升的提示，直接指向其对可用额度和额度管理功能的关注，属于金融信用卡行业特定的'额度管理意图'。\n   - `show_new_homebanner_A_3209, 额外信息: 运营_新人_ALL` (页面展示, 中权重): 显示用户浏览了一个针对新用户的运营活动横幅，进一步确认了用户作为新用户对平台营销活动和新人权益的探索。\n3. **行为序列和上下文**: 所有行为发生时间一致，表明用户在进入应用后几乎同时关注了这些信息，反映出其作为一个新用户，对新人专属内容、平台营销活动以及核心信用卡功能（如额度）的全面而快速的初步探索。\n4. **历史意图对比**: 提供的历史意图（手机话费充值支付、寻找优惠券）的分析时间（2025-12-12）晚于当前行为发生时间（2025-11-16）。因此，历史意图代表的是用户后续的发展，而非当前这一刻的意图。当前分析应聚焦于用户首次支付前的初期探索行为。当前的意图是更基础的功能探索，而历史意图则反映了其后续的消费支付和优惠寻求意图。",
+        "next_action_prediction": "用户可能会点击临时额度提升的提示以查看详情或申请，也可能点击新人专区或营销横幅以了解更多新人福利，或在探索结束后着手进行首次支付交易。",
+        "session_index": 3,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:28:01.367342"
+      },
+      {
+        "intent": "用户意图是尝试进行QR支付，但该次尝试被中止或未成功完成。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_qr_upload_btn",
+          "show_qris_camera_pg",
+          "click_qris_camera_close_btn"
+        ],
+        "reasoning": "1. **用户生命周期阶段分析**: 用户于2025-11-16 09:10:00获批，并于当日12:46:00完成了首次支付。当前分析的行为序列发生于2025-11-16 11:02:00，早于首次支付，这表明用户正处于信用卡获批后的初期探索和首次交易尝试的关键阶段。 \n2. **用户行为序列分析**: 用户首先看到了“QR上传按钮”（`show_qr_upload_btn`），紧接着进入了“QRIS相机页面”（`show_qris_camera_pg`）。这些行为顺序明确指向用户有启动QR支付的强烈意图。 \n3. **行为上下文与信号权重**: `show_qris_camera_pg` 直接展示了支付相关的关键页面，属于高权重信号，明确揭示了用户的支付兴趣。`show_qr_upload_btn` 也是支付功能的入口（中权重）。然而，随后用户点击了“关闭QRIS相机按钮”（`click_qris_camera_close_btn`），这是一个高权重点击行为，但其语义是中止或退出当前流程。这表明用户虽然有明确的支付意图，但该次QR支付尝试未能完成或被主动取消。所有行为在同一分钟内发生，反映了用户对该功能的快速尝试与决策。 \n4. **与历史意图的关联**: 历史意图（分析时间晚于当前行为）指出用户作为新获批用户在探索平台功能和额度管理。当前行为序列是对这一泛泛探索意图的具体细化，即在探索过程中，用户已开始尝试进行具体交易（QR支付）。尽管该次QR支付未完成，但后续在同日完成了首次支付，表明用户最终找到了其他方式完成交易。",
+        "next_action_prediction": "用户可能会尝试其他支付方式完成交易（鉴于当日已完成首次支付），或者如果遇到问题，可能会寻找帮助文档、常见问题解答或联系客服以解决QR支付相关的问题，以便下次尝试。",
+        "session_index": 4,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:28:19.193991"
+      },
+      {
+        "intent": "用户作为新用户，正在积极探索与新人相关的营销活动和特权，以了解如何激活或获取其信用卡/账户的利益。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_new_user_zone_page (多次访问)",
+          "show_home_floaticon_2729 (额外信息: 运营_获客_Pennydrop)",
+          "show_new_homebanner_A_3209 (额外信息: 运营_新人_ALL)",
+          "show_new_homebanner_C_3211 (额外信息: 运营_新人_ALL)"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 用户在同一天完成审批、首次行为和首次支付，表明其为刚激活的新用户。当前行为序列（11:48-11:49）发生在其首次支付（12:46）之前，意味着用户正在进行首次支付前的探索或激活准备。\n2. **行为序列分析**: 在极短的时间内（1分钟内8次行为），用户表现出高度活跃。行为的核心是多次访问`show_new_user_zone_page`（中权重，重复访问显示深度兴趣）。\n3. **行为上下文**: 用户浏览了多个带有明确营销标签的页面和横幅：\n   - `show_home_floaticon_2729`，额外信息为“运营_获客_Pennydrop”。“Pennydrop”通常是一种获客或激活策略，涉及小额交易以确认用户或提供奖励。\n   - `show_new_homebanner_A_3209` 和 `show_new_homebanner_C_3211`，额外信息均为“运营_新人_ALL”。这明确指向针对新用户的营销活动或福利。\n   - 序列中没有出现任何高权重的点击（click_xxx）或直接支付/额度管理页面（如show_pay_checkout_xxx，show_limit_xxx）。\n4. **历史意图**: 历史意图提到用户尝试进行QR支付，但该历史分析时间（2025-12-12）晚于当前行为序列（2025-11-16），且当前行为序列发生在其首次支付之前。这表明用户当前阶段的探索可能正是为了寻找或激活某个优惠，最终引导其完成首次支付（如历史意图中的QR支付）。\n5. **综合判断**: 用户的行为高度集中在“新人”和“营销活动”相关内容，而非泛泛浏览。这表明用户主要意图是探索作为新用户可获得的具体优惠、权益或需要完成的激活任务，以充分利用其新信用卡/账户。",
+        "next_action_prediction": "用户很可能会点击某个新人活动相关的横幅、浮窗或新人专区内的具体活动入口来了解详情或参与活动，也可能根据新人引导完成首次支付或激活任务，例如进行Pennydrop活动关联的小额交易。",
+        "session_index": 5,
+        "session_size": 8,
+        "timestamp": "2025-12-12T16:28:41.351900"
+      },
+      {
+        "intent": "用户正在积极探索如何使用QRIS功能进行支付，可能在为完成首次交易做准备。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "click_home_bottomnav_qris_btn",
+          "show_qris_camera_pg",
+          "click_qris_camera_close_btn"
+        ],
+        "reasoning": "根据用户信息，用户（ID: 021f9fc1eeca4801bcbcad0f08a27840）在2025-11-16 09:10:00获得审批，其首次行为（2025-11-16 11:49:00）发生在首次支付（2025-11-16 12:46:00）之前。这表明用户正处于其生命周期的早期阶段，正在探索产品功能以完成首次交易。\n\n用户行为序列显示，在同一分钟内，用户首先点击了底部导航栏的QRIS按钮 (`click_home_bottomnav_qris_btn`)，这是一个高权重的明确意图信号，表明用户主动选择进入支付功能。随后，用户进入了QRIS扫码页面 (`show_qris_camera_pg`)，这也是一个高权重的支付意图信号。尽管用户最终点击了关闭按钮 (`click_qris_camera_close_btn`)，但在如此短的时间内（所有行为都在同一分钟内完成），这更像是一次快速的探索、测试或因特定条件（如没有可扫描的QR码）而暂时中止，而非完全放弃支付意图。结合用户即将进行的首次支付时间，强烈表明用户当时正在探索或准备使用QRIS进行支付。\n\n历史意图分析提到用户作为新用户正在探索新人营销活动和特权，而当前行为则进一步细化为对特定支付方式的实际操作探索，是其激活或使用卡片的具体一步。当前行为比历史意图更为具体和转化导向。",
+        "next_action_prediction": "用户可能会再次尝试使用QRIS进行支付，或探索其他可用的支付方式（如线上支付、其他快捷支付入口）来完成其首次交易。",
+        "session_index": 6,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:29:02.016439"
+      },
+      {
+        "intent": "用户正在浏览新用户专区，以获取有关信用卡使用和首次支付的指导，此行为是用户为完成首次交易做准备过程中的一环。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "1. **用户生命周期阶段与行为关联**：根据用户信息，该用户在2025-11-16 09:10:00获得审批，其首次支付时间是2025-11-16 12:46:00。本次分析的唯一行为'show_new_user_zone_page'发生于2025-11-16 11:49:00，早于首次支付时间。这表明用户正处于新批核但尚未完成首次支付的关键阶段。访问'新用户专区页面'是新用户在进行首次交易前，探索产品功能和获取使用指南的典型行为模式，旨在为激活和使用信用卡做准备。\n2. **行为信号权重**：'show_new_user_zone_page'属于'show_xxx'类型，被定义为中权重信号，表明用户正在积极浏览和参与新用户引导内容，显示出一定的参与度。\n3. **历史意图的强力佐证**：历史意图分析（于2025-12-12T16:29:02分析）明确指出用户在'积极探索如何使用QRIS功能进行支付，可能在为完成首次交易做准备'。本次'show_new_user_zone_page'行为与此历史意图高度一致，是用户实现其支付意图前的必要探索步骤，确认了用户在这一时期的主导意图与支付准备相关。\n4. **后续行为验证**：此行为发生后不久（约57分钟），用户便完成了首次支付，进一步证实了当时其浏览'新用户专区页面'的目的性，即为了完成首笔交易。",
+        "next_action_prediction": "基于用户正在为首次支付做准备的意图，用户下一步可能点击新用户专区内的引导链接或按钮，跳转至支付功能页面（如QRIS扫码界面、支付流程教程、首次支付优惠活动页），或尝试完成其首笔交易。",
+        "session_index": 7,
+        "session_size": 1,
+        "timestamp": "2025-12-12T16:29:30.825062"
+      },
+      {
+        "intent": "用户正积极尝试通过QRIS功能完成首次支付，并在此过程中可能寻求新用户专区内的指引。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_home_bottomnav_qris_btn",
+          "click_qr_upload_btn",
+          "show_qris_camera_pg",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "用户ID 021f9fc1eeca4801bcbcad0f08a27840 是一位新获批用户，其审批时间为2025-11-16 09:10:00，且在行为发生后不久（2025-11-16 12:46:00）便完成了首次支付。这明确指出当前行为序列（2025-11-16 12:21:00）是用户为完成首次支付所进行的准备或尝试。\n\n行为序列分析显示，用户从`show_new_user_zone_page`（低权重，探索）开始，随后立即进入了明确指向支付意图的行为流：`show_qris_camera_pg`（中权重，支付相关页面）-> `click_home_bottomnav_qris_btn`（高权重，点击支付功能入口）-> `click_qr_upload_btn`（高权重，明确的QR支付操作）。这些高权重行为强烈表明用户正在主动寻求通过QRIS方式进行支付。尽管随后有`click_web_mgm_back_btn`和`click_qris_camera_close_btn`，但考虑到用户随后确实完成了首次支付，这些操作可能是在支付流程中的短暂调整、确认或完成了某个支付前步骤，而非放弃支付。\n\n用户最终再次`show_new_user_zone_page`，表明其仍在新手引导阶段，可能在支付尝试前后回到该区域寻求进一步指引或确认。历史意图分析也与此一致，确认用户处于“为完成首次交易做准备”的阶段。此次分析在历史意图的基础上，进一步明确了用户具体的支付方式（QRIS）。综合来看，用户具有非常明确的支付意图，并正积极尝试完成首次交易。",
+        "next_action_prediction": "完成通过QRIS或其它方式的首次支付交易，或在新用户专区中探索首次支付的指引。",
+        "session_index": 8,
+        "session_size": 7,
+        "timestamp": "2025-12-12T16:29:48.047373"
+      },
+      {
+        "intent": "用户已成功完成首次QRIS扫码支付，并在支付过程中积极寻求可用优惠券/新用户福利。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.98,
+        "key_behaviors": [
+          "click_home_bottomnav_qris_btn",
+          "show_qr_inputamount_pg",
+          "click_qr_inputamount_pg_submit_btn",
+          "show_pay_checkout_page_qr",
+          "show_paymentpage_voucher",
+          "show_pay_voucher_choose_qr_1",
+          "click_pay_checkout_submit_btn_new_qr",
+          "click_pay_checkout_submit_btn_qr",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，该用户是新批卡用户，且在所有行为发生时（2025-11-16 12:46:00）完成了首次支付，这与行为序列的结束行为高度吻合。行为序列展示了用户从探索到明确支付的清晰路径：\n\n1.  **支付意图明确且已达成**: 用户首先通过`click_home_bottomnav_qris_btn`（高权重）主动进入QRIS支付流程，接着展示了`show_qris_camera_pg`、`show_qr_inputamount_pg`等页面，并最终通过`click_qr_inputamount_pg_submit_btn`、`show_pay_checkout_page_qr`、`show_pay_checkout_page_new_qr`，以及关键的`click_pay_checkout_submit_btn_new_qr`和`click_pay_checkout_submit_btn_qr`（均为高权重，且是转化行为）完成了支付。 '首次支付时间'的记录进一步证实了这一意图的成功实现。\n2.  **优惠券/新人福利寻求**: 在支付流程中，用户浏览了`show_paymentpage_voucher`和`show_pay_voucher_choose_qr_1`，这表明用户在支付时有明确的优惠寻求意图。此外，用户两次访问`show_new_user_zone_page`以及暴露于多个带有“新人_ALL”或“获客”标签的banner（如`show_new_homebanner_C_3211`、`show_new_homebanner_A_3209`、`show_home_floaticon_2729`），表明用户作为新户正在积极探索和寻找相关福利。\n3.  **生命周期阶段**: 用户在审批后立即进行了首次支付，处于非常早期的活跃阶段，其行为模式符合新用户快速体验核心功能并寻求初始福利的特征。\n\n历史意图分析的“用户正积极尝试通过QRIS功能完成首次支付”与本次分析结果完全一致，并且我们通过'首次支付时间'确认了其意图已达成。本次分析进一步明确了用户在支付过程中对优惠券/新人福利的强烈关注。",
+        "next_action_prediction": "鉴于用户已完成首次支付并表现出对福利的兴趣，用户下一步可能会查看支付详情或交易记录，探索新用户专区内的其他未领取的福利或任务，查看会员积分和可用优惠，或者进行另一次小额消费以尝试其他功能或继续积累积分。",
+        "session_index": 9,
+        "session_size": 17,
+        "timestamp": "2025-12-12T16:30:08.780056"
+      }
+    ]
+  },
+  "02203b6768064118b0fe6dcf8885ca99": {
+    "user_uuid": "02203b6768064118b0fe6dcf8885ca99",
+    "total_sessions": 7,
+    "sessions": [
+      {
+        "intent": "用户已成功激活账户，并正在为首次支付做准备。其主要意图是进行支付交易，当前的浏览行为是为实现此目标所必需的前置步骤。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg (成功激活页面)",
+          "show_new_user_zone_page (新用户专区页面)",
+          "审批时间 (2025-11-17 17:39:00)",
+          "首次支付时间 (2025-11-17 18:07:00)"
+        ],
+        "reasoning": "根据用户信息，用户ID '02203b6768064118b0fe6dcf8885ca99' 刚刚在 '2025-11-17 17:39:00' 审批通过，并且在很短的时间内（'2025-11-17 18:07:00'，即28分钟后）就完成了首次支付。这表明用户在审批通过后有强烈的立即使用意图。用户行为序列也支持这一判断：\n1. 'show_QSPIN_activate_success_pg' (高权重相关性): 表明用户已成功完成账户激活过程，这是进行任何金融操作（包括支付）的先决条件。\n2. 'show_new_user_zone_page' (中权重): 用户可能在浏览新用户专区，了解产品功能或福利，这通常是为了更好地利用服务，包括支付功能。\n3. 'show_home_page' (低权重): 随后进入主页，这是用户操作的中心枢纽。\n\n所有这些行为都发生在同一秒，且紧随审批通过时间，显示了用户积极且快速地完成了激活和初始导航。最关键的是，'首次支付时间' 明确指出用户在这些行为之后很快就进行了支付，这强烈印证了其主要意图是进行支付交易，而上述行为是达成支付意图的必要准备步骤。",
+        "next_action_prediction": "用户很可能下一步将导航到支付相关页面，选择支付方式，或直接发起一笔交易，因为其首次支付时间就在这些行为之后不久。",
+        "session_index": 0,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:32:14.129498"
+      },
+      {
+        "intent": "用户正在积极探索新卡的功能、福利及可用额度，作为其首次支付前的准备步骤。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "show_homepage_tempolimit_increase_tooltips",
+          "show_limit_page_module_cashloan",
+          "show_new_user_zone_page",
+          "show_new_homebanner_C_3211"
+        ],
+        "reasoning": "该用户为新近审批通过的用户（审批时间: 2025-11-17 17:39:00），且其首次支付时间（2025-11-17 18:07:00）紧随所有当前行为（2025-11-17 17:43:00）之后，这表明用户正处于账户激活后的初期探索阶段，为即将到来的首次支付做准备。历史意图分析也明确指出用户正在为首次支付做准备，且当前浏览行为是前置步骤。\n\n用户行为序列显示，在短短几分钟内，用户浏览了多个首页元素，包括：\n1.  `show_homepage_tempolimit_increase_tooltips` (高权重：额度关注)\n2.  `show_limit_page_module_cashloan` (高权重：额度关注)\n3.  `show_new_homebanner_C_3211`, `show_new_homebanner_A_3209`, `show_home_floaticon_2729` (中权重：营销活动与新用户福利关注)\n4.  `show_new_user_zone_page` (中权重：探索新用户专属功能)\n\n这些行为均是页面展示（show_xxx）类型，而非直接点击或支付行为，但其内容高度集中于额度管理和新用户专享活动。这种模式与用户在首次使用新产品前，需要了解其能力（如可用额度）和潜在福利（新用户优惠）的探索行为高度一致。因此，用户的核心意图是探索和熟悉产品，以便顺利进行首次交易。",
+        "next_action_prediction": "在完成对信用卡功能、福利和额度的初步探索后，用户下一步极有可能根据历史信息所示，进行首次支付，以正式激活账户并开始使用信用卡服务。",
+        "session_index": 1,
+        "session_size": 7,
+        "timestamp": "2025-12-12T16:32:43.524751"
+      },
+      {
+        "intent": "用户正在探索支付功能，为即将进行的首次支付做准备。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "click_home_bottomnav_bayar_btn",
+          "click_nav_home_btn"
+        ],
+        "reasoning": "该用户于2025-11-17 17:39:00审批通过，其行为序列发生在首次支付时间（2025-11-17 18:07:00）之前，表明用户处于新卡激活后的初期探索阶段。用户在17:43:00执行的第一个行为是'click_home_bottomnav_bayar_btn'，这是一个高权重信号，明确显示了用户对支付功能的兴趣和意图。紧随其后的第二个行为是'click_nav_home_btn'，用户立即返回主页。这一行为模式暗示用户可能是在初步了解支付界面或可用的支付选项，但尚未准备好立即执行支付，或者在探索后选择返回。考虑到其发生在首次支付之前，这与历史意图分析中提到的“积极探索新卡的功能，作为其首次支付前的准备步骤”高度吻合。因此，用户的主要意图是探索支付功能并为此后的首次支付做准备。",
+        "next_action_prediction": "基于用户对支付功能的探索以及即将到来的首次支付时间，用户很可能在稍后再次进入支付流程，或进一步查看相关账单、设置支付方式等信息，最终完成其首次支付。",
+        "session_index": 2,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:33:02.357474"
+      },
+      {
+        "intent": "用户在首次支付前，积极探索平台核心支付功能与相关服务。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_homepage_yoopay_btn",
+          "show_homepage_installment_section",
+          "show_home_page"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-17 17:39:00审批通过，并在18:07:00完成了首次支付。所有行为事件（总共4个）均发生在18:02:00，即审批通过后、首次支付前的短暂窗口期。\n\n行为序列显示用户在首页进行了浏览：\n1. `show_homepage_gv_btn` (通用首页功能按钮)\n2. `show_home_page` (主页展示)\n3. `show_homepage_installment_section` (首页分期部分展示) - 表明用户对分期服务有初步兴趣。\n4. `show_homepage_yoopay_btn` (首页Yoopay支付按钮展示) - 这是明确指向支付功能的信号。\n\n尽管所有行为都是`show_xxx`事件（中低权重），但其关键上下文是：它们紧密发生在用户首次支付的5分钟之前。`show_homepage_yoopay_btn`直接关联支付，而`show_homepage_installment_section`则反映了对信用产品使用的探索。这些浏览行为并非漫无目的，而是带有明确目的性的探索，为即将进行的首次交易做准备。这与历史意图“用户正在探索支付功能，为即将进行的首次支付做准备”高度一致，且通过`首次支付时间`（2025-11-17 18:07:00）的直接发生，进一步验证并强化了该意图的准确性和强度。因此，可以高度确信用户的主要意图是进行支付，并在此之前了解相关支付方式和可能的信用服务。",
+        "next_action_prediction": "用户很可能立即进行并完成首次支付交易。",
+        "session_index": 3,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:33:22.454951"
+      },
+      {
+        "intent": "用户正在积极探索新用户专属权益与营销活动，以了解平台的服务价值。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_new_homebanner_A_3209 (运营_新人_ALL)",
+          "show_home_middlepopup_3141 (运营_新人_促留存)",
+          "show_home_voucherhint"
+        ],
+        "reasoning": "根据用户信息，该用户是新审批通过的（审批时间：2025-11-17 17:39:00），并且其首次支付时间（2025-11-17 18:07:00）紧随其后的行为序列（2025-11-17 18:03:00）。这意味着所有分析的行为都发生在该用户首次支付之前，属于其初始注册和探索阶段。 \n\n用户行为序列显示，在同一时间点（2025-11-17 18:03:00），用户连续触发了7个页面展示事件（'show_xxx'）。这些事件内容高度集中于新用户引导、营销活动和福利发现：\n1.  `show_new_user_zone_page`：明确显示用户进入了新人专区。\n2.  `show_new_homebanner_A_3209` 和 `show_new_homebanner_C_3211`：都是针对新用户的运营横幅广告，旨在吸引新用户。\n3.  `show_new_homebanner_B_3210`：提示积分信息，属于用户权益的一部分。\n4.  `show_home_middlepopup_3141`：一个促留存的新人弹窗，再次强调营销活动。\n5.  `show_home_voucherhint`：提示优惠券信息，直接指向优惠福利。\n6.  `show_home_floaticon_2631`：可能与获客或小额奖励有关。\n\n所有行为均是页面展示（show_xxx），属于中等权重信号，表明用户正在浏览和参与，但尚未进行明确的点击或支付操作。然而，这些行为的集中性和内容的一致性（全部围绕'新人'、'运营'、'福利'）表明用户正积极接受平台的新手引导和营销信息，探索可用权益。 \n\n历史意图分析显示，用户在首次支付前“积极探索平台核心支付功能与相关服务”，本序列的行为与这一历史意图高度契合，体现了用户在进行首次支付前的初步了解和利益权衡过程。虽然没有直接展示支付页面，但对新用户福利和营销活动的关注，是促成后续支付的重要铺垫。因此，其核心意图是参与营销活动并探索新用户权益，以评估平台的价值。",
+        "next_action_prediction": "鉴于用户在这些行为后不久即完成了首次支付，预测其下一步行动将是点击某个新用户专属的权益（例如优惠券或活动入口），或直接进行与这些权益相关的首次支付交易。",
+        "session_index": 4,
+        "session_size": 7,
+        "timestamp": "2025-12-12T16:33:44.651714"
+      },
+      {
+        "intent": "用户正在积极寻找并尝试使用QRIS（扫码支付）功能进行首次支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.88,
+        "key_behaviors": [
+          "click_home_bottomnav_qris_btn",
+          "show_qr_upload_btn"
+        ],
+        "reasoning": "根据用户信息，该用户在2025-11-17 17:39:00审批通过，并于2025-11-17 18:07:00完成首次支付。其行为序列发生于2025-11-17 18:04:00，正处于其首次支付前夕，这表明用户作为新户正积极探索和准备进行支付。\n\n行为序列显示用户先是看到了与QR相关的按钮（`show_qr_upload_btn`，中等权重），随后立即点击了主页底部导航栏的QRIS按钮（`click_home_bottomnav_qris_btn`，高权重）。这一“展示-点击”的序列模式，且点击行为权重高，明确指向用户对QRIS扫码支付功能的兴趣和使用意图。\n\n时间间隔极短（0秒）表明用户行动迅速且目标明确，没有犹豫。结合用户即将完成首次支付的生命周期阶段，可以强烈推断用户此时的意图是尝试通过QRIS完成一笔支付。\n\n尽管历史意图（2025-12-12的分析）提及用户正在探索新用户专属权益和营销活动，但当前2025-11-17的行为更加具体和直接，聚焦于特定的支付方式。可以认为当前用户对QRIS支付的探索和使用，是其新用户探索平台服务价值（包括支付功能）这一更广阔意图的具体体现或前置行动。",
+        "next_action_prediction": "用户很可能进入QRIS扫码页面，准备扫描二维码或上传二维码图片以发起支付流程。",
+        "session_index": 5,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:34:07.175169"
+      },
+      {
+        "intent": "用户正在积极尝试完成首次支付，特别是通过扫码（QRIS）方式进行支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_pay_checkout_submit_btn_new_qr",
+          "click_pay_checkout_submit_btn_qr"
+        ],
+        "reasoning": "根据用户信息，用户的'首次支付时间'（2025-11-17 18:07:00）与'首次行为时间'和'最后行为时间'完全一致，表明用户在卡片审批后（审批时间 2025-11-17 17:39:00）立即进行了首次支付尝试。用户行为序列包含两个高权重事件：'click_pay_checkout_submit_btn_new_qr' 和 'click_pay_checkout_submit_btn_qr'。这两个事件都是明确的支付页面提交按钮点击，直接指向用户完成支付的意图，并且明确指定了扫码（QR）支付方式。行为发生在同一时间，进一步强化了用户正在积极尝试完成支付的紧迫性。历史意图分析也明确指出用户正在积极寻找并尝试使用QRIS（扫码支付）功能进行首次支付，当前行为强力佐证并确认了这一意图的持续性和准确性。综合来看，这是一个非常明确的支付意图，并且与用户的生命周期阶段（新用户首次支付）高度匹配。",
+        "next_action_prediction": "用户很可能会检查支付结果或交易详情。如果支付成功，可能会查看新的可用额度或交易记录；如果支付失败，则可能会重新尝试支付、选择其他支付方式或检查失败原因（如额度不足、卡片状态等）。",
+        "session_index": 6,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:34:18.928508"
+      }
+    ]
+  },
+  "022c86cd86784b369a9325fafe841ed1": {
+    "user_uuid": "022c86cd86784b369a9325fafe841ed1",
+    "total_sessions": 6,
+    "sessions": [
+      {
+        "intent": "新用户探索与功能了解意图，尤其关注新用户福利、支付和分期功能。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_new_user_zone_page",
+          "show_homepage_yoopay_btn",
+          "show_homepage_installment_section",
+          "show_new_homebanner_C_3211, 额外信息: 运营_新人_ALL"
+        ],
+        "reasoning": "该用户于2025-11-27 11:19:00获得审批并激活成功（`show_QSPIN_activate_success_pg`），随后在极短时间内（1分钟内）进行了一系列浏览行为，且其首次支付时间（2025-11-28 07:07:00）发生在当前行为序列之后，表明用户正处于新用户激活后的首次探索阶段。用户首先访问了首页（`show_home_page`），然后立即进入了专门的“新用户专区页面”（`show_new_user_zone_page`），这明确显示了用户作为新用户寻求了解平台功能和福利的意图。随后，用户又看到了首页的“Yoopay按钮”（`show_homepage_yoopay_btn`）和“分期版块”（`show_homepage_installment_section`），表明对支付功能和分期服务产生了兴趣。最后，用户还浏览了一个明确标记为“运营_新人_ALL”的营销横幅（`show_new_homebanner_C_3211`），进一步巩固了其对新用户专属活动和信息的关注。尽管所有行为都是“show”事件，但其序列和内容的聚焦性（新用户专区、新用户营销、核心金融功能展示）表明这不是简单的随机浏览，而是有目的性的新用户探索行为。",
+        "next_action_prediction": "鉴于用户已看到新用户营销横幅、Yoopay按钮和分期版块，且第二天就进行了首次支付，用户下一步很可能点击新人营销活动横幅深入了解新用户福利，或尝试点击Yoopay按钮/分期版块，为即将到来的首次支付做准备或探索分期可能性。",
+        "session_index": 0,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:38:07.920692"
+      },
+      {
+        "intent": "新用户探索福利及优惠券获取意图",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_new_homebanner_A_3209 (运营_新人_ALL)",
+          "show_voucher_guide_popup",
+          "click_home_voucherhint_btn_201742550 (【消费】_QR+INAPP_折扣_90%最高30K_不领_3天)",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，用户于2025-11-27 11:19:00审批通过，并在极短时间内（2025-11-27 11:21:00）开始了一系列行为，且首次支付时间在次日（2025-11-28），这表明用户正处于**新用户首次探索和激活阶段**，积极寻求平台提供的初期福利。\n\n行为序列分析显示，用户首先进入首页（click_nav_home_btn），随后密集浏览了多个与新用户、优惠券及获客营销相关的展示内容，包括`show_new_homebanner_A_3209`（带有“新人”标签）、`show_voucher_guide_popup`以及`show_home_floaticon_2729`（带有“获客”标签）。这些页面和弹窗都旨在引导新用户了解并获取福利。\n\n其中，`click_home_voucherhint_btn_201742550`是一个高权重信号，明确显示用户对**消费折扣优惠券**的主动兴趣。此点击行为是用户主动选择，表明其意图从被动浏览转变为主动获取优惠。紧随其后，用户访问了`show_new_user_zone_page`，该页面通常承载新用户专属福利，进一步印证了用户对探索和领取新用户权益的强烈意图。\n\n历史意图（“新用户探索与功能了解意图，尤其关注新用户福利、支付和分期功能”）与当前分析高度一致，当前的具体行为（尤其对优惠券的点击）进一步细化和证实了用户在新用户福利方面的具体兴趣点，即对优惠券的获取意图。",
+        "next_action_prediction": "用户很可能会查看并领取新用户专属优惠券，或进一步探索新用户专区内的其他福利，为即将进行的首次支付做准备。",
+        "session_index": 1,
+        "session_size": 7,
+        "timestamp": "2025-12-12T16:38:26.502633"
+      },
+      {
+        "intent": "用户作为新卡用户，正在主动探索并比较可用的消费折扣优惠券，以了解其新卡的附加价值。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_membership_voucher_201742550",
+          "show_membership_voucher_201742551",
+          "show_membership_voucher_201742553"
+        ],
+        "reasoning": "1. **用户状态与生命周期**: 用户于2025-11-27 11:19:00审批通过，并在短短4分钟后（2025-11-27 11:23:00）产生了本次行为。其首次支付时间（2025-11-28 07:07:00）发生在本次行为之后。这表明用户是一个非常新的用户，处于刚获得信用卡后的初期探索阶段，尚未进行首次交易。\n2. **行为模式**: 用户在极短的时间内（同一分钟）连续浏览了三个不同的事件，全部为`show_membership_voucher_xxx`类型，且额外信息明确指出这些是关于“消费折扣”的优惠券（例如：90%最高30K折扣，50%最高20K折扣等）。这显示了高度集中的兴趣。\n3. **行为信号权重**: `show_xxx`通常为中等权重，表示浏览模式。但在此情境下，连续且唯一地展示同类型（优惠券）页面，其权重被显著提升，表明并非随意浏览，而是有目的地探索。\n4. **意图类型匹配**: 用户的行为序列直接且明确地指向了“优惠券/会员意图”，即用户正在积极寻求和评估可用的优惠或会员权益。\n5. **历史意图确认**: 历史意图“新用户探索福利及优惠券获取意图”与当前分析高度一致。虽然历史分析时间晚于当前行为，但它作为对用户在早期阶段行为的总结，为当前分析提供了强有力的印证，进一步增强了我们对本次意图的置信度。用户浏览了不同金额和生效条件的优惠券，即使没有点击领取，也表明了其正在比较和筛选最佳优惠。\n6. **综合判断**: 考虑到用户的新卡状态、聚焦的浏览行为以及与历史意图的匹配，用户意图非常明确。",
+        "next_action_prediction": "用户可能会点击领取其中一张优惠券（特别是更吸引人的大额或立即生效的优惠券），或者在接下来的首次支付尝试中使用或尝试应用已了解的优惠信息。",
+        "session_index": 2,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:38:46.016438"
+      },
+      {
+        "intent": "用户作为新卡用户，正在主动且广泛地探索其新信用卡的各项功能、专属权益和营销活动，以全面了解卡片价值和使用方式。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_homepage_installment_section",
+          "show_homepage_gv_btn",
+          "show_home_floaticon_2921, 额外信息: 运营_新人_开卡礼",
+          "show_homepage_tempolimit_increase_tooltips",
+          "show_new_homebanner_B_3210, 额外信息: 运营_积分_提醒",
+          "show_new_homebanner_C_3211, 额外信息: 运营_新人_ALL"
+        ],
+        "reasoning": "1. **用户生命周期阶段**: 根据用户信息，用户的审批时间为2025-11-27 11:19:00，而首次支付时间为2025-11-28 07:07:00。所有提供的行为序列均发生在2025-11-27 13:32:00至13:35:00之间，明确表明用户是一位刚获批但尚未进行首次支付的“新卡用户”。这个阶段的用户通常会积极探索卡片功能和权益。\n2. **行为模式**: 用户在极短的时间内（3分钟）浏览了6个不同的首页模块，所有事件均为`show_xxx`类型，无任何点击`click_xxx`或支付`pay_checkout_xxx`等高权重转化行为。这显示出一种快速、广泛的浏览模式，而非针对某一特定功能的深度交互或明确的交易意图。这些`show`事件属于中低权重信号，但其多样性揭示了广泛的兴趣。\n3. **行为内容分析**: \n   - `show_homepage_installment_section`：表明用户对分期付款功能有兴趣。\n   - `show_homepage_gv_btn`：暗示用户可能在寻找通用福利或优惠。\n   - `show_home_floaticon_2921` (额外信息: 运营_新人_开卡礼) 和 `show_new_homebanner_C_3211` (额外信息: 运营_新人_ALL)：这两个行为明确指向新用户专属的开卡礼和新人营销活动，是用户对“新卡附加价值”高度关注的强信号。\n   - `show_homepage_tempolimit_increase_tooltips`：表明用户对额度管理（特别是临时额度提升）有初步了解或兴趣。\n   - `show_new_homebanner_B_3210` (额外信息: 运营_积分_提醒)：显示用户对会员积分或相关权益的关注。\n4. **历史意图对比**: 历史意图分析指出用户作为新卡用户，正在“主动探索并比较可用的消费折扣优惠券，以了解其新卡的附加价值”。当前行为序列与此高度一致，并进一步扩展了探索范围，不仅限于优惠券，还包括了分期、额度管理、积分以及更广泛的新人营销活动。这确认并深化了用户“了解新卡附加价值”的核心意图。\n5. **综合判断**: 结合用户的新卡身份、在短时间内对多项卡片功能和新人专属活动的广泛浏览，以及缺乏深度交互的特点，用户当前意图是进行全面的探索，旨在理解和评估其新信用卡的各项功能、可用权益和潜在优势，为后续使用做准备。",
+        "next_action_prediction": "用户在广泛浏览后，下一步可能根据其最感兴趣的模块进行点击，如点击某个新人活动banner查看详情（如开卡礼、新人专属优惠），或进入分期、额度管理页面进行更深入的了解。也可能在充分了解后，尝试进行首次支付以激活或使用卡片权益。",
+        "session_index": 3,
+        "session_size": 6,
+        "timestamp": "2025-12-12T16:39:13.496358"
+      },
+      {
+        "intent": "用户意图通过QRIS功能进行扫码支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_home_bottomnav_qris_btn",
+          "show_qris_camera_pg"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-27获得审批，并在当天（2025-11-27 13:35:00）产生了本次行为序列，其首次支付时间紧随其后（2025-11-28 07:07:00）。这表明用户正处于新卡激活后的初期探索和首次支付准备阶段。在本次行为序列中，用户首先点击了首页底部导航栏的QRIS按钮（`click_home_bottomnav_qris_btn`，高权重信号，显示明确的兴趣），随后立即进入了QRIS扫码页面（`show_qris_camera_pg`，中权重信号，确认了点击的目的地和意图）。这一顺序且短时间间隔的两个行为直接指向了使用QRIS功能进行支付的意图。QRIS是信用卡常见的支付方式之一，用户作为新卡用户，积极尝试使用支付功能是合理的行为。此行为也与历史意图（“用户作为新卡用户，正在主动且广泛地探索其新信用卡的各项功能”）中的“探索功能”和“了解使用方式”相符，并且进一步明确聚焦了支付这一具体场景。",
+        "next_action_prediction": "用户将尝试扫描QR码完成支付，或在QRIS页面进行其他支付相关操作（如选择支付卡片、确认金额等）。",
+        "session_index": 4,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:39:27.795778"
+      },
+      {
+        "intent": "用户正在探索新人特权和引导内容，以了解作为新用户可获得的优惠和功能，积极参与新用户营销活动。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "show_new_homebanner_A_3209 (运营_新人_ALL)",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "1. **用户信息与生命周期**: 用户审批时间与首次行为时间（2025-11-27 11:19:00 vs 2025-11-27 13:35:00）非常接近，且此行为序列发生在其首次支付时间（2025-11-28 07:07:00）之前。这表明用户正处于新卡审批通过后的初期引导和探索阶段，意图了解新用户专属权益和平台功能。\n2. **用户行为序列**: 用户首先看到了一个明确标记为“运营_新人_ALL”的首页横幅（`show_new_homebanner_A_3209`），该事件类型为“show_xxx”（中等权重），但其额外信息明确指出是针对“新人”的运营活动。紧接着，用户访问了“新人专区页面”（`show_new_user_zone_page`），该事件类型同样为“show_xxx”。这两个行为在同一时间发生并紧密关联，构成了一个专注于“新用户”主题的浏览路径。\n3. **行为上下文与权重**: 尽管两个行为都是“show”事件，属于中等权重信号，但其明确的“新人”上下文（新人横幅、新人专区页面）强烈揭示了用户对作为新卡用户所能享受的特权和信息的关注。这表明用户不仅是简单浏览，而是有目的地在寻找与其新身份相关的信息，属于对新人营销活动的积极参与。\n4. **历史意图对比**: 历史意图“通过QRIS功能进行扫码支付”发生在2025-12-12，远晚于当前行为序列（2025-11-27）和首次支付时间（2025-11-28）。因此，当前的“新人”探索行为是早期生命周期阶段的意图，与后期的支付意图不直接冲突，而是其前置步骤。本次分析侧重于当前输入数据所揭示的意图。\n5. **意图类型匹配**: 用户的行为模式与“营销活动参与意图”（尤其针对新人营销内容）和“探索/浏览意图”（探索新人功能）高度吻合。考虑到行为直接指向“新人”主题的营销和专区页面，将其归类为`marketing_intent`更为精确，代表用户对新人营销内容的积极响应和探索。",
+        "next_action_prediction": "用户可能会点击新人专区内的具体优惠活动（如首刷礼、返现等），激活或使用新人权益，尝试进行首次支付以满足活动条件，或进一步浏览平台的其他核心功能如额度管理或分期服务。",
+        "session_index": 5,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:39:50.225861"
+      }
+    ]
+  },
+  "026aa274834c4cd58e04aedc7095fa9c": {
+    "user_uuid": "026aa274834c4cd58e04aedc7095fa9c",
+    "total_sessions": 12,
+    "sessions": [
+      {
+        "intent": "用户对参与新人开卡礼营销活动、领取新人福利有强烈意愿。",
+        "intent_category": "marketing_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_QSPIN_activate_success_pg",
+          "show_fullpopup_3642, 额外信息: 运营_新人_开卡礼",
+          "click_fullpopup_pribtn_3642, 额外信息: 运营_新人_开卡礼"
+        ],
+        "reasoning": "根据用户信息，用户ID '026aa274834c4cd58e04aedc7095fa9c' 在 '2025-11-30 14:07:00' 进行了审批，并且首次支付时间为 'NaT'，表明这是一个刚刚完成卡片审批/激活的全新用户，尚未进行任何消费。所有行为事件都发生在同一分钟，显示用户在激活后立即进行了一系列快速操作。\n\n行为序列分析：\n1.  用户首先看到 'show_QSPIN_activate_success_pg'，确认了卡片激活成功，奠定了新用户身份。\n2.  随后浏览了 'show_new_user_zone_page' 和 'show_home_page'，处于探索阶段。\n3.  关键信号出现：用户被展示了两个与 '运营_新人_开卡礼' 相关的弹窗 ('show_fullpopup_3642' 和 'show_home_middlepopup_3642')。这些是中权重的展示行为，表明有营销内容触达用户。\n4.  用户接着看到了 'show_home_voucherhint'，提示了可能的优惠券信息，与新人礼的福利属性相关。\n5.  **最关键且高权重的行为是 'click_fullpopup_pribtn_3642, 额外信息: 运营_新人_开卡礼'。** 用户主动点击了新人开卡礼弹窗的主按钮，这明确表达了用户对该营销活动及其提供的福利（如开卡礼、优惠券）的强烈兴趣和参与意愿。\n\n综合来看，从用户刚激活卡片（新用户生命周期阶段）到主动点击新人礼活动，整个行为路径清晰地指向了用户渴望参与营销活动并领取相关福利的意图。",
+        "next_action_prediction": "用户极有可能进入新人开卡礼活动的详情页、领取流程页或任务页面，以了解和兑换其新人福利。",
+        "session_index": 0,
+        "session_size": 7,
+        "timestamp": "2025-12-12T16:42:58.847021"
+      },
+      {
+        "intent": "用户意图进行手机充值支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "show_pay_checkout_page_recharge_phone"
+        ],
+        "reasoning": "根据用户信息，该用户是一个新获批用户（审批时间与首次行为时间相同为2025-11-30 14:07:00），且首次支付时间为'NaT'，表明用户尚未进行过支付。用户唯一的行为是访问了'show_pay_checkout_page_recharge_phone'。根据行为信号权重定义，'show_pay_checkout_xxx'属于高权重信号，明确显示了用户的支付意图。此行为直接指向支付流程中的结算页面，并且具体到“手机充值”这一支付场景，因此用户意图非常明确，是想进行手机充值交易。与历史意图（参与新人开卡礼营销活动）相比，用户的意图已经从探索福利转向了实际的支付行为，这可能是其获得信用卡后的首次实际交易尝试。",
+        "next_action_prediction": "用户可能继续在支付页面上输入支付信息并点击提交按钮，以完成手机充值交易。",
+        "session_index": 1,
+        "session_size": 1,
+        "timestamp": "2025-12-12T16:43:09.327662"
+      },
+      {
+        "intent": "用户正在探索平台功能并浏览新人引导及营销信息",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.4,
+        "key_behaviors": [
+          "show_new_homebanner_A_3209 (运营_新人_ALL)",
+          "show_new_homebanner_B_3210 (运营_积分_提醒)",
+          "show_new_homebanner_C_3211 (运营_新人_ALL)"
+        ],
+        "reasoning": "用户（ID: 026aa274834c4cd58e04aedc7095fa9c）刚审批通过（2025-11-30 14:07:00），且首次支付时间为NaT，表明其处于新用户的早期探索和激活阶段。所有行为（3个）均发生在其审批通过后1分钟（2025-11-30 14:08:00），且均为'show_new_homebanner_xxx'页面展示事件，属于中低权重信号。其中，'show_new_homebanner_A_3209'和'show_new_homebanner_C_3211'的额外信息明确指出是'运营_新人_ALL'，这进一步证实用户在浏览新用户引导内容。'show_new_homebanner_B_3210'是'运营_积分_提醒'。缺乏高权重信号（如点击、支付页面、额度查询等），排除了明确的交易或管理意图。因此，用户当前的主要意图是探索平台提供的功能和初期营销信息。历史意图（手机充值支付，分析时间2025-12-12）晚于当前行为发生时间，且与当前初次浏览行为不符，因此不作为本次意图判断的直接依据。",
+        "next_action_prediction": "用户可能会点击其中一个新人或积分相关的首页banner，以进一步了解详情或激活相关权益。也可能导航至核心功能页面（如额度查询、个人中心）以了解其账户状态。",
+        "session_index": 2,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:43:30.781196"
+      },
+      {
+        "intent": "用户意图通过QRIS进行支付",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.8,
+        "key_behaviors": [
+          "show_qris_camera_pg",
+          "click_home_bottomnav_qris_btn"
+        ],
+        "reasoning": "根据用户信息，用户ID '026aa274834c4cd58e04aedc7095fa9c' 在2025-11-30 14:07:00审批通过，但其 '首次支付时间' 为 'NaT'，表明该用户是已获批但尚未完成首次交易的新用户，处于关键的激活阶段。用户在审批后1分钟内（2025-11-30 14:08:00）产生了两次行为：\n\n1.  **show_qris_camera_pg**: 用户查看了QRIS扫码支付页面（中权重信号，显示浏览模式）。\n2.  **click_home_bottomnav_qris_btn**: 用户点击了底部导航栏的QRIS按钮（高权重信号，显示用户主动选择）。\n\n**行为序列分析**：用户先是看到了QRIS扫码页面，随后又主动从底部导航栏点击了QRIS按钮。这种行为模式，特别是主动点击高权重按钮，强烈表明用户正在积极寻求使用QRIS支付功能。尽管行为顺序 'show' 在 'click' 之前可能提示用户在看到页面后，又明确地通过导航按钮确认或重新进入该功能，这进一步加强了用户对QRIS支付的关注和意图。这些行为直接指向了“支付意图”。\n\n**历史意图对比**：虽然之前的意图分析是“用户正在探索平台功能”，但当前的行为序列不再是泛泛的探索，而是高度聚焦于一个具体的支付方式（QRIS）。对于一个尚未首次支付的新用户而言，对QRIS支付功能表现出如此明确的兴趣，是其从探索阶段向交易激活阶段迈进的关键信号，显示意图已从通用探索演变为具体支付。因此，此次分析揭示了意图的深化和具体化。",
+        "next_action_prediction": "用户很可能会尝试扫描QR码以完成支付，或继续进行QRIS支付流程的下一步操作，例如选择支付方式或确认交易详情。",
+        "session_index": 3,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:43:50.206998"
+      },
+      {
+        "intent": "用户正在探索和熟悉新用户平台功能，处于产品初次接触阶段。",
+        "intent_category": "exploration_intent",
+        "confidence_score": 0.4,
+        "key_behaviors": [
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "1. **用户信息分析**：用户的审批时间为2025-11-30 14:07:00，紧接着首次行为时间为2025-11-30 14:08:00。最重要的是，用户的'首次支付时间'为'NaT'，这明确表明用户是新获批用户，且尚未进行任何支付。用户处于其生命周期的早期阶段，即新用户引导和探索阶段。\n2. **用户行为序列分析**：用户行为序列中仅包含一个事件：`show_new_user_zone_page`。这是一个单一的页面展示（show_xxx）行为。根据行为信号权重，`show_xxx`属于中等权重信号，通常指示用户正在浏览。\n3. **行为上下文分析**：`new_user_zone_page`这个事件名称本身就强烈暗示了页面内容是为新用户设计，旨在引导他们熟悉平台或产品。用户没有进行任何点击（click_xxx）、支付页面展示（show_pay_checkout_xxx）或额度查询（show_limit_xxx）等高权重行为。\n4. **历史意图分析**：历史意图曾显示用户有通过QRIS进行支付的意图，得分0.8。然而，该历史分析的日期（2025-12-12）晚于当前提供的单一行为事件（2025-11-30 14:08:00）。结合用户首次支付时间为NaT，当前单一行为`show_new_user_zone_page`未能支持或延续之前的支付意图，反而强烈指示用户处于平台探索和熟悉阶段。因此，本次分析将基于当前最直接的行为数据，认为用户核心意图是探索而非立即进行支付。\n**综合来看**，用户刚获批且未进行首次支付，其唯一的行为是访问新用户专区，这清晰表明其当前的意图是探索和了解平台，而非执行特定的金融交易或管理操作。",
+        "next_action_prediction": "用户可能会点击新用户专区内的引导按钮或链接，以了解信用卡功能、查看可用额度、或寻求首次支付的指引；或者可能导航到主页或额度相关页面以获取更多信息。",
+        "session_index": 4,
+        "session_size": 1,
+        "timestamp": "2025-12-12T16:44:06.991324"
+      },
+      {
+        "intent": "用户正在探索支付功能，尤其对使用QRIS进行交易表现出强烈兴趣，很可能正准备进行首次支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.75,
+        "key_behaviors": [
+          "click_homepage_qris_btn"
+        ],
+        "reasoning": "根据用户信息，用户ID为026aa274834c4cd58e04aedc7095fa9c，审批时间是2025-11-30 14:07:00，但首次支付时间为NaT。这意味着该用户是新卡用户，并且尚未进行任何支付。其首次行为和最后行为时间均为2025-11-30 14:11:00，且总行为数仅为1，唯一事件类型数也为1。\n\n用户行为序列显示，唯一的一次行为是 'click_homepage_qris_btn'。这是一个高权重的点击操作信号，表明用户主动选择了QRIS支付功能。QRIS是金融信用卡行业中常见的支付方式，点击该按钮通常意味着用户有发起支付的意图，或是对如何使用该支付功能进行探索。\n\n综合考虑用户的新手状态（无首次支付记录）和高权重的支付相关点击行为，用户当前的意图非常明确地指向对支付功能的探索，特别是以QRIS方式进行支付。这很可能是用户首次尝试使用其新卡进行交易。此次分析证实并深化了历史意图（用户正在探索和熟悉新用户平台功能，处于产品初次接触阶段），将其从泛泛的“探索”具体化为对“支付功能”的探索。\n\n信心得分0.75是因为这是一个明确的、高权重的支付相关点击行为，且与用户的新手身份高度匹配，但由于缺乏后续的支付确认或更完整的支付流程序列，未能达到非常明确的转化意图（0.9-1.0）。",
+        "next_action_prediction": "用户很可能会被引导至QRIS支付页面（例如 'show_pay_checkout_qris_page'）以继续扫描二维码或查看支付详情，或者尝试发起实际的QRIS支付交易。",
+        "session_index": 5,
+        "session_size": 1,
+        "timestamp": "2025-12-12T16:44:22.015457"
+      },
+      {
+        "intent": "用户作为新批核用户，正在积极探索其信用卡可用额度及其使用方式，特别是对现金贷产品表现出强烈关注。",
+        "intent_category": "credit_limit_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "show_limit_pg",
+          "show_limit_page_module_cashloan"
+        ],
+        "reasoning": "用户ID: 026aa274834c4cd58e04aedc7095fa9c 的用户信息显示，其审批时间为2025-11-30 14:07:00，且首次支付时间为NaT。这意味着用户是一位刚刚获得批核且尚未进行首次支付的新用户。其首次行为和最后行为均发生在批核后不久的2025-11-30 14:11:00，总行为数为3，且所有行为都发生在同一分钟内，表明用户在批核后立即进行了高强度的初始探索。\n\n行为序列为：\n1. `show_limit_pg` (中权重信号：展示了对额度页面的浏览)\n2. `show_new_user_zone_page` (中权重信号：展示了对新手专区的浏览)\n3. `show_limit_page_module_cashloan` (中权重信号：展示了对额度页面内现金贷模块的浏览)\n\n分析表明：用户首先访问了额度主页面（`show_limit_pg`），随后短暂浏览了新手专区，但立即回到了额度相关内容，并进一步深入查看了额度页面的现金贷模块（`show_limit_page_module_cashloan`）。`show_limit_pg`和`show_limit_page_module_cashloan`均属于金融信用卡行业特定意图类型中的“额度管理意图”信号。用户在批核后立即且连续地关注额度，并对现金贷这一具体额度使用方式表现出兴趣，这构成了非常明确的“额度管理意图”。尽管没有点击（高权重信号），但行为序列的集中性和特异性使其意图非常清晰。\n\n关于历史意图：之前的分析（2025-12-12T16:44:22.015457）指出了用户对支付功能的兴趣。然而，当前分析的用户行为发生于2025-11-30，早于历史意图的分析时间。这表明用户在初期（2025-11-30）主要探索的是额度管理和现金贷，而随着时间推移，其意图可能演变为对支付功能的关注。因此，本次分析侧重于当前行为序列所揭示的即时意图。",
+        "next_action_prediction": "用户很可能点击进入现金贷的详细介绍页面或申请流程，进一步了解现金贷的利率、期限等具体信息，或者返回主额度页面探索其他额度使用选项。",
+        "session_index": 6,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:44:41.476575"
+      },
+      {
+        "intent": "用户作为新批核用户，正在积极领取其专属的新户福利/优惠券包。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.85,
+        "key_behaviors": [
+          "click_new_user_zone_voucher_package_receive_283298454",
+          "click_new_user_zone_voucher_package_receive_283298455",
+          "click_new_user_zone_voucher_package_receive_283298450",
+          "click_new_user_zone_voucher_package_receive_283298451",
+          "show_new_user_zone_page"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-30 14:07:00获得审批，并在同一天（2025-11-30 14:17:00）首次发生行为。用户尚无首次支付时间（NaT），这明确表明其处于新卡批核后的初期阶段。所有7个行为事件都发生在同一分钟内，且行为类型围绕“新户专区”（`new_user_zone`）展开。\n\n具体行为序列显示，用户多次执行了`click_new_user_zone_voucher_package_receive_xxx`（4次），这些是高权重信号，直接表明用户主动点击以领取新户福利或优惠券包。同时，用户反复访问`show_new_user_zone_page`（3次），这进一步强化了其对该专区内容的关注和参与深度。\n\n这些行为模式与“优惠券/会员意图”类型高度吻合。用户在首次接触产品时，优先关注并领取新户福利是常见的行为模式。\n\n与历史意图的对比分析：尽管存在历史意图指出用户后续可能关注额度和现金贷（分析时间为2025-12-12，晚于当前行为时间），但当前的、更早期的行为序列（2025-11-30）明确展示了不同的焦点。这表明用户意图存在演变，当前行为反映的是其作为新用户，首先激活并寻求初期福利的阶段，而历史意图可能代表其在福利领取后对信用卡核心功能（额度使用）的探索。",
+        "next_action_prediction": "用户很可能会查看或使用已领取的优惠券，例如在支付场景中尝试使用优惠券进行首次支付，或浏览优惠券详情和适用范围。",
+        "session_index": 7,
+        "session_size": 7,
+        "timestamp": "2025-12-12T16:45:01.858011"
+      },
+      {
+        "intent": "用户作为新批核用户，正在积极探索和领取其专属的优惠券或新户福利。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_myvoucher_page",
+          "click_home_featurehub_voucher_btn",
+          "show_brand_voucher"
+        ],
+        "reasoning": "根据用户信息，用户ID '026aa274834c4cd58e04aedc7095fa9c' 于2025-11-30 14:07:00获得审批，但'首次支付时间'为NaT，表明用户尚未进行首次支付。其所有行为均发生在审批后10分钟内（2025-11-30 14:17:00），且只有3个行为，这明确了用户处于新批核但未激活消费的生命周期阶段。\n\n用户行为序列如下：\n1.  `show_myvoucher_page` (浏览我的优惠券页面) - 中权重，显示用户对优惠券的初步兴趣。\n2.  `click_home_featurehub_voucher_btn` (点击首页功能中心的优惠券按钮) - 高权重，这是一个明确的主动选择行为，显示用户对优惠券的强烈兴趣和寻找意愿。\n3.  `show_brand_voucher` (浏览品牌优惠券) - 中权重，进一步确认用户正在查看具体的优惠券内容。\n\n这些行为高度聚焦于“优惠券”相关的操作，`click_home_featurehub_voucher_btn`作为核心高权重信号，明确揭示了用户的兴趣点。整个行为序列从初步浏览到通过主入口点击，再到查看具体优惠，呈现出用户对优惠券的持续和深入探索。这与之前的历史意图“用户作为新批核用户，正在积极领取其专属的新户福利/优惠券包”完全吻合，且当前行为进一步证实了这一意图。考虑到用户是新批核且未支付，寻找优惠券通常是他们激活使用信用卡的第一步，以期待获得首刷优惠或提升消费体验。",
+        "next_action_prediction": "用户可能会进一步点击领取/激活该品牌优惠券，查看优惠券的使用规则和有效期，或者尝试将优惠券与潜在的支付场景结合，为首次支付做准备。",
+        "session_index": 8,
+        "session_size": 3,
+        "timestamp": "2025-12-12T16:45:21.083850"
+      },
+      {
+        "intent": "用户作为新批核用户，正在积极领取和使用通过QRIS支付渠道的优惠券/新户福利，意图进行首次支付。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.95,
+        "key_behaviors": [
+          "click_brand_voucher",
+          "show_qris_camera_ribbon_voucher",
+          "show_qris_camera_pg"
+        ],
+        "reasoning": "根据用户信息，该用户于2025-11-30 14:07:00审批通过，并在10分钟后（14:17:00）开始首次行为，且'首次支付时间'为NaT，这明确表明用户处于新批核后的早期探索和激活阶段，尚未进行首次支付。用户行为序列在同一分钟内发生，显示出高度聚焦的意图：\n1.  **show_qris_camera_ribbon_voucher**: 用户首先看到与QRIS摄像头相关的优惠券（中权重），这表明用户对优惠券和QRIS支付方式均感兴趣。\n2.  **show_qr_upload_btn**: 接着展示了QR上传按钮，进一步强调了QR码相关功能。\n3.  **click_brand_voucher**: 用户明确点击了品牌优惠券（高权重），这是用户寻求优惠和福利的强烈信号，直接指向'优惠券/会员意图'。\n4.  **show_qris_camera_pg**: 最后用户停留在QRIS摄像头页面（中权重），结合之前的行为，这表明用户正在准备通过QRIS方式进行支付，并可能意图使用刚刚点击的优惠券。\n\n历史意图分析完美印证了这一结论：'用户作为新批核用户，正在积极探索和领取其专属的优惠券或新户福利。'当前的序列行为是这一历史意图的直接体现和深化。用户从看到优惠券、点击优惠券，到进入QRIS支付页面，形成了一个清晰的链条，旨在利用优惠进行首次QRIS支付。所有行为均发生在新用户激活后的短时间内，且没有其他分散性行为，使得意图非常明确。",
+        "next_action_prediction": "扫描QR码以进行支付，并尝试应用其刚领取的优惠券，完成首次交易。",
+        "session_index": 9,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:45:38.556103"
+      },
+      {
+        "intent": "用户正在尝试通过QRIS渠道完成首次支付，尤其是在尝试扫码遇到阻碍后，正寻求通过上传二维码图片的方式继续支付。",
+        "intent_category": "payment_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "click_qris_camera_close_btn",
+          "show_qr_upload_btn"
+        ],
+        "reasoning": "综合分析用户输入信息如下：\n1.  **用户信息**：用户ID `026aa274834c4cd58e04aedc7095fa9c` 的'首次支付时间'为'NaT'，且'审批时间'为2025-11-30，'首次行为时间'与'最后行为时间'均在审批后不久，表明该用户是新批核用户，正处于首次使用其金融产品的阶段，且尚未完成首笔交易。这与历史意图（用户作为新批核用户，意图进行首次支付）高度吻合。\n2.  **用户行为序列**：用户在同一时间（2025-11-30 14:18:00）进行了两个行为：\n    *   `click_qris_camera_close_btn`：这是一个高权重信号，明确表示用户主动与QRIS支付功能互动，并选择了关闭相机，可能是在尝试扫码后遇到问题、取消扫码或主动选择其他方式。\n    *   `show_qr_upload_btn`：这是一个中权重信号，紧随相机关闭之后出现，表明用户仍在QRIS支付流程中，但系统已展示了替代的QR码输入方式（上传图片）。\n    这两个行为的序列清晰地描绘了用户在QRIS支付流程中从尝试扫码到考虑上传QR码的过渡。\n3.  **行为上下文与权重**：'click_qris_camera_close_btn' 和 'show_qr_upload_btn' 都直接关联到QRIS支付流程，这强烈指向支付意图。用户主动关闭相机并被引导至上传选项，显示了其解决支付障碍并继续完成支付的决心。\n4.  **历史意图**：之前的分析结果指出用户“作为新批核用户，正在积极领取和使用通过QRIS支付渠道的优惠券/新户福利，意图进行首次支付”，且置信度高达0.95。当前行为是这一历史意图的直接延续和具体体现，进一步确认了用户对通过QRIS进行首次支付的强烈意愿，尽管在扫码环节可能遇到了小挫折。",
+        "next_action_prediction": "用户很可能会点击'上传QR按钮' (click_qr_upload_btn)，然后选择本地存储的二维码图片进行上传，以继续完成其QRIS支付流程。",
+        "session_index": 10,
+        "session_size": 2,
+        "timestamp": "2025-12-12T16:45:54.327695"
+      },
+      {
+        "intent": "用户正在积极寻求适用于QRIS交易的消费优惠券，以准备或激励其进行首次支付。",
+        "intent_category": "voucher_intent",
+        "confidence_score": 0.9,
+        "key_behaviors": [
+          "show_new_user_zone_page",
+          "show_membership_voucher_202673188",
+          "show_membership_voucher_202673128",
+          "show_membership_voucher_202673172"
+        ],
+        "reasoning": "该用户（ID: 026aa274834c4cd58e04aedc7095fa9c）于2025-11-30 14:07:00审批通过，且'首次支付时间'为'NaT'，表明这是一个新激活用户，尚未完成首次支付。其所有行为均发生在2025-11-30 14:18:00，紧随审批之后，这符合新用户首次探索的生命周期阶段。\n\n行为序列分析：\n1.  用户首先访问了'show_new_user_zone_page'。这是一个新用户专属区域，通常用于引导用户了解或领取新客福利，属于中等权重的参与度信号，暗示用户正在探索可用的权益。\n2.  紧接着，用户连续查看了三个不同的'show_membership_voucher_xxx'事件（'show_membership_voucher_202673188'、'show_membership_voucher_202673128'、'show_membership_voucher_202673172'）。这些行为具有高权重，明确显示了用户对优惠券的强烈兴趣。更重要的是，每个优惠券的'额外信息'都明确指明了它们是针对'【消费】_QRIS交易'的优惠。这不仅仅是浏览优惠券，而是特意寻找可以用于QRIS消费交易的特定优惠。\n\n综合分析：\n用户在新用户区域探索后，迅速聚焦于可以用于消费（特别是QRIS交易）的优惠券。鉴于用户尚未完成首次支付，这种行为模式强烈表明用户正在寻找激励或折扣，以便进行其首次交易。多个相关优惠券的查看而非单一浏览，进一步增强了用户的主动性和意图的明确性。\n\n历史意图关联：\n尽管提供的'历史意图分析'（2025-12-12T16:45:54.327695）的时间点晚于当前行为（2025-11-30 14:18:00），我们可以将其视为用户旅程的后续发展。历史意图提到用户'正在尝试通过QRIS渠道完成首次支付'，这与当前用户积极寻找QRIS交易优惠券的行为高度一致，表明当前行为是用户为实现未来QRIS支付意图所做的准备工作，形成了一个逻辑连贯的意图演变过程。",
+        "next_action_prediction": "基于当前行为模式，用户很可能会点击或领取其感兴趣的QRIS交易优惠券，并随后尝试发起一笔QRIS支付交易，以利用该优惠券完成首次支付。",
+        "session_index": 11,
+        "session_size": 4,
+        "timestamp": "2025-12-12T16:46:16.264644"
+      }
+    ]
+  }
+}

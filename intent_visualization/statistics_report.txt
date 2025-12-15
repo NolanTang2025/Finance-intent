@@ -1,0 +1,39 @@
+============================================================
+Intent Analysis Statistics Report
+============================================================
+
+Total Users: 1
+Total Intent Segments: 5
+Average Segments per User: 5.00
+
+Intent Category Distribution:
+  installment_intent: 2 (40.0%)
+  marketing_intent: 1 (20.0%)
+  exploration_intent: 1 (20.0%)
+  payment_intent: 1 (20.0%)
+
+Confidence Score Statistics:
+  Average: 0.91
+  Min: 0.80
+  Max: 0.98
+
+Session Size Statistics:
+  Average: 6.20
+  Min: 2
+  Max: 17
+
+User Details:
+------------------------------------------------------------
+
+User: 001841609d1448f1...
+  Total Segments: 5
+  Segment 1: marketing_intent (score: 0.80, size: 17)
+    Intent: 用户作为新激活用户，正在积极探索新人福利、开卡礼和新手任务，以了解产品功能并获取优惠。...
+  Segment 2: exploration_intent (score: 0.85, size: 3)
+    Intent: 用户作为新激活用户，正在积极探索信用卡的核心功能与可用福利。具体表现为对现金借贷和额度管理选项的关注...
+  Segment 3: payment_intent (score: 0.95, size: 5)
+    Intent: 用户意图通过电商虚拟账户（Ecomm VA）使用优惠券进行支付。...
+  Segment 4: installment_intent (score: 0.95, size: 4)
+    Intent: 用户意图通过电商虚拟账户（Ecomm VA）进行支付，并明确选择使用分期付款功能。...
+  Segment 5: installment_intent (score: 0.98, size: 2)
+    Intent: 用户意图通过电商虚拟账户完成支付，并明确选择使用分期付款功能。...

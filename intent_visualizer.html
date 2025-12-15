@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户意图分析结果可视化 | Intent Analysis Visualization</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -109,6 +110,123 @@
             background: #5568d3;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .export-btn {
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .export-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .export-btn.export-user {
+            background: #2196F3;
+        }
+
+        .export-btn.export-user:hover {
+            background: #1976D2;
+        }
+
+        .export-btn.export-charts {
+            background: #FF9800;
+        }
+
+        .export-btn.export-charts:hover {
+            background: #F57C00;
+        }
+
+        .export-btn.export-full {
+            background: #9C27B0;
+        }
+
+        .export-btn.export-full:hover {
+            background: #7B1FA2;
+        }
+
+        .user-card {
+            position: relative;
+        }
+
+        .export-user-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            background: rgba(33, 150, 243, 0.9);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .export-user-btn:hover {
+            background: #1976D2;
+            transform: scale(1.05);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .stats-grid {
@@ -218,6 +336,199 @@
             transform: translateX(5px);
         }
 
+        .intent-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .detail-content {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .trust-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .trust-high { background: #4CAF50; color: white; }
+        .trust-medium { background: #FF9800; color: white; }
+        .trust-low { background: #F44336; color: white; }
+
+        .concern-item {
+            background: #fff3cd;
+            border-left: 3px solid #ffc107;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+
+        .concern-type {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 5px;
+        }
+
+        .certainty-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .certainty-very-high { background: #4CAF50; color: white; }
+        .certainty-high { background: #8BC34A; color: white; }
+        .certainty-medium { background: #FF9800; color: white; }
+        .certainty-low { background: #F44336; color: white; }
+
+        .evidence-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+
+        .evidence-strong { background: #4CAF50; color: white; }
+        .evidence-medium { background: #FF9800; color: white; }
+        .evidence-weak { background: #9E9E9E; color: white; }
+
+        .recommendation-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .recommendation-title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .solution-list {
+            margin: 8px 0;
+        }
+
+        .solution-item {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .priority-high { background: #F44336; color: white; }
+        .priority-medium { background: #FF9800; color: white; }
+        .priority-low { background: #9E9E9E; color: white; }
+
+        .path-visualization-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .path-viz-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .path-viz-container {
+            margin: 20px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .path-chart {
+            max-height: 300px;
+        }
+
+        .network-graph {
+            min-height: 400px;
+            position: relative;
+            width: 100%;
+            overflow: visible;
+        }
+
+        .network-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .network-node {
+            position: absolute;
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            min-width: 100px;
+            white-space: nowrap;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .network-node:hover {
+            transform: scale(1.15);
+            z-index: 20;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .network-node-label {
+            display: block;
+            line-height: 1.3;
+        }
+
+        .network-node-score {
+            display: block;
+            font-size: 0.75em;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
         .segment-header {
             display: flex;
             justify-content: space-between;
@@ -320,7 +631,7 @@
                 <button class="lang-btn active" data-lang="zh">中文</button>
                 <button class="lang-btn" data-lang="en">English</button>
             </div>
-            <h1 id="headerTitle">📊 用户意图分析结果可视化</h1>
+            <h1 id="headerTitle">用户意图分析结果可视化</h1>
             <p id="headerSubtitle">基于 Gemini AI 的金融信用卡行业用户意图分析</p>
         </div>
 
@@ -328,8 +639,19 @@
             <div class="file-input-wrapper">
                 <input type="file" id="jsonFileInput" accept=".json" />
                 <label for="jsonFileInput" class="file-input-label" id="fileInputLabel">
-                    📁 选择意图分析结果文件 (JSON)
+                    选择意图分析结果文件 (JSON)
                 </label>
+            </div>
+            <div class="export-buttons" id="exportButtons" style="display: none;">
+                <button class="export-btn export-full" id="exportFullBtn">
+                    📊 导出完整页面
+                </button>
+                <button class="export-btn export-charts" id="exportChartsBtn">
+                    📈 导出所有图表
+                </button>
+                <button class="export-btn export-user" id="exportStatsBtn">
+                    📋 导出统计面板
+                </button>
             </div>
         </div>
 
@@ -340,13 +662,20 @@
         </div>
     </div>
 
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div id="loadingText">正在生成图片...</div>
+        </div>
+    </div>
+
     <script>
         // Language data
         const translations = {
             zh: {
-                title: "📊 用户意图分析结果可视化",
+                title: "用户意图分析结果可视化",
                 subtitle: "基于 Gemini AI 的金融信用卡行业用户意图分析",
-                selectFile: "📁 选择意图分析结果文件 (JSON)",
+                selectFile: "选择意图分析结果文件 (JSON)",
                 noData: "请选择意图分析结果文件开始可视化",
                 parseError: "文件解析失败: ",
                 totalUsers: "总用户数",
@@ -376,12 +705,37 @@
                 chartLabels: {
                     frequency: "频次",
                     userCount: "用户数"
-                }
+                },
+                exploredFeature: "探索的功能",
+                explorationPurpose: "探索目的",
+                baselineTrust: "基础信任度",
+                concerns: "担忧点",
+                certaintyLevel: "确信程度",
+                evidenceQuality: "证据质量",
+                psychologicalRef: "心理参考值",
+                expectedValue: "预期值",
+                perceivedValue: "感知值",
+                gapAnalysis: "差距分析",
+                operationRecommendation: "运营建议",
+                onlineSolutions: "线上解决方案",
+                offlineSolutions: "线下解决方案",
+                targetedMessage: "针对性消息",
+                trustIndicators: "信任指标",
+                exportFull: "导出完整页面",
+                exportCharts: "导出所有图表",
+                exportStats: "导出统计面板",
+                exportUser: "导出用户详情",
+                generating: "正在生成图片...",
+                intentPath: "意图演变路径",
+                timelineChart: "时间线图",
+                networkChart: "意图转换网络图",
+                session: "会话",
+                transition: "转换"
             },
             en: {
-                title: "📊 Intent Analysis Visualization",
+                title: "Intent Analysis Visualization",
                 subtitle: "Financial Credit Card Industry User Intent Analysis based on Gemini AI",
-                selectFile: "📁 Select Intent Analysis Result File (JSON)",
+                selectFile: "Select Intent Analysis Result File (JSON)",
                 noData: "Please select an intent analysis result file to start visualization",
                 parseError: "File parsing failed: ",
                 totalUsers: "Total Users",
@@ -411,7 +765,92 @@
                 chartLabels: {
                     frequency: "Frequency",
                     userCount: "User Count"
-                }
+                },
+                exploredFeature: "Explored Feature",
+                explorationPurpose: "Exploration Purpose",
+                baselineTrust: "Baseline Trust",
+                concerns: "Concerns",
+                certaintyLevel: "Certainty Level",
+                evidenceQuality: "Evidence Quality",
+                psychologicalRef: "Psychological Reference",
+                expectedValue: "Expected Value",
+                perceivedValue: "Perceived Value",
+                gapAnalysis: "Gap Analysis",
+                operationRecommendation: "Operation Recommendation",
+                onlineSolutions: "Online Solutions",
+                offlineSolutions: "Offline Solutions",
+                targetedMessage: "Targeted Message",
+                trustIndicators: "Trust Indicators",
+                exportFull: "Export Full Page",
+                exportCharts: "Export All Charts",
+                exportStats: "Export Statistics Panel",
+                exportUser: "Export User Details",
+                generating: "Generating image...",
+                intentPath: "Intent Evolution Path",
+                timelineChart: "Timeline Chart",
+                networkChart: "Intent Transition Network",
+                session: "Session",
+                transition: "Transition"
+            },
+            en: {
+                title: "Intent Analysis Visualization",
+                subtitle: "Financial Credit Card Industry User Intent Analysis based on Gemini AI",
+                selectFile: "Select Intent Analysis Result File (JSON)",
+                noData: "Please select an intent analysis result file to start visualization",
+                parseError: "File parsing failed: ",
+                totalUsers: "Total Users",
+                totalSegments: "Total Intent Segments",
+                avgSegments: "Avg Segments per User",
+                avgConfidence: "Average Confidence",
+                categoryDistribution: "Intent Category Distribution",
+                confidenceDistribution: "Confidence Score Distribution",
+                segmentsPerUser: "Intent Segments per User",
+                behaviorsPerSegment: "Behaviors per Intent Segment",
+                userDetails: "User Intent Details",
+                user: "User",
+                segments: " intent segments",
+                confidence: "Confidence",
+                keyBehaviors: "Key Behaviors",
+                segment: "Intent Segment",
+                behaviorCount: "Behavior Count",
+                time: "Time",
+                categories: {
+                    payment_intent: "Payment Intent",
+                    installment_intent: "Installment Intent",
+                    credit_limit_intent: "Credit Limit Intent",
+                    voucher_intent: "Voucher Intent",
+                    marketing_intent: "Marketing Intent",
+                    exploration_intent: "Exploration Intent"
+                },
+                chartLabels: {
+                    frequency: "Frequency",
+                    userCount: "User Count"
+                },
+                exploredFeature: "Explored Feature",
+                explorationPurpose: "Exploration Purpose",
+                baselineTrust: "Baseline Trust",
+                concerns: "Concerns",
+                certaintyLevel: "Certainty Level",
+                evidenceQuality: "Evidence Quality",
+                psychologicalRef: "Psychological Reference",
+                expectedValue: "Expected Value",
+                perceivedValue: "Perceived Value",
+                gapAnalysis: "Gap Analysis",
+                operationRecommendation: "Operation Recommendation",
+                onlineSolutions: "Online Solutions",
+                offlineSolutions: "Offline Solutions",
+                targetedMessage: "Targeted Message",
+                trustIndicators: "Trust Indicators",
+                exportFull: "Export Full Page",
+                exportCharts: "Export All Charts",
+                exportStats: "Export Statistics Panel",
+                exportUser: "Export User Details",
+                generating: "Generating image...",
+                intentPath: "Intent Evolution Path",
+                timelineChart: "Timeline Chart",
+                networkChart: "Intent Transition Network",
+                session: "Session",
+                transition: "Transition"
             }
         };
 
@@ -458,12 +897,112 @@
                         const data = JSON.parse(event.target.result);
                         currentData = data;
                         visualizeData(data);
+                        // Show export buttons
+                        document.getElementById('exportButtons').style.display = 'flex';
                     } catch (error) {
                         const t = translations[currentLang];
                         alert(t.parseError + error.message);
                     }
                 };
                 reader.readAsText(file);
+            }
+        });
+
+        // Export functions
+        function showLoading(text) {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            loadingText.textContent = text || translations[currentLang].generating;
+            overlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function downloadImage(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Export full page
+        document.getElementById('exportFullBtn').addEventListener('click', async function() {
+            const t = translations[currentLang];
+            showLoading(t.generating);
+            try {
+                const content = document.getElementById('content');
+                const canvas = await html2canvas(content, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    scrollY: -window.scrollY
+                });
+                downloadImage(canvas, `intent-analysis-full-${Date.now()}.png`);
+            } catch (error) {
+                const errorMsg = currentLang === 'zh' ? '导出失败: ' : 'Export failed: ';
+                alert(errorMsg + error.message);
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // Export all charts
+        document.getElementById('exportChartsBtn').addEventListener('click', async function() {
+            const t = translations[currentLang];
+            showLoading(t.generating);
+            try {
+                const chartsSection = document.querySelector('.charts-section');
+                if (!chartsSection) {
+                    const errorMsg = currentLang === 'zh' ? '没有找到图表区域' : 'Charts section not found';
+                    alert(errorMsg);
+                    hideLoading();
+                    return;
+                }
+                const canvas = await html2canvas(chartsSection, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true
+                });
+                downloadImage(canvas, `intent-analysis-charts-${Date.now()}.png`);
+            } catch (error) {
+                const errorMsg = currentLang === 'zh' ? '导出失败: ' : 'Export failed: ';
+                alert(errorMsg + error.message);
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // Export statistics panel
+        document.getElementById('exportStatsBtn').addEventListener('click', async function() {
+            const t = translations[currentLang];
+            showLoading(t.generating);
+            try {
+                const statsSection = document.querySelector('.stats-grid');
+                if (!statsSection) {
+                    const errorMsg = currentLang === 'zh' ? '没有找到统计面板' : 'Statistics panel not found';
+                    alert(errorMsg);
+                    hideLoading();
+                    return;
+                }
+                const canvas = await html2canvas(statsSection, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true
+                });
+                downloadImage(canvas, `intent-analysis-stats-${Date.now()}.png`);
+            } catch (error) {
+                const errorMsg = currentLang === 'zh' ? '导出失败: ' : 'Export failed: ';
+                alert(errorMsg + error.message);
+            } finally {
+                hideLoading();
             }
         });
 
@@ -484,6 +1023,9 @@
             
             // Create charts
             createCharts(results, stats);
+            
+            // Create path visualizations
+            createPathVisualizations(results);
         }
 
         function collectStatistics(results) {
@@ -493,6 +1035,9 @@
             const scores = [];
             const segmentSizes = [];
             const userSegmentCounts = [];
+            const trustScores = [];
+            const certaintyLevels = {};
+            const concernTypes = {};
 
             for (const [userUuid, userData] of Object.entries(results)) {
                 totalUsers++;
@@ -508,6 +1053,24 @@
                     scores.push(score);
                     
                     segmentSizes.push(session.session_size || 0);
+                    
+                    // 收集信任度数据
+                    if (session.baseline_trust) {
+                        trustScores.push(session.baseline_trust);
+                    }
+                    
+                    // 收集确信程度数据
+                    if (session.certainty_level) {
+                        certaintyLevels[session.certainty_level] = (certaintyLevels[session.certainty_level] || 0) + 1;
+                    }
+                    
+                    // 收集担忧类型数据
+                    if (session.concerns && Array.isArray(session.concerns)) {
+                        session.concerns.forEach(concern => {
+                            const concernType = concern.concern_type || 'Other';
+                            concernTypes[concernType] = (concernTypes[concernType] || 0) + 1;
+                        });
+                    }
                 });
             }
 
@@ -518,12 +1081,18 @@
                 categories,
                 scores,
                 segmentSizes,
-                userSegmentCounts
+                userSegmentCounts,
+                trustScores,
+                certaintyLevels,
+                concernTypes
             };
         }
 
         function generateStatsSection(stats) {
             const t = translations[currentLang];
+            const avgTrust = stats.trustScores.length > 0 ? 
+                (stats.trustScores.reduce((a,b) => a+b, 0) / stats.trustScores.length).toFixed(2) : 'N/A';
+            
             return `
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -542,6 +1111,12 @@
                         <div class="stat-value">${stats.scores.length > 0 ? (stats.scores.reduce((a,b) => a+b, 0) / stats.scores.length).toFixed(2) : 0}</div>
                         <div class="stat-label">${t.avgConfidence}</div>
                     </div>
+                    ${avgTrust !== 'N/A' ? `
+                    <div class="stat-card">
+                        <div class="stat-value">${avgTrust}</div>
+                        <div class="stat-label">${t.baselineTrust}</div>
+                    </div>
+                    ` : ''}
                 </div>
             `;
         }
@@ -566,6 +1141,24 @@
                         <div class="chart-title">${t.behaviorsPerSegment}</div>
                         <canvas id="behaviorsChart"></canvas>
                     </div>
+                    ${Object.keys(stats.certaintyLevels).length > 0 ? `
+                    <div class="chart-container">
+                        <div class="chart-title">Certainty Level Distribution</div>
+                        <canvas id="certaintyChart"></canvas>
+                    </div>
+                    ` : ''}
+                    ${stats.trustScores.length > 0 ? `
+                    <div class="chart-container">
+                        <div class="chart-title">${t.baselineTrust} Distribution</div>
+                        <canvas id="trustChart"></canvas>
+                    </div>
+                    ` : ''}
+                    ${Object.keys(stats.concernTypes).length > 0 ? `
+                    <div class="chart-container">
+                        <div class="chart-title">${t.concerns} Distribution</div>
+                        <canvas id="concernsChart"></canvas>
+                    </div>
+                    ` : ''}
                 </div>
             `;
         }
@@ -577,11 +1170,25 @@
             for (const [userUuid, userData] of Object.entries(results)) {
                 const sessions = userData.sessions || [];
                 html += `
-                    <div class="user-card">
+                    <div class="user-card" data-user-uuid="${userUuid}">
+                        <button class="export-user-btn" onclick="exportUserCard('${userUuid}')" title="${t.exportUser}">
+                            📷 ${t.exportUser}
+                        </button>
                         <div class="user-header">
                             <div class="user-id">${t.user}: ${userUuid.substring(0, 16)}...</div>
                             <div class="user-stats">${sessions.length} ${t.segments}</div>
                         </div>
+                        ${sessions.length > 1 ? `
+                            <div class="path-visualization-section">
+                                <div class="path-viz-title">${t.intentPath}</div>
+                                <div class="path-viz-container">
+                                    <canvas id="timeline-${userUuid}" class="path-chart"></canvas>
+                                </div>
+                                <div class="path-viz-container">
+                                    <div id="network-${userUuid}" class="network-graph"></div>
+                                </div>
+                            </div>
+                        ` : ''}
                 `;
                 
                 sessions.forEach((session, index) => {
@@ -593,17 +1200,117 @@
                     const intent = session.intent || 'N/A';
                     const behaviors = session.key_behaviors || [];
                     
+                    // 新增字段
+                    const certainty = session.certainty_level || '';
+                    const evidenceQuality = session.evidence_quality || '';
+                    const exploredFeature = session.explored_feature || '';
+                    const explorationPurpose = session.exploration_purpose || '';
+                    const baselineTrust = session.baseline_trust || 0;
+                    const trustIndicators = session.trust_indicators || [];
+                    const concerns = session.concerns || [];
+                    const psychologicalRef = session.psychological_reference || {};
+                    const operationRec = session.operation_recommendation || {};
+                    
                     const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
                     const timestamp = session.timestamp ? 
                         new Date(session.timestamp).toLocaleString(locale) : '';
                     
+                    // 信任度等级
+                    const trustLevel = baselineTrust >= 0.7 ? 'high' : baselineTrust >= 0.4 ? 'medium' : 'low';
+                    const trustText = baselineTrust > 0 ? baselineTrust.toFixed(2) : 'N/A';
+                    
                     html += `
-                        <div class="intent-segment">
+                        <div class="intent-segment" data-segment-index="${index}">
                             <div class="segment-header">
                                 <span class="segment-category ${categoryClass}">${categoryName}</span>
-                                <span class="confidence-score">${t.confidence}: ${score}</span>
+                                <span class="confidence-score">
+                                    ${t.confidence}: ${score}
+                                    ${certainty ? `<span class="certainty-badge certainty-${certainty.toLowerCase().replace(' ', '-')}">${certainty}</span>` : ''}
+                                    ${evidenceQuality ? `<span class="evidence-badge evidence-${evidenceQuality.toLowerCase()}">${evidenceQuality}</span>` : ''}
+                                </span>
                             </div>
                             <div class="intent-text">${intent}</div>
+                            
+                            <div class="intent-details">
+                                ${exploredFeature ? `
+                                    <div class="detail-section">
+                                        <div class="detail-title">${t.exploredFeature}:</div>
+                                        <div class="detail-content">${exploredFeature}</div>
+                                    </div>
+                                ` : ''}
+                                
+                                ${explorationPurpose ? `
+                                    <div class="detail-section">
+                                        <div class="detail-title">${t.explorationPurpose}:</div>
+                                        <div class="detail-content">${explorationPurpose}</div>
+                                    </div>
+                                ` : ''}
+                                
+                                ${baselineTrust > 0 ? `
+                                    <div class="detail-section">
+                                        <div class="detail-title">${t.baselineTrust}:</div>
+                                        <div class="detail-content">
+                                            <span class="trust-indicator trust-${trustLevel}">${trustText}</span>
+                                            ${trustIndicators.length > 0 ? trustIndicators.map(ind => `<span class="behavior-tag">${ind}</span>`).join('') : ''}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                
+                                ${concerns.length > 0 ? `
+                                    <div class="detail-section">
+                                        <div class="detail-title">${t.concerns}:</div>
+                                        ${concerns.map(concern => `
+                                            <div class="concern-item">
+                                                <div class="concern-type">${concern.concern_type || 'Other'}: ${concern.concern_severity || 'Medium'}</div>
+                                                <div>${concern.concern_description || ''}</div>
+                                                ${concern.evidence && concern.evidence.length > 0 ? `
+                                                    <div style="margin-top: 5px; font-size: 0.85em; color: #666;">
+                                                        证据: ${concern.evidence.join(', ')}
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                
+                                ${psychologicalRef.expected_value || psychologicalRef.perceived_value ? `
+                                    <div class="detail-section">
+                                        <div class="detail-title">${t.psychologicalRef}:</div>
+                                        <div class="detail-content">
+                                            ${psychologicalRef.expected_value ? `<div><strong>${t.expectedValue}:</strong> ${psychologicalRef.expected_value}</div>` : ''}
+                                            ${psychologicalRef.perceived_value ? `<div><strong>${t.perceivedValue}:</strong> ${psychologicalRef.perceived_value}</div>` : ''}
+                                            ${psychologicalRef.gap_analysis ? `<div style="margin-top: 8px;"><strong>${t.gapAnalysis}:</strong> ${psychologicalRef.gap_analysis}</div>` : ''}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                
+                                ${operationRec.online_solutions || operationRec.offline_solutions ? `
+                                    <div class="recommendation-box">
+                                        <div class="recommendation-title">
+                                            ${t.operationRecommendation}
+                                            ${operationRec.priority ? `<span class="priority-badge priority-${operationRec.priority.toLowerCase()}">${operationRec.priority}</span>` : ''}
+                                        </div>
+                                        ${operationRec.online_solutions && operationRec.online_solutions.length > 0 ? `
+                                            <div class="solution-list">
+                                                <strong>${t.onlineSolutions}:</strong>
+                                                ${operationRec.online_solutions.map(sol => `<div class="solution-item">• ${sol}</div>`).join('')}
+                                            </div>
+                                        ` : ''}
+                                        ${operationRec.offline_solutions && operationRec.offline_solutions.length > 0 ? `
+                                            <div class="solution-list">
+                                                <strong>${t.offlineSolutions}:</strong>
+                                                ${operationRec.offline_solutions.map(sol => `<div class="solution-item">• ${sol}</div>`).join('')}
+                                            </div>
+                                        ` : ''}
+                                        ${operationRec.targeted_message ? `
+                                            <div style="margin-top: 10px; padding: 10px; background: white; border-radius: 5px;">
+                                                <strong>${t.targetedMessage}:</strong> ${operationRec.targeted_message}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
                             ${behaviors.length > 0 ? `
                                 <div class="key-behaviors">
                                     <div class="key-behaviors-title">${t.keyBehaviors}:</div>
@@ -777,7 +1484,478 @@
                 });
                 charts.push(behaviorsChart);
             }
+
+            // Certainty level distribution
+            const certaintyCtx = document.getElementById('certaintyChart');
+            if (certaintyCtx && Object.keys(stats.certaintyLevels).length > 0) {
+                const certaintyChart = new Chart(certaintyCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(stats.certaintyLevels),
+                        datasets: [{
+                            data: Object.values(stats.certaintyLevels),
+                            backgroundColor: [
+                                '#4CAF50', '#8BC34A', '#FF9800', '#F44336'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+                charts.push(certaintyChart);
+            }
+
+            // Trust score distribution
+            const trustCtx = document.getElementById('trustChart');
+            if (trustCtx && stats.trustScores.length > 0) {
+                const bins = 20;
+                const min = Math.min(...stats.trustScores);
+                const max = Math.max(...stats.trustScores);
+                const binSize = (max - min) / bins;
+                const binCounts = new Array(bins).fill(0);
+                
+                stats.trustScores.forEach(score => {
+                    const binIndex = Math.min(Math.floor((score - min) / binSize), bins - 1);
+                    binCounts[binIndex]++;
+                });
+                
+                const binLabels = Array.from({length: bins}, (_, i) => 
+                    (min + i * binSize).toFixed(2)
+                );
+                
+                const trustChart = new Chart(trustCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: binLabels,
+                        datasets: [{
+                            label: t.chartLabels.frequency,
+                            data: binCounts,
+                            backgroundColor: '#9C27B0'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                charts.push(trustChart);
+            }
+
+            // Concerns distribution
+            const concernsCtx = document.getElementById('concernsChart');
+            if (concernsCtx && Object.keys(stats.concernTypes).length > 0) {
+                const concernsChart = new Chart(concernsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(stats.concernTypes),
+                        datasets: [{
+                            label: t.chartLabels.frequency,
+                            data: Object.values(stats.concernTypes),
+                            backgroundColor: '#FF5722'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                charts.push(concernsChart);
+            }
+        }
+
+        // Export single user card
+        async function exportUserCard(userUuid) {
+            const t = translations[currentLang];
+            showLoading(t.generating);
+            try {
+                const userCard = document.querySelector(`[data-user-uuid="${userUuid}"]`);
+                if (!userCard) {
+                    const errorMsg = currentLang === 'zh' ? '未找到用户卡片' : 'User card not found';
+                    alert(errorMsg);
+                    hideLoading();
+                    return;
+                }
+                
+                // Temporarily hide export button
+                const exportBtn = userCard.querySelector('.export-user-btn');
+                const originalDisplay = exportBtn ? exportBtn.style.display : '';
+                if (exportBtn) exportBtn.style.display = 'none';
+                
+                const canvas = await html2canvas(userCard, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    scrollY: -window.scrollY
+                });
+                
+                // Restore export button
+                if (exportBtn) exportBtn.style.display = originalDisplay;
+                
+                downloadImage(canvas, `intent-analysis-user-${userUuid.substring(0, 8)}-${Date.now()}.png`);
+            } catch (error) {
+                const errorMsg = currentLang === 'zh' ? '导出失败: ' : 'Export failed: ';
+                alert(errorMsg + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Make exportUserCard available globally
+        window.exportUserCard = exportUserCard;
+
+        // Create path visualizations for each user
+        function createPathVisualizations(results) {
+            const t = translations[currentLang];
+            
+            for (const [userUuid, userData] of Object.entries(results)) {
+                const sessions = userData.sessions || [];
+                if (sessions.length < 2) continue; // Skip if only one session
+                
+                // Create timeline chart
+                createTimelineChart(userUuid, sessions, t);
+                
+                // Create network graph
+                createNetworkGraph(userUuid, sessions, t);
+            }
+        }
+
+        function createTimelineChart(userUuid, sessions, t) {
+            const canvas = document.getElementById(`timeline-${userUuid}`);
+            if (!canvas) return;
+            
+            // Prepare data
+            const labels = sessions.map((s, i) => `${t.session} ${i + 1}`);
+            const categories = sessions.map(s => s.intent_category || 'Unknown');
+            const scores = sessions.map(s => s.confidence_score || 0);
+            const trustScores = sessions.map(s => s.baseline_trust || 0);
+            
+            // Category colors
+            const categoryColors = {
+                'payment_intent': '#4CAF50',
+                'installment_intent': '#2196F3',
+                'credit_limit_intent': '#FF9800',
+                'voucher_intent': '#9C27B0',
+                'marketing_intent': '#F44336',
+                'exploration_intent': '#00BCD4',
+                'Unknown': '#9E9E9E'
+            };
+            
+            const backgroundColors = categories.map(cat => categoryColors[cat] || '#9E9E9E');
+            
+            const timelineChart = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: t.confidence,
+                            data: scores,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: t.baselineTrust,
+                            data: trustScores,
+                            borderColor: '#FF9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y1',
+                            hidden: trustScores.every(v => v === 0)
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const index = context.dataIndex;
+                                    const session = sessions[index];
+                                    let info = [];
+                                    if (session.explored_feature) {
+                                        info.push(`${t.exploredFeature}: ${session.explored_feature}`);
+                                    }
+                                    if (session.certainty_level) {
+                                        info.push(`${t.certaintyLevel}: ${session.certainty_level}`);
+                                    }
+                                    return info;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            min: 0,
+                            max: 1,
+                            title: {
+                                display: true,
+                                text: t.confidence
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            min: 0,
+                            max: 1,
+                            title: {
+                                display: true,
+                                text: t.baselineTrust
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            charts.push(timelineChart);
+        }
+
+        function createNetworkGraph(userUuid, sessions, t) {
+            const container = document.getElementById(`network-${userUuid}`);
+            if (!container) return;
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            // Wait for container to have proper dimensions
+            const updateGraph = () => {
+                const width = container.offsetWidth || 600;
+                const height = 400;
+                container.style.height = height + 'px';
+                
+                // Calculate positions for nodes (circular layout)
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const nodeRadius = 55; // Node radius for collision detection
+                const layoutRadius = Math.min(width, height) / 2 - nodeRadius - 20;
+                
+                const categoryColors = {
+                    'payment_intent': '#4CAF50',
+                    'installment_intent': '#2196F3',
+                    'credit_limit_intent': '#FF9800',
+                    'voucher_intent': '#9C27B0',
+                    'marketing_intent': '#F44336',
+                    'exploration_intent': '#00BCD4',
+                    'Unknown': '#9E9E9E'
+                };
+                
+                const nodes = [];
+                
+                // Create nodes with positions
+                sessions.forEach((session, index) => {
+                    const angle = (index * 2 * Math.PI / sessions.length) - Math.PI / 2; // Start from top
+                    const x = centerX + layoutRadius * Math.cos(angle);
+                    const y = centerY + layoutRadius * Math.sin(angle);
+                    
+                    const category = session.intent_category || 'Unknown';
+                    const categoryName = t.categories[category] || category;
+                    const color = categoryColors[category] || '#9E9E9E';
+                    
+                    nodes.push({
+                        id: index,
+                        x: x,
+                        y: y,
+                        category: category,
+                        categoryName: categoryName,
+                        color: color,
+                        score: session.confidence_score || 0,
+                        session: session,
+                        radius: nodeRadius
+                    });
+                });
+                
+                // Create SVG for edges
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.className = 'network-svg';
+                svg.setAttribute('width', width);
+                svg.setAttribute('height', height);
+                container.appendChild(svg);
+                
+                // Draw edges (connections between consecutive sessions)
+                for (let i = 0; i < nodes.length - 1; i++) {
+                    const from = nodes[i];
+                    const to = nodes[i + 1];
+                    
+                    // Calculate edge start and end points (on node circumference)
+                    const dx = to.x - from.x;
+                    const dy = to.y - from.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const unitX = dx / distance;
+                    const unitY = dy / distance;
+                    
+                    const startX = from.x + unitX * from.radius;
+                    const startY = from.y + unitY * from.radius;
+                    const endX = to.x - unitX * to.radius;
+                    const endY = to.y - unitY * to.radius;
+                    
+                    // Create path for curved edge
+                    const midX = (startX + endX) / 2;
+                    const midY = (startY + endY) / 2;
+                    const curvature = 30;
+                    const perpX = -unitY * curvature;
+                    const perpY = unitX * curvature;
+                    const controlX = midX + perpX;
+                    const controlY = midY + perpY;
+                    
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`);
+                    path.setAttribute('stroke', 'rgba(102, 126, 234, 0.6)');
+                    path.setAttribute('stroke-width', '3');
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('marker-end', 'url(#arrowhead)');
+                    path.style.transition = 'all 0.3s ease';
+                    svg.appendChild(path);
+                    
+                    // Add hover effect
+                    path.addEventListener('mouseenter', function() {
+                        this.setAttribute('stroke', 'rgba(102, 126, 234, 1)');
+                        this.setAttribute('stroke-width', '4');
+                    });
+                    path.addEventListener('mouseleave', function() {
+                        this.setAttribute('stroke', 'rgba(102, 126, 234, 0.6)');
+                        this.setAttribute('stroke-width', '3');
+                    });
+                    
+                    // Label for transition
+                    const labelX = controlX;
+                    const labelY = controlY - 10;
+                    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    label.setAttribute('x', labelX);
+                    label.setAttribute('y', labelY);
+                    label.setAttribute('text-anchor', 'middle');
+                    label.setAttribute('font-size', '11px');
+                    label.setAttribute('fill', '#666');
+                    label.setAttribute('font-weight', 'bold');
+                    label.style.pointerEvents = 'none';
+                    label.textContent = `${t.transition} ${i + 1}`;
+                    svg.appendChild(label);
+                    
+                    // Background for label
+                    const labelBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    const textLength = label.getComputedTextLength();
+                    labelBg.setAttribute('x', labelX - textLength / 2 - 4);
+                    labelBg.setAttribute('y', labelY - 12);
+                    labelBg.setAttribute('width', textLength + 8);
+                    labelBg.setAttribute('height', '16');
+                    labelBg.setAttribute('fill', 'white');
+                    labelBg.setAttribute('rx', '4');
+                    labelBg.style.pointerEvents = 'none';
+                    svg.insertBefore(labelBg, label);
+                }
+                
+                // Create arrow marker definition
+                const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+                const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+                marker.setAttribute('id', 'arrowhead');
+                marker.setAttribute('markerWidth', '10');
+                marker.setAttribute('markerHeight', '10');
+                marker.setAttribute('refX', '9');
+                marker.setAttribute('refY', '3');
+                marker.setAttribute('orient', 'auto');
+                const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                polygon.setAttribute('points', '0 0, 10 3, 0 6');
+                polygon.setAttribute('fill', 'rgba(102, 126, 234, 0.8)');
+                marker.appendChild(polygon);
+                defs.appendChild(marker);
+                svg.insertBefore(defs, svg.firstChild);
+                
+                // Draw nodes
+                nodes.forEach(node => {
+                    const nodeEl = document.createElement('div');
+                    nodeEl.className = 'network-node';
+                    nodeEl.style.left = (node.x - node.radius) + 'px';
+                    nodeEl.style.top = (node.y - 20) + 'px';
+                    nodeEl.style.backgroundColor = node.color;
+                    
+                    const labelEl = document.createElement('span');
+                    labelEl.className = 'network-node-label';
+                    labelEl.textContent = node.categoryName;
+                    
+                    const scoreEl = document.createElement('span');
+                    scoreEl.className = 'network-node-score';
+                    scoreEl.textContent = `${(node.score * 100).toFixed(0)}%`;
+                    
+                    nodeEl.appendChild(labelEl);
+                    nodeEl.appendChild(scoreEl);
+                    
+                    nodeEl.title = `${t.session} ${node.id + 1}\n${t.confidence}: ${node.score.toFixed(2)}\n${node.session.intent || ''}`;
+                    
+                    // Add click handler to show details
+                    nodeEl.addEventListener('click', function() {
+                        const segment = document.querySelector(`[data-user-uuid="${userUuid}"] [data-segment-index="${node.id}"]`);
+                        if (segment) {
+                            segment.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            segment.style.animation = 'pulse 0.5s';
+                            setTimeout(() => {
+                                segment.style.animation = '';
+                            }, 500);
+                        }
+                    });
+                    
+                    container.appendChild(nodeEl);
+                });
+            };
+            
+            // Use requestAnimationFrame to ensure container has dimensions
+            if (container.offsetWidth > 0) {
+                updateGraph();
+            } else {
+                setTimeout(updateGraph, 100);
+            }
+            
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(updateGraph, 250);
+            });
+            
+            // Add pulse animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0%, 100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+                    50% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+                }
+            `;
+            if (!document.getElementById('pulse-animation-style')) {
+                style.id = 'pulse-animation-style';
+                document.head.appendChild(style);
+            }
         }
     </script>
 </body>
 </html>
+
