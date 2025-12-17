@@ -24,33 +24,75 @@ class IntentAnalyzer:
             gemini_api_key: Google Gemini API密钥
         """
         genai.configure(api_key=gemini_api_key)
-        # 自动选择可用的模型
-        try:
-            # 获取可用模型列表
-            available_models = [m.name for m in genai.list_models() 
-                              if 'generateContent' in m.supported_generation_methods]
-            
-            # 优先使用 gemini-2.5-flash（更快更便宜），如果没有则使用其他可用模型
-            model_name = None
-            for preferred in ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-1.5-flash', 'gemini-1.5-pro']:
-                full_name = f'models/{preferred}'
-                if full_name in available_models:
-                    model_name = preferred
+        # 自动选择可用的模型（带重试和超时处理）
+        model_name = None
+        max_retries = 2
+        timeout_seconds = 10  # 减少超时时间，快速失败
+        model_selected = False
+        
+        for attempt in range(max_retries):
+            try:
+                # 获取可用模型列表（设置较短的超时）
+                import socket
+                original_timeout = socket.getdefaulttimeout()
+                socket.setdefaulttimeout(timeout_seconds)
+                
+                try:
+                    available_models = [m.name for m in genai.list_models() 
+                                      if 'generateContent' in m.supported_generation_methods]
+                finally:
+                    socket.setdefaulttimeout(original_timeout)
+                
+                # 优先使用 gemini-2.5-flash（更快更便宜），如果没有则使用其他可用模型
+                for preferred in ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-1.5-flash', 'gemini-1.5-pro']:
+                    full_name = f'models/{preferred}'
+                    if full_name in available_models:
+                        model_name = preferred
+                        break
+                
+                if model_name is None and available_models:
+                    # 使用第一个可用模型
+                    model_name = available_models[0].replace('models/', '')
+                
+                if model_name:
+                    self.model = genai.GenerativeModel(model_name)
+                    print(f"使用模型: {model_name}")
+                    model_selected = True
                     break
-            
-            if model_name is None and available_models:
-                # 使用第一个可用模型
-                model_name = available_models[0].replace('models/', '')
-            
-            if model_name:
+                else:
+                    raise Exception("未找到可用的模型")
+                    
+            except (TimeoutError, socket.timeout, Exception) as e:
+                error_msg = str(e)
+                # 检查是否是网络连接问题
+                if 'timeout' in error_msg.lower() or '503' in error_msg or 'failed to connect' in error_msg.lower() or 'handshaker shutdown' in error_msg.lower():
+                    if attempt < max_retries - 1:
+                        wait_time = (attempt + 1) * 2
+                        print(f"网络连接超时，{wait_time}秒后重试 (尝试 {attempt + 1}/{max_retries})...")
+                        time.sleep(wait_time)
+                        continue
+                    else:
+                        print(f"网络连接失败，无法获取模型列表，使用默认模型 gemini-2.5-flash")
+                        print(f"提示: 如果持续出现网络问题，请检查网络连接或API密钥")
+                        model_name = 'gemini-2.5-flash'
+                        break
+                else:
+                    # 其他错误，直接使用默认模型
+                    print(f"自动选择模型失败: {e}，使用默认模型 gemini-2.5-flash")
+                    model_name = 'gemini-2.5-flash'
+                    break
+        
+        # 如果所有重试都失败，使用默认模型
+        if not model_name:
+            model_name = 'gemini-2.5-flash'
+        
+        # 如果还没有初始化模型，现在初始化
+        if not model_selected:
+            try:
                 self.model = genai.GenerativeModel(model_name)
-                print(f"使用模型: {model_name}")
-            else:
-                raise Exception("未找到可用的模型")
-        except Exception as e:
-            # 如果自动选择失败，使用默认模型
-            print(f"自动选择模型失败: {e}，使用默认模型")
-            self.model = genai.GenerativeModel('gemini-2.5-flash')
+                print(f"使用默认模型: {model_name}")
+            except Exception as e:
+                raise Exception(f"无法初始化模型 {model_name}: {e}")
         
     def load_data(self, csv_path: str) -> pd.DataFrame:
         """
@@ -984,21 +1026,39 @@ Please start the analysis."""
                 result = json.loads(json_str)
                 
                 segments = []
+                used_indices = set()  # 跟踪已使用的索引
+                
                 if 'intent_segments' in result:
                     for segment_info in result['intent_segments']:
                         behavior_indices = segment_info.get('behavior_indices', [])
                         
                         # 验证索引有效性并获取行为（考虑start_index偏移）
                         valid_indices = [idx for idx in behavior_indices 
-                                        if start_index <= idx < start_index + len(valid_actions)]
+                                        if start_index <= idx < start_index + len(valid_actions)
+                                        and idx not in used_indices]
                         
                         if len(valid_indices) > 0:
                             # 获取对应的行为数据（转换为相对索引）
                             segment_actions = [valid_actions.iloc[idx - start_index].to_dict() 
                                              for idx in valid_indices]
                             segments.append(segment_actions)
+                            used_indices.update(valid_indices)
+                
+                # 检查是否有未包含的行为
+                all_expected_indices = set(range(start_index, start_index + len(valid_actions)))
+                missing_indices = all_expected_indices - used_indices
                 
                 if len(segments) > 0:
+                    # 如果有未包含的行为，将它们添加到最后一个段或创建新段
+                    if len(missing_indices) > 0:
+                        missing_actions = [valid_actions.iloc[idx - start_index].to_dict() 
+                                          for idx in sorted(missing_indices)]
+                        if len(segments) > 0:
+                            # 添加到最后一个段
+                            segments[-1].extend(missing_actions)
+                        else:
+                            # 创建新段
+                            segments.append(missing_actions)
                     return segments
         except json.JSONDecodeError as e:
             # 不打印错误，直接尝试修复
@@ -1080,6 +1140,7 @@ Please start the analysis."""
             按意图分段的行为列表
         """
         segments = []
+        used_indices = set()  # 跟踪已使用的索引
         
         # 查找 behavior_indices 数组
         pattern = r'"behavior_indices"\s*:\s*\[([^\]]+)\]'
@@ -1088,16 +1149,33 @@ Please start the analysis."""
         for match in matches:
             # 提取所有数字
             indices = [int(x.strip()) for x in re.findall(r'\d+', match) if x.strip().isdigit()]
-            valid_indices = [idx for idx in indices if start_index <= idx < start_index + len(valid_actions)]
+            valid_indices = [idx for idx in indices 
+                           if start_index <= idx < start_index + len(valid_actions) 
+                           and idx not in used_indices]
             
             if len(valid_indices) > 0:
                 segment_actions = [valid_actions.iloc[idx - start_index].to_dict() for idx in valid_indices]
                 segments.append(segment_actions)
+                used_indices.update(valid_indices)
+        
+        # 检查是否有未包含的行为
+        all_expected_indices = set(range(start_index, start_index + len(valid_actions)))
+        missing_indices = all_expected_indices - used_indices
         
         if len(segments) > 0:
+            # 如果有未包含的行为，将它们添加到最后一个段或创建新段
+            if len(missing_indices) > 0:
+                missing_actions = [valid_actions.iloc[idx - start_index].to_dict() 
+                                  for idx in sorted(missing_indices)]
+                if len(segments) > 0:
+                    # 添加到最后一个段
+                    segments[-1].extend(missing_actions)
+                else:
+                    # 创建新段
+                    segments.append(missing_actions)
             return segments
         
-        # 如果都失败了，返回单个段（所有行为）
+        # 如果都失败了，返回单个段（所有行为）- 确保不丢失任何行为
         return [[row.to_dict() for _, row in valid_actions.iterrows()]]
     
     def group_user_actions_by_session(self, user_actions: pd.DataFrame, 
@@ -1187,7 +1265,8 @@ Please start the analysis."""
         return context
     
     def analyze_intent(self, user_context: Dict, actions: List[Dict], 
-                      history: Optional[Dict] = None) -> Dict[str, Any]:
+                      history: Optional[Dict] = None, 
+                      include_operation_recommendation: bool = False) -> Dict[str, Any]:
         """
         使用Gemini AI分析用户意图
         
@@ -1195,11 +1274,15 @@ Please start the analysis."""
             user_context: 用户上下文信息
             actions: 行为数据列表
             history: 历史意图分析结果（可选）
+            include_operation_recommendation: 是否包含运营建议（默认False，只生成意图分析）
             
         Returns:
             意图分析结果
         """
-        prompt = self._build_prompt(user_context, actions, history)
+        if include_operation_recommendation:
+            prompt = self._build_prompt(user_context, actions, history)
+        else:
+            prompt = self._build_intent_only_prompt(user_context, actions, history)
         
         try:
             response = self.model.generate_content(prompt)
@@ -1275,23 +1358,105 @@ Please start the analysis."""
 
 4. **历史意图**: 之前的意图分析结果（如果存在）→ 了解意图演变
 
-## 用户行为信号权重
+## 埋点类型说明（重要：理解用户主动行为vs被动展示）
 
-**高权重**（明确兴趣）:
-- click_xxx（点击操作）: 显示用户主动选择
-- show_pay_checkout_xxx（支付页面）: 显示支付意图
-- show_limit_xxx（额度相关）: 显示额度关注
-- click_fullpopup_pribtn_xxx（弹窗主按钮点击）: 显示对营销活动的兴趣
+用户行为埋点分为三类，**关键理解**：只有用户的主动回应才反映真实意图：
 
-**中权重**（参与度）:
-- show_xxx（页面展示）: 显示浏览模式
-- show_paymentpage_xxx（支付相关页面）: 显示支付流程参与
+1. **show曝光类**: 页面或内容展示给用户的事件
+   - 特征: 事件名通常以 `show_` 开头
+   - **重要理解**: show操作**没有任何含义**，只是商家/系统展现给用户一些信息，这是**被动展示**，不代表用户有任何意图或兴趣
+   - **分析原则**: 
+     - **单独的show操作不能作为意图判断的依据**
+     - show只是信息展示，用户可能根本没注意到或不在意
+     - 只有后续出现用户的主动回应（click或on_app_stop），才能说明用户对show的内容有反应
+   - 权重: **极低权重**，仅作为上下文参考，不能单独用于判断意图
 
-**低权重**（导航）:
-- 重复访问相同页面: 显示深度探索或犹豫
-- 时间间隔: 显示参与深度（短间隔=活跃，长间隔=思考）
+2. **click点击类**: 用户主动点击操作的事件
+   - 特征: 事件名通常以 `click_` 开头
+   - **重要理解**: 这是用户的**主动回应**，表示用户对show的内容产生了兴趣并采取了行动
+   - 含义: 用户主动选择或操作，表示明确的兴趣和意图
+   - **分析原则**:
+     - click是判断用户意图的**核心证据**
+     - 需要结合前面的show来理解用户点击了什么内容
+     - show + click 的组合才能完整反映用户意图（看到了什么 + 点击了什么）
+   - 权重: **高权重**，是判断用户意图的重要信号
 
-关键: 高权重信号揭示用户关心什么。低权重模式揭示参与深度和上下文。
+3. **on_app_stop杀死app进程类**: 用户关闭或退出应用的事件
+   - 特征: 事件名包含 `on_app_stop` 或类似系统级事件
+   - **重要理解**: 这是用户的**主动停止进程**，是用户明确的回应行为
+   - **关键分析点**: **推断用户在这步之前看到了什么非常重要**
+     - on_app_stop是用户对之前看到的内容做出的回应
+     - 必须分析on_app_stop之前最近的show操作序列
+     - 了解用户在看到什么内容后选择了停止
+   - 含义: 用户主动结束使用，可能表示：
+     - **对当前展示内容不感兴趣**（负面回应）：看到show后立即停止
+     - **已完成操作，退出应用**：完成支付/操作后正常退出
+     - **遇到问题或困惑**：看到复杂内容后选择退出
+     - **其他原因退出**
+   - **分析原则**:
+     - **必须追溯on_app_stop之前的show序列**：用户看到了什么 → 选择了停止
+     - 如果show后立即出现on_app_stop，强烈暗示用户对show的内容不感兴趣或感到困惑
+     - 如果show → click → on_app_stop，可能是完成操作后正常退出
+     - 如果多个show后on_app_stop，需要分析用户对哪些内容做出了"停止"的回应
+     - **重点**: 分析用户停止前最后看到的内容，这能揭示用户的真实反应
+   - 权重: 中等权重，用于判断用户对展示内容的反应，但必须结合之前的show序列分析
+
+**核心分析逻辑**:
+- **show操作本身没有含义**，只是商家展示信息
+- **只有用户使用click点击或on_app_stop杀死app进程来回应show，才算是有意义的用户行为**
+- 分析意图时，必须关注：show了什么 → 用户如何回应（click还是on_app_stop）
+- 如果只有show没有后续回应，不能判断用户意图
+- show + click 的组合才是完整的用户意图表达
+
+## 数据清洗规则说明
+
+在分析时，请注意以下数据清洗规则，这些信息已写入 `extra_info` 字段：
+
+1. **券（Voucher）埋点清洗**:
+   - 券相关的埋点（如 `show_voucher_xxx`, `click_myvoucher_xxx` 等）会清洗ID
+   - `extra_info` 字段包含券的名称信息，包括：
+     - 支付方式（如：虚拟账户支付、二维码支付等）
+     - 优惠类型（如：满减券、折扣券、新人专享券等）
+     - 其他券的详细信息
+   - **分析要点**: 通过 `extra_info` 了解用户关注的券类型和支付方式，判断用户对优惠和支付方式的偏好
+
+2. **弹窗（Popup）埋点清洗**:
+   - 弹窗相关的埋点（如 `click_fullpopup_pribtn_xxx`, `show_new_homebanner_xxx` 等）会清洗ID
+   - `extra_info` 字段包含弹窗内容的类型分类，包括：
+     - 开卡礼类型（如：新人开卡礼、首刷礼等）
+     - 促留存类型（如：任务奖励、限时活动等）
+     - 营销活动类型（如：推广活动、会员权益等）
+     - 其他弹窗分类信息
+   - **分析要点**: 通过 `extra_info` 了解用户对哪些类型的营销活动感兴趣，判断用户的参与动机和意图
+
+**重要提示**: 在分析用户意图时，务必关注 `extra_info` 字段中的详细信息，这些信息能帮助你更准确地理解用户关注的具体内容、优惠类型和活动类型，从而做出更精准的意图判断。
+
+## 用户行为信号权重（基于主动回应原则）
+
+**高权重**（明确兴趣 - 用户主动回应）:
+- **click_xxx（点击操作）**: 用户主动选择，是判断意图的**核心证据**
+  - 必须结合前面的show来理解：用户点击了什么内容
+  - show + click 组合 = 完整的用户意图表达
+- **click_fullpopup_pribtn_xxx（弹窗主按钮点击）**: 显示用户对营销活动有明确兴趣并主动参与
+- **click_pay_checkout_submit_btn_xxx（支付提交按钮点击）**: 明确的支付意图和转化行为
+
+**中权重**（用户主动回应但含义需结合上下文）:
+- **on_app_stop（杀死app进程）**: 用户的主动回应，需要结合前面的show判断：
+  - 如果show后立即on_app_stop，可能表示不感兴趣（负面回应）
+  - 如果完成操作后on_app_stop，可能是正常退出
+
+**极低权重/无效**（被动展示，不能单独判断意图）:
+- **show_xxx（页面展示）**: **单独使用无效**，只是商家展示信息
+  - 不能单独作为意图判断依据
+  - 仅作为上下文参考，需要等待用户的主动回应（click或on_app_stop）
+  - 只有与后续的click结合，才能形成有意义的意图信号
+
+**关键分析原则**:
+1. **show操作本身没有含义**，只是被动展示
+2. **只有用户主动回应（click或on_app_stop）才算有意义**
+3. **show + click 的组合**才能完整反映用户意图
+4. **单独的show不能判断意图**，必须等待用户回应
+5. 分析时关注：商家展示了什么 → 用户如何回应 → 这才是真实意图
 
 ## 行为序列分析（对多个行为至关重要）
 
@@ -1299,11 +1464,24 @@ Please start the analysis."""
 
 - 首次 → 最后: 显示兴趣演变（从浏览到支付，从探索到决策）
 
-- 行为类型序列: 
-  - 浏览 → 点击 → 支付页面: 显示购买意图
-  - 额度页面 → 支付页面: 显示额度使用意图
-  - 优惠券页面 → 支付页面: 显示优惠寻求意图
-  - 重复访问相同页面: 显示犹豫或深度比较
+- 行为类型序列（注意：show只是展示，需要看用户回应）: 
+  - **show → click**: 商家展示 → 用户点击回应 = 明确的兴趣和意图
+  - **show → on_app_stop**: 商家展示 → 用户退出 = **重要：分析用户看到了什么后选择停止**
+    - 必须追溯on_app_stop之前最近的show操作
+    - 如果show后立即on_app_stop，强烈暗示用户对show的内容不感兴趣（负面回应）
+    - 这能揭示用户对哪些内容做出了"停止"的回应
+  - **show → show → on_app_stop**: 多次展示后用户停止 = 分析用户对哪些内容做出了停止决定
+  - **show → click → on_app_stop**: 展示 → 点击 → 停止 = 可能完成操作后正常退出
+  - **show → show → click**: 多次展示后用户点击 = 用户经过考虑后的选择
+  - **只有show没有回应**: 不能判断意图，用户可能根本没注意或不在意
+  - **click → click**: 连续的点击操作 = 强烈的参与意图
+  - **show支付页面 → click支付按钮**: 显示明确的支付意图和转化行为
+  - **show优惠券 → click使用优惠券**: 显示优惠寻求意图
+  - **关键序列分析**: 对于on_app_stop，必须分析：
+    1. on_app_stop之前最近的show操作是什么
+    2. 用户在看到什么内容后选择了停止
+    3. 这个停止是对哪些内容的回应
+    4. 停止的原因可能是什么（不感兴趣/完成操作/遇到问题等）
 
 - 返回之前的行为: 强烈兴趣或比较锚点
 
@@ -1368,6 +1546,16 @@ Please start the analysis."""
    - **必须明确指出**: 用户正在探索的具体产品功能是什么
    - **必须分析**: 用户探索这个功能的目的（了解如何使用、准备交易、比较选项等）
    - **必须关联**: 这个意图如何帮助用户完成第一笔交易
+   - **特别关注on_app_stop分析（重要）**: 
+     - 如果行为序列中包含on_app_stop，这是用户主动停止了进程
+     - **必须追溯分析**: 用户在这步之前看到了什么（最近的show操作）
+     - **推断用户反应**: 用户在看到什么内容后选择了停止
+     - **分析停止原因**: 
+       - 如果show后立即on_app_stop：用户对show的内容不感兴趣（负面回应）
+       - 如果show → click → on_app_stop：可能是完成操作后正常退出
+       - 如果多个show后on_app_stop：分析用户对哪些内容做出了"停止"的回应
+     - **揭示用户态度**: 通过分析停止前看到的内容，揭示用户对哪些功能/内容不感兴趣或感到困惑
+     - 这能帮助理解用户的真实反应和潜在流失原因
    - 所有分析必须引用输入中的具体证据 - 不要猜测
 
 2. **分析用户心理状态**:
@@ -1465,9 +1653,497 @@ Please start the analysis."""
         
         return prompt
     
+    def _build_intent_only_prompt(self, user_context: Dict, actions: List[Dict], 
+                                  history: Optional[Dict] = None) -> str:
+        """
+        构建只生成意图分析的prompt（不包含运营建议）
+        
+        Args:
+            user_context: 用户上下文信息
+            actions: 行为数据列表
+            history: 历史意图分析结果（可选）
+            
+        Returns:
+            完整的prompt字符串（不包含运营建议部分）
+        """
+        actions_text = self.format_actions_for_prompt(actions)
+        
+        history_text = ""
+        if history:
+            history_text = f"""
+历史意图分析:
+- 之前意图: {history.get('intent', '无')}
+- 之前得分: {history.get('confidence_score', history.get('score', 0.0))}
+- 之前分析时间: {history.get('timestamp', '无')}
+"""
+        
+        prompt = f"""你是一位金融信用卡行业的用户行为分析专家。请综合分析所有输入信息来提取用户意图。
+
+## 分析数据源（请使用所有数据源）
+
+1. **用户信息**: 用户ID、审批时间、首次支付时间 → 了解用户状态和生命周期阶段
+
+2. **用户行为序列**: 按时间顺序的行为事件 → 了解用户实际做了什么
+
+3. **行为上下文**: 事件类型、时间间隔、额外信息 → 了解行为深度和模式
+
+4. **历史意图**: 之前的意图分析结果（如果存在）→ 了解意图演变
+
+## 埋点类型说明（重要：理解用户主动行为vs被动展示）
+
+用户行为埋点分为三类，**关键理解**：只有用户的主动回应才反映真实意图：
+
+1. **show曝光类**: 页面或内容展示给用户的事件
+   - 特征: 事件名通常以 `show_` 开头
+   - **重要理解**: show操作**没有任何含义**，只是商家/系统展现给用户一些信息，这是**被动展示**，不代表用户有任何意图或兴趣
+   - **分析原则**: 
+     - **单独的show操作不能作为意图判断的依据**
+     - show只是信息展示，用户可能根本没注意到或不在意
+     - 只有后续出现用户的主动回应（click或on_app_stop），才能说明用户对show的内容有反应
+   - 权重: **极低权重**，仅作为上下文参考，不能单独用于判断意图
+
+2. **click点击类**: 用户主动点击操作的事件
+   - 特征: 事件名通常以 `click_` 开头
+   - **重要理解**: 这是用户的**主动回应**，表示用户对show的内容产生了兴趣并采取了行动
+   - 含义: 用户主动选择或操作，表示明确的兴趣和意图
+   - **分析原则**:
+     - click是判断用户意图的**核心证据**
+     - 需要结合前面的show来理解用户点击了什么内容
+     - show + click 的组合才能完整反映用户意图（看到了什么 + 点击了什么）
+   - 权重: **高权重**，是判断用户意图的重要信号
+
+3. **on_app_stop杀死app进程类**: 用户关闭或退出应用的事件
+   - 特征: 事件名包含 `on_app_stop` 或类似系统级事件
+   - **重要理解**: 这是用户的**主动停止进程**，是用户明确的回应行为
+   - **关键分析点**: **推断用户在这步之前看到了什么非常重要**
+     - on_app_stop是用户对之前看到的内容做出的回应
+     - 必须分析on_app_stop之前最近的show操作序列
+     - 了解用户在看到什么内容后选择了停止
+   - 含义: 用户主动结束使用，可能表示：
+     - **对当前展示内容不感兴趣**（负面回应）：看到show后立即停止
+     - **已完成操作，退出应用**：完成支付/操作后正常退出
+     - **遇到问题或困惑**：看到复杂内容后选择退出
+     - **其他原因退出**
+   - **分析原则**:
+     - **必须追溯on_app_stop之前的show序列**：用户看到了什么 → 选择了停止
+     - 如果show后立即出现on_app_stop，强烈暗示用户对show的内容不感兴趣或感到困惑
+     - 如果show → click → on_app_stop，可能是完成操作后正常退出
+     - 如果多个show后on_app_stop，需要分析用户对哪些内容做出了"停止"的回应
+     - **重点**: 分析用户停止前最后看到的内容，这能揭示用户的真实反应
+   - 权重: 中等权重，用于判断用户对展示内容的反应，但必须结合之前的show序列分析
+
+**核心分析逻辑**:
+- **show操作本身没有含义**，只是商家展示信息
+- **只有用户使用click点击或on_app_stop杀死app进程来回应show，才算是有意义的用户行为**
+- 分析意图时，必须关注：show了什么 → 用户如何回应（click还是on_app_stop）
+- 如果只有show没有后续回应，不能判断用户意图
+- show + click 的组合才是完整的用户意图表达
+
+## 数据清洗规则说明
+
+在分析时，请注意以下数据清洗规则，这些信息已写入 `extra_info` 字段：
+
+1. **券（Voucher）埋点清洗**:
+   - 券相关的埋点（如 `show_voucher_xxx`, `click_myvoucher_xxx` 等）会清洗ID
+   - `extra_info` 字段包含券的名称信息，包括：
+     - 支付方式（如：虚拟账户支付、二维码支付等）
+     - 优惠类型（如：满减券、折扣券、新人专享券等）
+     - 其他券的详细信息
+   - **分析要点**: 通过 `extra_info` 了解用户关注的券类型和支付方式，判断用户对优惠和支付方式的偏好
+
+2. **弹窗（Popup）埋点清洗**:
+   - 弹窗相关的埋点（如 `click_fullpopup_pribtn_xxx`, `show_new_homebanner_xxx` 等）会清洗ID
+   - `extra_info` 字段包含弹窗内容的类型分类，包括：
+     - 开卡礼类型（如：新人开卡礼、首刷礼等）
+     - 促留存类型（如：任务奖励、限时活动等）
+     - 营销活动类型（如：推广活动、会员权益等）
+     - 其他弹窗分类信息
+   - **分析要点**: 通过 `extra_info` 了解用户对哪些类型的营销活动感兴趣，判断用户的参与动机和意图
+
+**重要提示**: 在分析用户意图时，务必关注 `extra_info` 字段中的详细信息，这些信息能帮助你更准确地理解用户关注的具体内容、优惠类型和活动类型，从而做出更精准的意图判断。
+
+## 用户行为信号权重（基于主动回应原则）
+
+**高权重**（明确兴趣 - 用户主动回应）:
+- **click_xxx（点击操作）**: 用户主动选择，是判断意图的**核心证据**
+  - 必须结合前面的show来理解：用户点击了什么内容
+  - show + click 组合 = 完整的用户意图表达
+- **click_fullpopup_pribtn_xxx（弹窗主按钮点击）**: 显示用户对营销活动有明确兴趣并主动参与
+- **click_pay_checkout_submit_btn_xxx（支付提交按钮点击）**: 明确的支付意图和转化行为
+
+**中权重**（用户主动回应但含义需结合上下文）:
+- **on_app_stop（杀死app进程）**: 用户的主动回应，需要结合前面的show判断：
+  - 如果show后立即on_app_stop，可能表示不感兴趣（负面回应）
+  - 如果完成操作后on_app_stop，可能是正常退出
+
+**极低权重/无效**（被动展示，不能单独判断意图）:
+- **show_xxx（页面展示）**: **单独使用无效**，只是商家展示信息
+  - 不能单独作为意图判断依据
+  - 仅作为上下文参考，需要等待用户的主动回应（click或on_app_stop）
+  - 只有与后续的click结合，才能形成有意义的意图信号
+
+**关键分析原则**:
+1. **show操作本身没有含义**，只是被动展示
+2. **只有用户主动回应（click或on_app_stop）才算有意义**
+3. **show + click 的组合**才能完整反映用户意图
+4. **单独的show不能判断意图**，必须等待用户回应
+5. 分析时关注：商家展示了什么 → 用户如何回应 → 这才是真实意图
+
+## 行为序列分析（对多个行为至关重要）
+
+**顺序很重要！** 序列揭示用户的思考过程：
+
+- 首次 → 最后: 显示兴趣演变（从浏览到支付，从探索到决策）
+
+- 行为类型序列（注意：show只是展示，需要看用户回应）: 
+  - **show → click**: 商家展示 → 用户点击回应 = 明确的兴趣和意图
+  - **show → on_app_stop**: 商家展示 → 用户退出 = **重要：分析用户看到了什么后选择停止**
+    - 必须追溯on_app_stop之前最近的show操作
+    - 如果show后立即on_app_stop，强烈暗示用户对show的内容不感兴趣（负面回应）
+    - 这能揭示用户对哪些内容做出了"停止"的回应
+  - **show → show → on_app_stop**: 多次展示后用户停止 = 分析用户对哪些内容做出了停止决定
+  - **show → click → on_app_stop**: 展示 → 点击 → 停止 = 可能完成操作后正常退出
+  - **show → show → click**: 多次展示后用户点击 = 用户经过考虑后的选择
+  - **只有show没有回应**: 不能判断意图，用户可能根本没注意或不在意
+  - **click → click**: 连续的点击操作 = 强烈的参与意图
+  - **show支付页面 → click支付按钮**: 显示明确的支付意图和转化行为
+  - **show优惠券 → click使用优惠券**: 显示优惠寻求意图
+  - **关键序列分析**: 对于on_app_stop，必须分析：
+    1. on_app_stop之前最近的show操作是什么
+    2. 用户在看到什么内容后选择了停止
+    3. 这个停止是对哪些内容的回应
+    4. 停止的原因可能是什么（不感兴趣/完成操作/遇到问题等）
+
+- 返回之前的行为: 强烈兴趣或比较锚点
+
+- 每个行为的时间间隔: 哪些行为获得了更多关注
+
+## 金融信用卡行业特定意图类型（需要具体化分析）
+
+对于每个意图，必须明确：
+- **具体探索的产品功能**: 用户正在探索哪个具体的产品功能（如：现金借贷、虚拟账户支付、分期付款、额度查询、优惠券使用等）
+- **探索目的**: 用户探索这个功能的目的是什么（如：了解如何使用、比较选项、准备首次交易、解决特定需求等）
+- **与首次交易的关系**: 这个意图如何帮助用户完成第一笔交易
+
+1. **支付意图**: 用户想要进行支付交易
+   - 具体功能: 虚拟账户支付(VA)、二维码支付(QRIS)、手机充值、电商支付等
+   - 探索目的: 了解支付流程、选择支付方式、准备完成交易
+   - 信号: show_pay_checkout_xxx, click_pay_checkout_submit_btn_xxx, show_paymentpage_xxx
+   - 与首次交易: 直接关联，用户正在完成或准备完成第一笔支付
+   
+2. **额度管理意图**: 用户关注可用额度
+   - 具体功能: 查看可用额度、临时额度提升、现金借贷额度、分期额度等
+   - 探索目的: 了解可用资金、评估购买能力、准备大额交易
+   - 信号: show_limit_xxx, show_limit_page_module_xxx, show_homepage_tempolimit_increase_tooltips
+   - 与首次交易: 用户可能在确认是否有足够额度进行首次交易
+   
+3. **分期意图**: 用户想要使用分期付款
+   - 具体功能: 分期付款选项、分期计划详情、分期计算器等
+   - 探索目的: 了解分期规则、选择分期期数、降低首次交易压力
+   - 信号: show_homepage_installment_section, show_installplandetail_xxx, click_pay_checkout_installment_btn_xxx
+   - 与首次交易: 用户可能希望通过分期降低首次交易的门槛
+   
+4. **优惠券/会员意图**: 用户寻求优惠或会员权益
+   - 具体功能: 优惠券查看、优惠券使用、会员权益、新人福利等
+   - 探索目的: 寻找优惠、最大化首次交易价值、了解会员特权
+   - 信号: show_membership_xxx, show_paymentpage_voucher, click_myvoucher_xxx, show_voucherusage_pg
+   - 与首次交易: 用户希望在首次交易时使用优惠，降低交易成本
+   
+5. **营销活动参与意图**: 用户对营销活动感兴趣
+   - 具体功能: 新人开卡礼、限时活动、任务奖励、推广活动等
+   - 探索目的: 获取奖励、了解活动规则、参与任务获得福利
+   - 信号: click_fullpopup_pribtn_xxx, click_new_homebanner_xxx, show_new_user_zone_page
+   - 与首次交易: 用户可能希望通过参与活动获得首次交易的优惠或奖励
+   
+6. **探索/浏览意图**: 用户正在探索功能
+   - 具体功能: 需要明确指出探索的具体功能（如：现金借贷功能、虚拟账户功能、支付方式、额度管理、会员体系等）
+   - 探索目的: 了解产品功能、熟悉App操作、寻找适合的支付方式、评估产品价值等
+   - 信号: 多个show_xxx但无点击，重复访问，浏览多个功能页面
+   - 与首次交易: 用户可能在为首次交易做准备，探索最适合的交易方式
+
+## 历史使用
+
+- 如果存在历史: 基于之前的分析，注意变化或确认一致性
+- 如果没有变化: 确认持续的兴趣模式 + 添加任何新见解
+- 如果有变化: 突出不同之处及其重要性
+- 无论历史如何，始终提供完整的意图分析
+
+## 你的任务
+
+1. **分析用户意图**: 综合USER + ACTIONS + HISTORY的见解
+   - 交叉引用用户生命周期阶段（审批时间、首次支付时间）与行为模式
+   - 如果多个行为，分析浏览顺序及其揭示的意图
+   - 连接行为类型与金融产品/服务的相关性
+   - **必须明确指出**: 用户正在探索的具体产品功能是什么
+   - **必须分析**: 用户探索这个功能的目的（了解如何使用、准备交易、比较选项等）
+   - **必须关联**: 这个意图如何帮助用户完成第一笔交易
+   - **特别关注on_app_stop分析（重要）**: 
+     - 如果行为序列中包含on_app_stop，这是用户主动停止了进程
+     - **必须追溯分析**: 用户在这步之前看到了什么（最近的show操作）
+     - **推断用户反应**: 用户在看到什么内容后选择了停止
+     - **分析停止原因**: 
+       - 如果show后立即on_app_stop：用户对show的内容不感兴趣（负面回应）
+       - 如果show → click → on_app_stop：可能是完成操作后正常退出
+       - 如果多个show后on_app_stop：分析用户对哪些内容做出了"停止"的回应
+     - **揭示用户态度**: 通过分析停止前看到的内容，揭示用户对哪些功能/内容不感兴趣或感到困惑
+     - 这能帮助理解用户的真实反应和潜在流失原因
+   - 所有分析必须引用输入中的具体证据 - 不要猜测
+
+2. **分析用户心理状态**:
+   - **Baseline Trust (基础信任度)**: 用户对产品和服务的信任程度 (0.0-1.0)
+     - 高信任(0.7-1.0): 快速激活、积极使用、无反复验证行为
+     - 中信任(0.4-0.7): 有探索但谨慎，需要更多信息
+     - 低信任(0.0-0.4): 反复查看、犹豫不决、大量验证行为
+   - **Concern (担忧点)**: 用户可能担心的问题
+     - 安全性担忧: 反复查看安全相关页面
+     - 额度担忧: 频繁查看额度、担心不够用
+     - 费用担忧: 查看费率、分期成本等
+     - 使用难度担忧: 反复查看使用教程、帮助页面
+     - 其他具体担忧点
+   - **心理参考值 vs 实际感知**: 
+     - 用户的心理预期是什么（期望的额度、优惠、功能等）
+     - 实际感知到的与预期的差距
+     - 这种差距如何影响首次交易决策
+
+3. **计算意图得分和置信度**:
+   - **Intent Confidence Score (意图置信度)**: 评估此意图分析的置信度 (0.0-1.0)
+     - 0.9-1.0: 非常明确的意图，有明确的转化行为
+     - 0.7-0.9: 较强的意图，有明显的兴趣信号
+     - 0.5-0.7: 中等意图，有一些兴趣但不够明确
+     - 0.3-0.5: 弱意图，主要是浏览行为
+     - 0.0-0.3: 意图不明确，行为很少或无效
+   - **Certainty Level (确信程度)**: 你对这个意图判断有多确信
+     - "Very High": 有明确的转化行为，意图非常清晰
+     - "High": 有强烈的兴趣信号，意图比较明确
+     - "Medium": 有一些信号，但不够明确
+     - "Low": 信号较弱，主要是推测
+   - **Evidence Quality (证据质量)**: 支持这个意图的证据质量
+     - 强证据: 明确的点击、支付页面访问等
+     - 中等证据: 页面展示、浏览模式等
+     - 弱证据: 间接信号、推测性证据
+
+## Output JSON Format（注意：不包含运营建议）
+
+{{
+  "intent": "User's main intent description (in Chinese, must be specific about what product feature they are exploring)",
+  "intent_category": "Intent category (payment_intent/credit_limit_intent/installment_intent/voucher_intent/marketing_intent/exploration_intent)",
+  "confidence_score": A float number between 0.0-1.0,
+  "certainty_level": "Very High/High/Medium/Low - how certain you are about this intent",
+  "evidence_quality": "Strong/Medium/Weak - quality of evidence supporting this intent",
+  "explored_feature": "Specific product feature the user is exploring (in Chinese, e.g., '虚拟账户支付', '现金借贷', '分期付款'等)",
+  "exploration_purpose": "Purpose of exploration (in Chinese, e.g., '了解如何使用', '准备首次交易', '比较支付选项'等)",
+  "first_transaction_connection": "How this intent helps user complete first transaction (in Chinese)",
+  "baseline_trust": A float number between 0.0-1.0 representing user's baseline trust in the product/service,
+  "trust_indicators": ["Indicator 1 (in Chinese)", "Indicator 2 (in Chinese)", ...],
+  "concerns": [
+    {{
+      "concern_type": "Security/Credit Limit/Fees/Usage Difficulty/Other",
+      "concern_description": "Specific concern description (in Chinese)",
+      "concern_severity": "High/Medium/Low",
+      "evidence": ["Behavior evidence 1", "Behavior evidence 2", ...]
+    }}
+  ],
+  "psychological_reference": {{
+    "expected_value": "What user expects (in Chinese, e.g., expected credit limit, discount amount, etc.)",
+    "perceived_value": "What user actually perceives (in Chinese)",
+    "gap_analysis": "Gap between expected and perceived, and its impact on first transaction (in Chinese)"
+  }},
+  "key_behaviors": ["key behavior 1", "key behavior 2", ...],
+  "reasoning": "Analysis reasoning process (in Chinese, detailed explanation including: what feature, why exploring, trust level, concerns, psychological factors, how it connects to first transaction)",
+  "next_action_prediction": "Predicted next possible user action (in Chinese)"
+}}
+
+## 输入数据
+
+用户信息:
+- 用户ID: {user_context.get('user_uuid', 'N/A')}
+- 审批时间: {user_context.get('approved_time', 'N/A')}
+- 首次支付时间: {user_context.get('first_payment_time', 'N/A')}
+- 首次行为时间: {user_context.get('first_action_time', 'N/A')}
+- 最后行为时间: {user_context.get('last_action_time', 'N/A')}
+- 总行为数: {user_context.get('total_actions', 0)}
+- 唯一事件类型数: {user_context.get('unique_events', 0)}
+
+用户行为序列:
+{actions_text}
+
+{history_text}
+
+请开始分析用户意图（注意：本次分析不包含运营建议）。"""
+        
+        return prompt
+    
+    def generate_operation_recommendation(self, intent_result: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        基于意图分析结果生成运营建议
+        
+        Args:
+            intent_result: 已有的意图分析结果
+            
+        Returns:
+            包含运营建议的完整结果
+        """
+        prompt = self._build_operation_recommendation_prompt(intent_result)
+        
+        try:
+            response = self.model.generate_content(prompt)
+            result_text = response.text
+            
+            # 尝试解析JSON
+            try:
+                json_start = result_text.find('{')
+                json_end = result_text.rfind('}') + 1
+                if json_start >= 0 and json_end > json_start:
+                    json_str = result_text[json_start:json_end]
+                    json_str = self._fix_json_format(json_str)
+                    operation_rec = json.loads(json_str)
+                    
+                    # 将运营建议添加到意图结果中
+                    intent_result['operation_recommendation'] = operation_rec.get('operation_recommendation', {})
+                    return intent_result
+            except json.JSONDecodeError:
+                # 尝试安全提取JSON
+                try:
+                    json_str = self._extract_json_safely(result_text)
+                    if json_str:
+                        json_str = self._fix_json_format(json_str)
+                        operation_rec = json.loads(json_str)
+                        intent_result['operation_recommendation'] = operation_rec.get('operation_recommendation', {})
+                        return intent_result
+                except Exception:
+                    pass
+            
+            # 如果解析失败，返回原始结果
+            print(f"解析运营建议JSON时出错，返回原始结果")
+            return intent_result
+            
+        except Exception as e:
+            print(f"生成运营建议时出错: {e}")
+            return intent_result
+    
+    def _build_operation_recommendation_prompt(self, intent_result: Dict[str, Any]) -> str:
+        """
+        构建生成运营建议的prompt
+        
+        Args:
+            intent_result: 已有的意图分析结果
+            
+        Returns:
+            prompt字符串
+        """
+        prompt = f"""你是一位金融信用卡行业的运营专家。请基于以下用户意图分析结果，为运营人员提供帮助用户完成第一笔交易的建议。
+
+## 用户意图分析结果
+
+**意图**: {intent_result.get('intent', 'N/A')}
+**意图类别**: {intent_result.get('intent_category', 'N/A')}
+**置信度**: {intent_result.get('confidence_score', 0.0)}
+**探索的功能**: {intent_result.get('explored_feature', 'N/A')}
+**探索目的**: {intent_result.get('exploration_purpose', 'N/A')}
+**基础信任度**: {intent_result.get('baseline_trust', 0.0)}
+**担忧点**: {json.dumps(intent_result.get('concerns', []), ensure_ascii=False, indent=2)}
+**心理参考值**: {json.dumps(intent_result.get('psychological_reference', {}), ensure_ascii=False, indent=2)}
+**关键行为**: {json.dumps(intent_result.get('key_behaviors', []), ensure_ascii=False)}
+**推理过程**: {intent_result.get('reasoning', 'N/A')}
+
+## 你的任务
+
+基于用户意图和心理状态，为运营人员提供帮助用户完成第一笔交易的建议：
+
+1. **线上解决方案**: App内推送、消息提醒、优惠券发放、功能引导等
+2. **线下解决方案**: 电话回访、短信提醒、邮件营销、客户经理联系等
+3. **建议要具体、可执行**，针对用户当前意图、信任度和担忧点
+4. **优先级判断**: 基于用户完成首次交易的准备程度（High/Medium/Low）
+5. **针对性消息**: 针对用户信任度和担忧点的具体干预消息
+
+## Output JSON Format
+
+{{
+  "operation_recommendation": {{
+    "online_solutions": ["Online solution 1 (in Chinese)", "Online solution 2 (in Chinese)", ...],
+    "offline_solutions": ["Offline solution 1 (in Chinese)", "Offline solution 2 (in Chinese)", ...],
+    "priority": "High/Medium/Low (based on user's readiness for first transaction)",
+    "targeted_message": "Specific message or intervention tailored to user's trust level and concerns (in Chinese)"
+  }}
+}}
+
+请开始生成运营建议。"""
+        
+        return prompt
+    
+    def generate_operation_recommendations_batch(self, intent_results_file: str, 
+                                                 output_file: Optional[str] = None) -> Dict[str, Any]:
+        """
+        批量为已有的意图分析结果生成运营建议
+        
+        Args:
+            intent_results_file: 意图分析结果JSON文件路径
+            output_file: 输出文件路径（如果为None，覆盖原文件）
+            
+        Returns:
+            包含运营建议的完整结果
+        """
+        import json
+        
+        # 加载意图分析结果
+        with open(intent_results_file, 'r', encoding='utf-8') as f:
+            results = json.load(f)
+        
+        print(f"加载了 {len(results)} 个用户的意图分析结果")
+        print("开始批量生成运营建议...\n")
+        
+        total_sessions = 0
+        processed_sessions = 0
+        
+        # 为每个用户的每个会话生成运营建议
+        for user_uuid, user_data in results.items():
+            if 'sessions' not in user_data:
+                continue
+            
+            sessions = user_data.get('sessions', [])
+            total_sessions += len(sessions)
+            
+            print(f"用户 {user_uuid[:8]}... ({len(sessions)} 个会话)")
+            
+            for session_idx, session in enumerate(sessions, 1):
+                # 如果已经有运营建议，跳过
+                if 'operation_recommendation' in session and session['operation_recommendation']:
+                    print(f"  会话 {session_idx}: 已有运营建议，跳过")
+                    continue
+                
+                print(f"  会话 {session_idx}: 生成运营建议...", end='', flush=True)
+                try:
+                    updated_session = self.generate_operation_recommendation(session)
+                    sessions[session_idx - 1] = updated_session
+                    processed_sessions += 1
+                    print(" 完成")
+                except Exception as e:
+                    print(f" 失败: {e}")
+                    continue
+                
+                # 添加延迟避免API限流
+                time.sleep(0.5)
+            
+            results[user_uuid]['sessions'] = sessions
+        
+        # 保存结果
+        if output_file is None:
+            output_file = intent_results_file
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(results, f, indent=2, ensure_ascii=False)
+        
+        print(f"\n批量生成完成！")
+        print(f"  总会话数: {total_sessions}")
+        print(f"  已处理会话数: {processed_sessions}")
+        print(f"  结果已保存到: {output_file}")
+        
+        return results
+    
     def analyze_user_intent(self, csv_path: Optional[str] = None, user_uuid: Optional[str] = None,
                            session_timeout_minutes: int = 30,
-                           preloaded_df: Optional[pd.DataFrame] = None) -> Dict[str, Any]:
+                           preloaded_df: Optional[pd.DataFrame] = None,
+                           include_operation_recommendation: bool = False) -> Dict[str, Any]:
         """
         分析用户意图（主入口）
         
@@ -1476,6 +2152,7 @@ Please start the analysis."""
             user_uuid: 指定用户ID（如果为None，分析所有用户）
             session_timeout_minutes: 会话超时时间（分钟）
             preloaded_df: 预加载的数据DataFrame，避免重复读取
+            include_operation_recommendation: 是否包含运营建议（默认False，只生成意图分析，可后续批量生成运营建议）
             
         Returns:
             分析结果字典
@@ -1499,22 +2176,39 @@ Please start the analysis."""
         results = {}
         
         for uuid, user_df in df.groupby('user_uuid'):
+            original_count = len(user_df)
+            print(f"用户 {uuid[:8]}... 原始行为数: {original_count}")
+            
             # 过滤有效行为
             valid_actions = self.filter_valid_actions(user_df)
+            valid_count = len(valid_actions)
+            print(f"  过滤后有效行为数: {valid_count} (过滤掉 {original_count - valid_count} 个)")
             
             if len(valid_actions) == 0:
+                print(f"  跳过: 无有效行为")
                 continue
             
             # 按会话分组（基于时间）
             time_sessions = self.group_user_actions_by_session(valid_actions, session_timeout_minutes)
+            print(f"  时间会话数: {len(time_sessions)}")
             
             # 对每个时间会话，进一步按意图分段
             all_intent_segments = []
-            for time_session in time_sessions:
+            for session_idx, time_session in enumerate(time_sessions, 1):
                 session_df = pd.DataFrame(time_session)
+                print(f"    时间会话 {session_idx}: {len(time_session)} 个行为")
                 # 按意图一致性分段
                 intent_segments = self.segment_actions_by_intent(session_df)
+                print(f"      分段为 {len(intent_segments)} 个意图段")
+                for seg_idx, seg in enumerate(intent_segments, 1):
+                    print(f"        意图段 {seg_idx}: {len(seg)} 个行为")
                 all_intent_segments.extend(intent_segments)
+            
+            # 验证所有行为都被包含在段中
+            total_in_segments = sum(len(seg) for seg in all_intent_segments)
+            if total_in_segments != valid_count:
+                print(f"  ⚠️  警告: 意图段中的行为总数 ({total_in_segments}) 与有效行为数 ({valid_count}) 不一致！")
+                print(f"  可能的原因: 分段逻辑丢失了 {valid_count - total_in_segments} 个行为")
             
             # 分析每个意图段
             session_results = []
@@ -1523,8 +2217,9 @@ Please start the analysis."""
             for segment_idx, segment_actions in enumerate(all_intent_segments):
                 user_context = self.get_user_context(pd.DataFrame(segment_actions))
                 
-                # 分析意图
-                intent_result = self.analyze_intent(user_context, segment_actions, history)
+                # 分析意图（可选择是否包含运营建议）
+                intent_result = self.analyze_intent(user_context, segment_actions, history, 
+                                                   include_operation_recommendation=include_operation_recommendation)
                 intent_result['session_index'] = segment_idx
                 intent_result['session_size'] = len(segment_actions)
                 intent_result['timestamp'] = datetime.now().isoformat()
@@ -1534,9 +2229,16 @@ Please start the analysis."""
                 # 更新历史（使用最后一次分析结果）
                 history = intent_result
             
+            total_analyzed = sum(len(seg) for seg in all_intent_segments)
+            print(f"  最终分析的行为总数: {total_analyzed}/{original_count} (原始: {original_count})")
+            print()
+            
             results[uuid] = {
                 'user_uuid': uuid,
                 'total_sessions': len(all_intent_segments),
+                'total_actions_original': original_count,
+                'total_actions_valid': valid_count,
+                'total_actions_analyzed': total_analyzed,
                 'sessions': session_results
             }
         

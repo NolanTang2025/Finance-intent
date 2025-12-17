@@ -37,6 +37,12 @@ def main():
     
     choice = input("\n请输入选择 (1/2/3): ").strip()
     
+    # 询问是否包含运营建议
+    print("\n是否在分析时生成运营建议？")
+    print("提示: 如果选择'否'，可以后续使用 generate_operation_recommendations.py 批量生成")
+    include_rec = input("包含运营建议？(yes/no，默认no): ").strip().lower()
+    include_operation_recommendation = (include_rec == 'yes')
+    
     # 预加载数据以避免重复读盘
     print(f"\n正在加载数据文件: {csv_path}...")
     import pandas as pd
@@ -59,7 +65,8 @@ def main():
         results = analyzer.analyze_user_intent(
             user_uuid=user_uuid,
             session_timeout_minutes=30,
-            preloaded_df=user_df
+            preloaded_df=user_df,
+            include_operation_recommendation=include_operation_recommendation
         )
         
         # 保存结果
@@ -90,7 +97,8 @@ def main():
                 results = analyzer.analyze_user_intent(
                     user_uuid=user_uuid,
                     session_timeout_minutes=30,
-                    preloaded_df=user_df
+                    preloaded_df=user_df,
+                    include_operation_recommendation=include_operation_recommendation
                 )
                 all_results.update(results)
             except Exception as e:
@@ -116,7 +124,8 @@ def main():
         
         results = analyzer.analyze_user_intent(
             session_timeout_minutes=30,
-            preloaded_df=df
+            preloaded_df=df,
+            include_operation_recommendation=include_operation_recommendation
         )
         
         # 保存结果
