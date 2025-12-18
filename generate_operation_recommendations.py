@@ -3,12 +3,13 @@
 基于已有的意图分析结果，批量生成运营建议
 """
 
+import asyncio
 import os
 import json
 import sys
 from intent_analyzer import IntentAnalyzer
 
-def main():
+async def main():
     """主函数"""
     # 检查API密钥
     api_key = os.getenv('GEMINI_API_KEY')
@@ -55,7 +56,7 @@ def main():
     print("这可能需要一些时间，请耐心等待...\n")
     
     try:
-        results = analyzer.generate_operation_recommendations_batch(
+        results = await analyzer.generate_operation_recommendations_batch(
             intent_results_file=input_file,
             output_file=output_file
         )
@@ -72,5 +73,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
 

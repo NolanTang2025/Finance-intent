@@ -2,12 +2,13 @@
 直接运行用户行为转意图分析
 """
 
+import asyncio
 import os
 import json
 import sys
 from intent_analyzer import IntentAnalyzer
 
-def main():
+async def main():
     """主函数"""
     # 检查API密钥
     api_key = os.getenv('GEMINI_API_KEY')
@@ -62,8 +63,8 @@ def main():
         print(f"\n正在分析用户: {user_uuid}")
         print("这可能需要一些时间，请耐心等待...\n")
         
-        results = analyzer.analyze_user_intent(
-            user_uuid=user_uuid,
+        results = await analyzer.analyze_user_intent(
+            user_uuids=[user_uuid],
             session_timeout_minutes=30,
             preloaded_df=user_df,
             include_operation_recommendation=include_operation_recommendation
@@ -89,22 +90,13 @@ def main():
         
         user_list = df['user_uuid'].unique()[:num_users]
         
-        all_results = {}
-        for i, user_uuid in enumerate(user_list, 1):
-            print(f"[{i}/{len(user_list)}] 正在分析用户: {user_uuid[:8]}...")
-            try:
-                user_df = df[df['user_uuid'] == user_uuid]
-                results = analyzer.analyze_user_intent(
-                    user_uuid=user_uuid,
-                    session_timeout_minutes=30,
-                    preloaded_df=user_df,
-                    include_operation_recommendation=include_operation_recommendation
-                )
-                all_results.update(results)
-            except Exception as e:
-                print(f"  警告: 分析用户 {user_uuid[:8]} 时出错: {e}")
-                continue
-        
+        all_results = await analyzer.analyze_user_intent(
+            user_uuids=user_list,
+            session_timeout_minutes=30,
+            preloaded_df=df,
+            include_operation_recommendation=include_operation_recommendation
+        )
+
         # 保存结果
         output_file = f'intent_result_batch_{num_users}users.json'
         with open(output_file, 'w', encoding='utf-8') as f:
@@ -122,7 +114,7 @@ def main():
         print("\n正在分析所有用户...")
         print("这可能需要很长时间，请耐心等待...\n")
         
-        results = analyzer.analyze_user_intent(
+        results = await analyzer.analyze_user_intent(
             session_timeout_minutes=30,
             preloaded_df=df,
             include_operation_recommendation=include_operation_recommendation
@@ -164,5 +156,5 @@ def print_results_summary(results):
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
 
