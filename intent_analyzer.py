@@ -156,7 +156,7 @@ class IntentAnalyzer:
             valid_actions: 有效行为数据
             
         Returns:
-            按意图分段的行为列表，每个段代表一个意图阶段
+            按意图分段的行为列表，每个段代表一个意图节点
         """
         if len(valid_actions) == 0:
             return []
@@ -1264,6 +1264,90 @@ Please start the analysis."""
         
         return context
     
+    def _differentiate_duplicate_intent_names(self, session_results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        自动区分重复的意图名称，为重复的意图名称添加区分标识
+        
+        Args:
+            session_results: 会话结果列表
+            
+        Returns:
+            已区分重复名称的会话结果列表
+        """
+        if len(session_results) <= 1:
+            return session_results
+        
+        # 统计每个意图名称出现的次数
+        intent_name_count = {}
+        for session in session_results:
+            intent_name = session.get('intent', '')
+            if intent_name:
+                intent_name_count[intent_name] = intent_name_count.get(intent_name, 0) + 1
+        
+        # 找出重复的意图名称
+        duplicate_intents = {name: count for name, count in intent_name_count.items() if count > 1}
+        
+        if not duplicate_intents:
+            return session_results
+        
+        # 为重复的意图名称添加区分标识
+        intent_name_counter = {}  # 记录每个意图名称已出现的次数
+        intent_name_features = {}  # 记录每个意图名称对应的特征组合，用于检查是否真的需要区分
+        
+        # 第一遍：收集所有重复意图的特征信息
+        for session in session_results:
+            intent_name = session.get('intent', '')
+            if intent_name in duplicate_intents:
+                explored_feature = session.get('explored_feature', '').strip()
+                exploration_purpose = session.get('exploration_purpose', '').strip()
+                feature_key = f"{explored_feature}|{exploration_purpose}"
+                
+                if intent_name not in intent_name_features:
+                    intent_name_features[intent_name] = []
+                intent_name_features[intent_name].append(feature_key)
+        
+        # 第二遍：为每个重复的意图添加区分标识
+        for session in session_results:
+            intent_name = session.get('intent', '')
+            if intent_name in duplicate_intents:
+                # 增加计数器
+                intent_name_counter[intent_name] = intent_name_counter.get(intent_name, 0) + 1
+                counter = intent_name_counter[intent_name]
+                
+                # 构建区分标识
+                suffix_parts = []
+                
+                # 1. 检查是否有探索的功能，且该功能在相同意图中具有区分度
+                explored_feature = session.get('explored_feature', '').strip()
+                exploration_purpose = session.get('exploration_purpose', '').strip()
+                
+                # 检查相同意图名称的其他会话是否有不同的特征
+                same_intent_features = intent_name_features.get(intent_name, [])
+                current_feature_key = f"{explored_feature}|{exploration_purpose}"
+                has_unique_feature = same_intent_features.count(current_feature_key) == 1
+                
+                # 优先使用特征作为区分（如果存在且有意义）
+                if explored_feature:
+                    suffix_parts.append(explored_feature)
+                elif exploration_purpose:
+                    # 如果功能不存在但目的存在，使用目的
+                    purpose_short = exploration_purpose[:15] if len(exploration_purpose) > 15 else exploration_purpose
+                    suffix_parts.append(purpose_short)
+                
+                # 始终添加序号以确保唯一性（即使特征不同，序号也能提供额外区分）
+                # 如果特征唯一，序号作为补充；如果特征不唯一，序号是主要区分
+                suffix_parts.append(f"({counter})")
+                
+                # 组合新的意图名称
+                suffix = " - " + " ".join(suffix_parts)
+                new_intent_name = intent_name + suffix
+                session['intent'] = new_intent_name
+                
+                # 打印区分信息
+                print(f"    意图名称区分: '{intent_name}' -> '{new_intent_name}'")
+        
+        return session_results
+    
     def analyze_intent(self, user_context: Dict, actions: List[Dict], 
                       history: Optional[Dict] = None, 
                       include_operation_recommendation: bool = False) -> Dict[str, Any]:
@@ -1559,7 +1643,7 @@ Please start the analysis."""
    - 所有分析必须引用输入中的具体证据 - 不要猜测
 
 2. **分析用户心理状态**:
-   - **Baseline Trust (基础信任度)**: 用户对产品和服务的信任程度 (0.0-1.0)
+   - **Baseline Trust (产品信任度)**: 用户对产品和服务的信任程度 (0.0-1.0)
      - 高信任(0.7-1.0): 快速激活、积极使用、无反复验证行为
      - 中信任(0.4-0.7): 有探索但谨慎，需要更多信息
      - 低信任(0.0-0.4): 反复查看、犹豫不决、大量验证行为
@@ -1574,8 +1658,8 @@ Please start the analysis."""
      - 实际感知到的与预期的差距
      - 这种差距如何影响首次交易决策
 
-3. **计算意图得分和置信度**:
-   - **Intent Confidence Score (意图置信度)**: 评估此意图分析的置信度 (0.0-1.0)
+3. **计算意图得分和清晰度**:
+   - **Intent Confidence Score (把握度)**: 评估此意图分析的把握程度 (0.0-1.0)
      - 0.9-1.0: 非常明确的意图，有明确的转化行为
      - 0.7-0.9: 较强的意图，有明显的兴趣信号
      - 0.5-0.7: 中等意图，有一些兴趣但不够明确
@@ -1890,7 +1974,7 @@ Please start the analysis."""
    - 所有分析必须引用输入中的具体证据 - 不要猜测
 
 2. **分析用户心理状态**:
-   - **Baseline Trust (基础信任度)**: 用户对产品和服务的信任程度 (0.0-1.0)
+   - **Baseline Trust (产品信任度)**: 用户对产品和服务的信任程度 (0.0-1.0)
      - 高信任(0.7-1.0): 快速激活、积极使用、无反复验证行为
      - 中信任(0.4-0.7): 有探索但谨慎，需要更多信息
      - 低信任(0.0-0.4): 反复查看、犹豫不决、大量验证行为
@@ -1905,8 +1989,8 @@ Please start the analysis."""
      - 实际感知到的与预期的差距
      - 这种差距如何影响首次交易决策
 
-3. **计算意图得分和置信度**:
-   - **Intent Confidence Score (意图置信度)**: 评估此意图分析的置信度 (0.0-1.0)
+3. **计算意图得分和清晰度**:
+   - **Intent Confidence Score (把握度)**: 评估此意图分析的把握程度 (0.0-1.0)
      - 0.9-1.0: 非常明确的意图，有明确的转化行为
      - 0.7-0.9: 较强的意图，有明显的兴趣信号
      - 0.5-0.7: 中等意图，有一些兴趣但不够明确
@@ -2037,10 +2121,10 @@ Please start the analysis."""
 
 **意图**: {intent_result.get('intent', 'N/A')}
 **意图类别**: {intent_result.get('intent_category', 'N/A')}
-**置信度**: {intent_result.get('confidence_score', 0.0)}
+**把握度**: {intent_result.get('confidence_score', 0.0)}
 **探索的功能**: {intent_result.get('explored_feature', 'N/A')}
 **探索目的**: {intent_result.get('exploration_purpose', 'N/A')}
-**基础信任度**: {intent_result.get('baseline_trust', 0.0)}
+**产品信任度**: {intent_result.get('baseline_trust', 0.0)}
 **担忧点**: {json.dumps(intent_result.get('concerns', []), ensure_ascii=False, indent=2)}
 **心理参考值**: {json.dumps(intent_result.get('psychological_reference', {}), ensure_ascii=False, indent=2)}
 **关键行为**: {json.dumps(intent_result.get('key_behaviors', []), ensure_ascii=False)}
@@ -2199,18 +2283,18 @@ Please start the analysis."""
                 print(f"    时间会话 {session_idx}: {len(time_session)} 个行为")
                 # 按意图一致性分段
                 intent_segments = self.segment_actions_by_intent(session_df)
-                print(f"      分段为 {len(intent_segments)} 个意图段")
+                print(f"      分段为 {len(intent_segments)} 个意图节点")
                 for seg_idx, seg in enumerate(intent_segments, 1):
-                    print(f"        意图段 {seg_idx}: {len(seg)} 个行为")
+                    print(f"        意图节点 {seg_idx}: {len(seg)} 个行为")
                 all_intent_segments.extend(intent_segments)
             
             # 验证所有行为都被包含在段中
             total_in_segments = sum(len(seg) for seg in all_intent_segments)
             if total_in_segments != valid_count:
-                print(f"  ⚠️  警告: 意图段中的行为总数 ({total_in_segments}) 与有效行为数 ({valid_count}) 不一致！")
+                print(f"  ⚠️  警告: 意图节点中的行为总数 ({total_in_segments}) 与有效行为数 ({valid_count}) 不一致！")
                 print(f"  可能的原因: 分段逻辑丢失了 {valid_count - total_in_segments} 个行为")
             
-            # 分析每个意图段
+            # 分析每个意图节点
             session_results = []
             history = None
             
@@ -2228,6 +2312,9 @@ Please start the analysis."""
                 
                 # 更新历史（使用最后一次分析结果）
                 history = intent_result
+            
+            # 自动区分重复的意图名称
+            session_results = self._differentiate_duplicate_intent_names(session_results)
             
             total_analyzed = sum(len(seg) for seg in all_intent_segments)
             print(f"  最终分析的行为总数: {total_analyzed}/{original_count} (原始: {original_count})")
@@ -2295,7 +2382,7 @@ def main():
     for user_uuid, user_result in results.items():
         if 'sessions' in user_result:
             print(f"\n用户: {user_uuid[:16]}...")
-            print(f"  会话数: {user_result.get('total_sessions', 0)}")
+            print(f"  意图节点数: {user_result.get('total_sessions', 0)}")
             
             for session in user_result.get('sessions', []):
                 intent = session.get('intent', 'N/A')
@@ -2305,7 +2392,7 @@ def main():
                 print(f"\n  会话 {session.get('session_index', 0) + 1}:")
                 print(f"    意图: {intent}")
                 print(f"    类别: {category}")
-                print(f"    置信度: {score:.2f}")
+                print(f"    把握度: {score:.2f}")
                 
                 if 'key_behaviors' in session:
                     print(f"    关键行为: {', '.join(session['key_behaviors'][:3])}")

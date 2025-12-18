@@ -1,0 +1,18 @@
+# 忽略不需要部署的文件
+*.py
+*.pyc
+__pycache__/
+*.csv
+*.sh
+requirements.txt
+intent_analyzer.py
+run_analysis.py
+generate_operation_recommendations.py
+visualize_intent.py
+check_behavior_count.py
+start_visualizer.py
+start_visualizer.sh
+intent_visualization/
+*.md
+!.vercelignore
+
