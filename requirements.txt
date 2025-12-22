@@ -3,3 +3,4 @@ google-genai
 matplotlib>=3.5.0
 jinja2
 pydantic
+filelock

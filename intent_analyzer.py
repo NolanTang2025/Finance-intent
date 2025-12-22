@@ -4,11 +4,14 @@
 """
 
 import asyncio
+import json
+import os
 from datetime import datetime
 from typing import List, Dict, Any, Optional, TypeVar
 
 import jinja2
 import pandas as pd
+from filelock import FileLock
 from google import genai
 from google.genai.types import GenerateContentConfig
 from pydantic import BaseModel
@@ -42,19 +45,84 @@ class IntentAnalyzer:
         self.client = genai.Client(api_key=gemini_api_key).aio
         self.model_name = "gemini-2.5-flash"
 
-    async def llm_request(self, prompt: str, response_model: type[T]) -> T:
-        response = await self.client.models.generate_content(
-            model=f"models/{self.model_name}",
-            contents=[prompt],
-            config=GenerateContentConfig(
-                temperature=0.1,
-                max_output_tokens=81920,
-                response_mime_type="application/json",
-                response_schema=response_model
-            ),
-        )
+    def load_completed_users(self, result_file: Optional[str] = None) -> set[str]:
+        """
+        从结果文件中加载已完成的用户列表（带文件锁）
 
-        return response.parsed
+        Args:
+            result_file: 结果文件路径（JSON格式，key为user_id）
+
+        Returns:
+            已完成的用户UUID集合
+        """
+        if not result_file or not os.path.exists(result_file):
+            return set()
+        
+        lock_file = f"{result_file}.lock"
+        lock = FileLock(lock_file, timeout=10)
+        
+        try:
+            with lock:
+                with open(result_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    # 结果文件的key就是user_id，直接返回所有key
+                    return set(data.keys())
+        except Exception as e:
+            print(f"警告: 加载结果文件失败: {e}")
+            return set()
+
+    def update_result_file(self, result_file: Optional[str], user_uuid: str, user_result: Dict[str, Any]):
+        """
+        更新结果文件（添加一个完成的用户结果，带文件锁保证并发安全）
+
+        Args:
+            result_file: 结果文件路径
+            user_uuid: 完成的用户UUID
+            user_result: 用户分析结果
+        """
+        if not result_file:
+            return
+        
+        lock_file = f"{result_file}.lock"
+        lock = FileLock(lock_file, timeout=10)
+        
+        try:
+            with lock:
+                # 读取已有结果
+                existing_results = {}
+                if os.path.exists(result_file):
+                    with open(result_file, 'r', encoding='utf-8') as f:
+                        existing_results = json.load(f)
+                
+                # 更新结果
+                existing_results[user_uuid] = user_result
+                
+                # 保存结果
+                with open(result_file, 'w', encoding='utf-8') as f:
+                    json.dump(existing_results, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"警告: 更新结果文件失败: {e}")
+
+    async def llm_request(self, prompt: str, response_model: type[T]) -> T:
+        max_retries = 3
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = await self.client.models.generate_content(
+                    model=f"models/{self.model_name}",
+                    contents=[prompt],
+                    config=GenerateContentConfig(
+                        temperature=0.1,
+                        max_output_tokens=81920,
+                        response_mime_type="application/json",
+                        response_schema=response_model
+                    ),
+                )
+                return response.parsed
+            except Exception as e:
+                if attempt == max_retries:
+                    raise
+                print(f"请求LLM失败，第 {attempt} 次尝试: {e}，即将重试...")
+
 
     def load_data(self, csv_path: str) -> pd.DataFrame:
         """
@@ -815,7 +883,8 @@ class IntentAnalyzer:
             session_timeout_minutes: int = 30,
             preloaded_df: Optional[pd.DataFrame] = None,
             include_operation_recommendation: bool = False,
-            max_concurrent: int = 20,
+            max_concurrent: int = 50,
+            result_file: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         分析用户意图（主入口）
@@ -827,10 +896,16 @@ class IntentAnalyzer:
             preloaded_df: 预加载的数据DataFrame，避免重复读取
             include_operation_recommendation: 是否包含运营建议（默认False，只生成意图分析，可后续批量生成运营建议）
             max_concurrent: 最大并发处理用户数（默认3，避免API限流）
+            result_file: 结果文件路径（用于断点续跑，如果提供则跳过已完成的用户）
 
         Returns:
             分析结果字典
         """
+        # 从结果文件中加载已完成的用户列表
+        completed_users = self.load_completed_users(result_file)
+        if completed_users:
+            print(f"从结果文件加载: 已完成 {len(completed_users)} 个用户")
+
         # 加载数据（优先使用预加载数据以避免重复读盘）
         if preloaded_df is not None:
             df = preloaded_df.copy()
@@ -849,7 +924,20 @@ class IntentAnalyzer:
         # 按用户分组
         user_groups = list(df.groupby("user_uuid"))
         total_users = len(user_groups)
-        print(f"共 {total_users} 个用户需要分析，最大并发数: {max_concurrent}")
+        
+        # 过滤掉已完成的用户
+        if completed_users:
+            user_groups = [(uuid, user_df) for uuid, user_df in user_groups if uuid not in completed_users]
+            skipped_count = total_users - len(user_groups)
+            if skipped_count > 0:
+                print(f"跳过已完成的用户: {skipped_count} 个")
+        
+        remaining_users = len(user_groups)
+        print(f"共 {remaining_users} 个用户需要分析，最大并发数: {max_concurrent}")
+
+        if remaining_users == 0:
+            print("所有用户已完成分析")
+            return {}
 
         # 使用信号量限制并发数
         semaphore = asyncio.Semaphore(max_concurrent)
@@ -857,9 +945,13 @@ class IntentAnalyzer:
         async def process_with_semaphore(uuid: str, user_df: pd.DataFrame):
             """带信号量限制的处理函数"""
             async with semaphore:
-                return await self._process_single_user(
+                result = await self._process_single_user(
                     uuid, user_df, session_timeout_minutes, include_operation_recommendation
                 )
+                # 每完成一个用户，立即更新结果文件
+                if result_file:
+                    self.update_result_file(result_file, uuid, result)
+                return result
 
         # 并行处理所有用户
         tasks = [

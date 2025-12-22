@@ -63,19 +63,30 @@ async def main():
         print(f"\n正在分析用户: {user_uuid}")
         print("这可能需要一些时间，请耐心等待...\n")
         
+        # 设置结果文件路径
+        output_file = f'intent_result_{user_uuid[:8]}.json'
+        
         results = await analyzer.analyze_user_intent(
             user_uuids=[user_uuid],
             session_timeout_minutes=30,
             preloaded_df=user_df,
-            include_operation_recommendation=include_operation_recommendation
+            include_operation_recommendation=include_operation_recommendation,
+            result_file=output_file
         )
         
-        # 保存结果
-        output_file = f'intent_result_{user_uuid[:8]}.json'
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(results, f, indent=2, ensure_ascii=False)
+        # 如果结果为空，说明用户已完成，尝试加载已有结果
+        if not results:
+            if os.path.exists(output_file):
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    results = json.load(f)
+                print(f"\n用户已完成分析，结果文件: {output_file}")
+            else:
+                results = {}
+                print(f"\n用户已完成分析，但未找到结果文件")
+        else:
+            # 如果结果不为空，说明有新完成的用户，结果已经在analyze_user_intent中保存了
+            print(f"\n分析完成！结果已保存到: {output_file}")
         
-        print(f"\n分析完成！结果已保存到: {output_file}")
         print_results_summary(results)
         
     elif choice == '2':
@@ -90,20 +101,43 @@ async def main():
         
         user_list = df['user_uuid'].unique()[:num_users]
         
+        # 设置结果文件路径
+        output_file = f'intent_result_batch_{num_users}users.json'
+        
+        # 记录分析前的用户数量
+        existing_count = 0
+        if os.path.exists(output_file):
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_results = json.load(f)
+            existing_count = len(existing_results)
+        
         all_results = await analyzer.analyze_user_intent(
             user_uuids=user_list,
             session_timeout_minutes=30,
             preloaded_df=df,
-            include_operation_recommendation=include_operation_recommendation
+            include_operation_recommendation=include_operation_recommendation,
+            result_file=output_file
         )
 
-        # 保存结果
-        output_file = f'intent_result_batch_{num_users}users.json'
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(all_results, f, indent=2, ensure_ascii=False)
+        # 如果结果为空，说明所有用户都已完成，加载已有结果
+        if not all_results:
+            if os.path.exists(output_file):
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    all_results = json.load(f)
+                print(f"\n所有用户已完成分析，结果文件: {output_file}")
+            else:
+                all_results = {}
+                print(f"\n所有用户已完成分析，但未找到结果文件")
+        else:
+            # 如果结果不为空，说明有新完成的用户，结果已经在analyze_user_intent中保存了
+            # 重新加载完整结果以获取准确的数量
+            if os.path.exists(output_file):
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    all_results = json.load(f)
+            print(f"\n批量分析完成！结果已保存到: {output_file}")
+            print(f"本次新增 {len(all_results) - existing_count} 个用户")
         
-        print(f"\n批量分析完成！结果已保存到: {output_file}")
-        print(f"共分析 {len(all_results)} 个用户")
+        print(f"结果文件中共有 {len(all_results)} 个用户")
         
     elif choice == '3':
         confirm = input("警告: 分析所有用户可能需要很长时间，确认继续？(yes/no): ").strip().lower()
@@ -114,19 +148,42 @@ async def main():
         print("\n正在分析所有用户...")
         print("这可能需要很长时间，请耐心等待...\n")
         
+        # 设置结果文件路径
+        output_file = 'intent_result_all.json'
+        
+        # 记录分析前的用户数量
+        existing_count = 0
+        if os.path.exists(output_file):
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_results = json.load(f)
+            existing_count = len(existing_results)
+        
         results = await analyzer.analyze_user_intent(
             session_timeout_minutes=30,
             preloaded_df=df,
-            include_operation_recommendation=include_operation_recommendation
+            include_operation_recommendation=include_operation_recommendation,
+            result_file=output_file
         )
         
-        # 保存结果
-        output_file = 'intent_result_all.json'
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(results, f, indent=2, ensure_ascii=False)
+        # 如果结果为空，说明所有用户都已完成，加载已有结果
+        if not results:
+            if os.path.exists(output_file):
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    results = json.load(f)
+                print(f"\n所有用户已完成分析，结果文件: {output_file}")
+            else:
+                results = {}
+                print(f"\n所有用户已完成分析，但未找到结果文件")
+        else:
+            # 如果结果不为空，说明有新完成的用户，结果已经在analyze_user_intent中保存了
+            # 重新加载完整结果以获取准确的数量
+            if os.path.exists(output_file):
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    results = json.load(f)
+            print(f"\n分析完成！结果已保存到: {output_file}")
+            print(f"本次新增 {len(results) - existing_count} 个用户")
         
-        print(f"\n分析完成！结果已保存到: {output_file}")
-        print(f"共分析 {len(results)} 个用户")
+        print(f"结果文件中共有 {len(results)} 个用户")
         
     else:
         print("错误: 无效的选择")
